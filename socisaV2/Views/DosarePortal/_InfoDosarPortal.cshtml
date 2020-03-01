@@ -1,0 +1,164 @@
+﻿@model socisaWeb.DosarPortalView
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div ng-controller="DosarePortalController">
+    <div ng-init="@String.Format("model.DosarePortal={0};", Newtonsoft.Json.JsonConvert.SerializeObject(Model.Dosare, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.JsonConverter[] { new Newtonsoft.Json.Converters.StringEnumConverter(), new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }}))"></div>
+    <div ng-repeat="dosarPortal in model.DosarePortal" style="margin:10px;">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">NUMAR</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.numar" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">NUMAR VECHI</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.numarVechi" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">DATA</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.data" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">CATEGORIE CAZ</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.categorieCazNume" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">DEPARTAMENT</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.departament" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">INSTITUTIE</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.institutie" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">STADIU PROCESUAL</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.stadiuProcesualNume" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">OBIECT</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.obiect" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">DATA MODIFICARE</label>
+                    <input type="text" class="form-control input-sm customInput" ng-model="dosarPortal.dataModificare" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="3">
+                                Cai de atac
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>DATA DECLARARE</th>
+                            <th>PARTE DECLARATOARE</th>
+                            <th>TIP CALE ATAC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="caleAtac in dosarPortal.caiAtac">
+                            <td>{{caleAtac.dataDeclarare}}</td>
+                            <td>{{caleAtac.parteDeclaratoare}}</td>
+                            <td>{{caleAtac.tipCaleAtac}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                Parti
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>CALITATE PARTE</th>
+                            <th>DENUMIRE PARTE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="parte in dosarPortal.parti">
+                            <td>{{parte.calitateParte}}</td>
+                            <td>{{parte.nume}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="9">
+                                Sedinte
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>COMPLET</th>
+                            <th>DATA</th>
+                            <th>DATA DOCUMENT</th>
+                            <th>DATA PRONUNTARE</th>
+                            <th>DOCUMENT SENTINTA</th>
+                            <th>NUMAR DOCUMENT</th>
+                            <th>ORA</th>
+                            <th>SOLUTIE</th>
+                            <th>SOLUTIE SUMAR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="sedinta in dosarPortal.sedinte">
+                            <td>{{sedinta.complet}}</td>
+                            <td>{{sedinta.data}}</td>
+                            <td>{{sedinta.dataDocument}}</td>
+                            <td>{{sedinta.dataPronuntare}}</td>
+                            <td>{{sedinta.documentSedinta}}</td>
+                            <td>{{sedinta.numarDocument}}</td>
+                            <td>{{sedinta.ora}}</td>
+                            <td>{{sedinta.solutie}}</td>
+                            <td>{{sedinta.solutieSumar}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+}

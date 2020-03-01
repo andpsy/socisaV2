@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ABOUT" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ASIGNEAZA" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="CONTACT" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="DIN_CARE_DOSARE_NOI_DE_LA_ULTIMUL_LOGIN" xml:space="preserve">
+    <value>from which new Files since last login</value>
+  </data>
+  <data name="DOSARE_ACHITATE" xml:space="preserve">
+    <value>Paid Files</value>
+  </data>
+  <data name="DOSARE_ACHITATE_PARTIAL" xml:space="preserve">
+    <value>Partially paid Files</value>
+  </data>
+  <data name="DOSARE_AVIZATE" xml:space="preserve">
+    <value>Accepted Files</value>
+  </data>
+  <data name="DOSARE_AVIZATE_NEEXPEDIATE" xml:space="preserve">
+    <value>Accepted Files not yet sent</value>
+  </data>
+  <data name="DOSARE_AVIZATE_TOTAL" xml:space="preserve">
+    <value>Total accepted Files</value>
+  </data>
+  <data name="DOSARE_CASCO_FROM_LAST_LOGIN" xml:space="preserve">
+    <value>New CASCO files from last login</value>
+  </data>
+  <data name="DOSARE_CASCO_NEASIGNATE" xml:space="preserve">
+    <value>Unassigned CASCO files</value>
+  </data>
+  <data name="DOSARE_CASCO_NEOPERATE" xml:space="preserve">
+    <value>Untouched CASCO files</value>
+  </data>
+  <data name="DOSARE_CASCO_TOTAL" xml:space="preserve">
+    <value>Total no. of CASCO files in data base</value>
+  </data>
+  <data name="DOSARE_FARA_DOCUMENTE" xml:space="preserve">
+    <value>Files without scanned documents</value>
+  </data>
+  <data name="DOSARE_FARA_PROCES" xml:space="preserve">
+    <value>Files without law suit</value>
+  </data>
+  <data name="DOSARE_FROM_LAST_LOGIN" xml:space="preserve">
+    <value>New files from last login</value>
+  </data>
+  <data name="DOSARE_INCOMPLETE" xml:space="preserve">
+    <value>Incomplete Files</value>
+  </data>
+  <data name="DOSARE_NEACHITATE" xml:space="preserve">
+    <value>Unpaid Files</value>
+  </data>
+  <data name="DOSARE_NEASIGNATE" xml:space="preserve">
+    <value>Unassigned files</value>
+  </data>
+  <data name="DOSARE_NEASIGNATE_CASCO_FROM_LAST_LOGIN" xml:space="preserve">
+    <value>Unassigned CASCO files from last login</value>
+  </data>
+  <data name="DOSARE_NEASIGNATE_FROM_LAST_LOGIN" xml:space="preserve">
+    <value>Unassigned files from last login</value>
+  </data>
+  <data name="DOSARE_NEASIGNATE_RCA_FROM_LAST_LOGIN" xml:space="preserve">
+    <value>Unassigned RCA files from last login</value>
+  </data>
+  <data name="DOSARE_NEAVIZATE" xml:space="preserve">
+    <value>Files to be accepted</value>
+  </data>
+  <data name="DOSARE_NEOPERATE" xml:space="preserve">
+    <value>Untouched files</value>
+  </data>
+  <data name="DOSARE_NOI_CASCO_NEASIGNATE" xml:space="preserve">
+    <value>Unassigned new loss party (CASCO) Files</value>
+  </data>
+  <data name="DOSARE_NOI_CASCO_NEOPERATE" xml:space="preserve">
+    <value>Untouched new loss party (CASCO) Files</value>
+  </data>
+  <data name="DOSARE_NOI_NEASIGNATE" xml:space="preserve">
+    <value>Unassigned new Files</value>
+  </data>
+  <data name="DOSARE_NOI_NEOPERATE" xml:space="preserve">
+    <value>Untouched new Files</value>
+  </data>
+  <data name="DOSARE_NOI_RCA_NEASIGNATE" xml:space="preserve">
+    <value>Unassigned new guilty party (RCA) Files</value>
+  </data>
+  <data name="DOSARE_NOI_RCA_NEOPERATE" xml:space="preserve">
+    <value>Untouched new guilty party (RCA) Files</value>
+  </data>
+  <data name="DOSARE_RCA_FROM_LAST_LOGIN" xml:space="preserve">
+    <value>New RCA files from last login</value>
+  </data>
+  <data name="DOSARE_RCA_NEASIGNATE" xml:space="preserve">
+    <value>Unassigned RCA files</value>
+  </data>
+  <data name="DOSARE_RCA_NEOPERATE" xml:space="preserve">
+    <value>Untouched RCA files</value>
+  </data>
+  <data name="DOSARE_RCA_TOTAL" xml:space="preserve">
+    <value>Total no. of RCA files in data base</value>
+  </data>
+  <data name="DOSARE_SELECTATE" xml:space="preserve">
+    <value>Selected Files</value>
+  </data>
+  <data name="DOSARE_TOTAL" xml:space="preserve">
+    <value>Total no. of files in data base</value>
+  </data>
+  <data name="EXPORT_EXCEL" xml:space="preserve">
+    <value>Export filtered Files list in Excel</value>
+  </data>
+  <data name="FILTER_IN_INTERFACE" xml:space="preserve">
+    <value>Show filtered Files</value>
+  </data>
+  <data name="MENU" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="MERGI_LA_DOSARE" xml:space="preserve">
+    <value>Go to files...</value>
+  </data>
+  <data name="MERGI_LA_MESAJE" xml:space="preserve">
+    <value>Go to messages...</value>
+  </data>
+  <data name="MERGI_LA_PROCESE" xml:space="preserve">
+    <value>Go to law suits...</value>
+  </data>
+  <data name="MESAJE_NOI" xml:space="preserve">
+    <value>New messages</value>
+  </data>
+  <data name="MESAJE_NOI_DOCUMENT_NOU" xml:space="preserve">
+    <value>New messages (NEW DOCUMENT)</value>
+  </data>
+  <data name="MESAJE_NOI_DOSAR_NOU" xml:space="preserve">
+    <value>New messages (NEW FILE)</value>
+  </data>
+  <data name="PROCESE_NOI_TOTAL" xml:space="preserve">
+    <value>New law suits</value>
+  </data>
+  <data name="PROCESE_PARAT_TOTAL" xml:space="preserve">
+    <value>Total no. of law suits as Defendant</value>
+  </data>
+  <data name="PROCESE_RECLAMANT_TOTAL" xml:space="preserve">
+    <value>Total no. of law suits as Accuser</value>
+  </data>
+  <data name="PROCESE_TOTAL" xml:space="preserve">
+    <value>Total no. of law suits in data base</value>
+  </data>
+  <data name="TERMENE_DEPASITE" xml:space="preserve">
+    <value>Expired law swits deadlines</value>
+  </data>
+  <data name="TERMENE_IN_URMATOARELE_7_ZILE" xml:space="preserve">
+    <value>Law suits deadlines in the next 7 days</value>
+  </data>
+  <data name="TITLE" xml:space="preserve">
+    <value>Insurance cancellation system</value>
+  </data>
+  <data name="TOATE_DOSARELE_NEASIGNATE" xml:space="preserve">
+    <value>All unassigned Files</value>
+  </data>
+  <data name="TOATE_DOSARELE_NEOPERATE" xml:space="preserve">
+    <value>All untouched Files</value>
+  </data>
+  <data name="TOTI_UTILIZATORII" xml:space="preserve">
+    <value>All users</value>
+  </data>
+  <data name="TO_USERS" xml:space="preserve">
+    <value>to following users</value>
+  </data>
+  <data name="UTILIZATORI_SELECTATI" xml:space="preserve">
+    <value>Selected users</value>
+  </data>
+</root>

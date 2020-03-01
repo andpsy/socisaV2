@@ -1,0 +1,184 @@
+﻿@using socisaWeb.Helpers;
+@{
+    ViewBag.Title = socisaV2.Resources.DosareResx.TITLE;
+}
+
+    <div class="row" id="divDosareNavigator">
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs small">
+                <li class="" ng-show="HasHtml.indexOf('mainDosareDashboard') > -1">
+                    <!--
+        <div class="docsRightMenuButton" style="margin-right:10px;margin-bottom:0px;margin-top:0px;" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</div>
+        -->
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</button>
+                </li>
+                @{
+                    var tab = (((ViewContext.RouteData.Values["id"] != null && ViewContext.RouteData.Values["id"].ToString() == "PROCESE") || (TempData["_params"] != null && TempData["_params"].ToString().ToLower().IndexOf("procese") > -1)) ? "procese" : "dosare");
+                }
+                <li class="@(tab == "dosare" ? "active" : "")" a-disabled="(activeTab.Value == 'procese' && ID_DOSAR == null) || (searchMode == 2 || editMode > 0)">
+                    <a href="#detalii" class="grad_tab" data-toggle="tab" aria-expanded="@(tab == "dosare" ? true : false)" id="lnkDosareDetalii" ng-click="setActiveTab('detalii')">@socisaV2.Resources.DosareResx.DETALII_DOSAR <span class="glyphicon glyphicon-info-sign" title="@socisaV2.Resources.DosareResx.DETALII_DOSAR_DAUNA_TITLE"></span></a>
+                </li>
+
+                <li class=""><a href="#documente" data-toggle="tab" aria-expanded="false" id="lnkDocumenteScanateDetalii" a-disabled="ID_DOSAR == null || ID_DOSAR == undefined || (editMode > 0 || searchMode == 2)" ng-click="setActiveTab('documente')">@socisaV2.Resources.DosareResx.DOCUMENTE (<span id="nrDocumenteDosar"></span>) <span class="glyphicon glyphicon-info-sign" title="@socisaV2.Resources.DosareResx.DOCUMENTE_DOSAR_DAUNA_TITLE"></span></a></li>
+
+                @{
+                    var hp = Newtonsoft.Json.JsonConvert.SerializeObject(Helpers.HasAction("plati"));
+                    var hproc = Newtonsoft.Json.JsonConvert.SerializeObject(Helpers.HasAction("procese"));
+                    var hstad = Newtonsoft.Json.JsonConvert.SerializeObject(Helpers.HasAction("stadii"));
+                }
+                <li class="">
+                    <a href="#stadii" ng-init="hasStadiiRight=@hstad" data-toggle="tab" aria-expanded="false" id="lnkStadiiDetalii" a-disabled="!hasStadiiRight || ExternalUser.Value == true || ID_DOSAR == null || ID_DOSAR == undefined || (editMode > 0 || searchMode == 2) || (ID_DOSAR != null && (!AVIZAT && TipDosar == 'Regres RCA'))" ng-click="setActiveTab('stadii')">@socisaV2.Resources.DosareResx.STADII (<span id="nrStadiiDosar"></span>) <span class="glyphicon glyphicon-info-sign" title="@socisaV2.Resources.DosareResx.STADII_DOSAR_DAUNA_TITLE"></span></a>
+                </li>
+
+                <li class="">
+                    <a href="#plati" ng-init="hasPlatiRight=@hp" data-toggle="tab" aria-expanded="false" id="lnkPlatiDetalii" a-disabled="!hasPlatiRight || ExternalUser.Value == true || ID_DOSAR == null || ID_DOSAR == undefined || (editMode > 0 || searchMode == 2) || (ID_DOSAR != null && (!AVIZAT && TipDosar == 'Regres RCA'))" ng-click="setActiveTab('plati')">@socisaV2.Resources.DosareResx.PLATI (<span id="nrPlatiDosar"></span>) <span class="glyphicon glyphicon-info-sign" title="@socisaV2.Resources.DosareResx.PLATI_DOSAR_DAUNA_TITLE"></span></a>
+                </li>
+
+                <li class="@(tab == "procese" ? "active" : "")">
+                    <a href="#procese" ng-init="hasProceseRight=@hproc" data-toggle="tab" aria-expanded="@(tab == "procese" ? true : false)" id="lnkProceseDetalii" a-disabled="!hasProceseRight || ExternalUser.Value == true || ID_DOSAR == null || ID_DOSAR == undefined || (editMode > 0 || searchMode == 2) || (ID_DOSAR != null && (!AVIZAT && TipDosar == 'Regres RCA'))" ng-click="setActiveTab('procese')">@socisaV2.Resources.DosareResx.PROCESE (<span id="nrProceseDosar"></span>) <span class="glyphicon glyphicon-info-sign" title="@socisaV2.Resources.DosareResx.PROCESE_DOSAR_DAUNA_TITLE"></span></a>
+                </li>
+
+                <li class=""><a href="#mesaje" data-toggle="tab" aria-expanded="false" id="lnkMesajeDetalii" a-disabled="ExternalUser.Value == true || ID_DOSAR == null || ID_DOSAR == undefined || (editMode > 0 || searchMode == 2)" ng-click="setActiveTab('mesaje')">@socisaV2.Resources.DosareResx.MESAJE <span class="glyphicon glyphicon-info-sign" title="@socisaV2.Resources.DosareResx.MESAJE_DOSAR_DAUNA_TITLE"></span></a></li>
+                @{
+                    var ut = ((SOCISA.Models.Nomenclator)Session["CURENT_USER_TYPE"]).DENUMIRE;
+                    if (ut != "Regular")
+                    {
+                        <li class=""><a href="#utilizatori" data-toggle="tab" aria-expanded="false" id="lnkUtilizatoriDetalii" a-disabled="ExternalUser.Value == true || ID_DOSAR == null || ID_DOSAR == undefined || (editMode > 0 || searchMode == 2)" ng-click="setActiveTab('utilizatori')" title="@socisaV2.Resources.DosareResx.UTILIZATORI_TITLE">@socisaV2.Resources.DosareResx.UTILIZATORI <span class="glyphicon glyphicon-info-sign" title="@socisaV2.Resources.DosareResx.UTILIZATORI_DOSAR_DAUNA_TITLE"></span></a></li>
+                    }
+                }
+            </ul>
+            <div id="myTabContent" class="tab-content" ng-cloak>
+                <div class="tab-pane fade @(tab == "dosare" ? "active in" : "")" id="detalii" ng-controller="DosareNavigatorController">
+                    @{
+                        if (TempData["_params"] != null)
+                        {
+                            if (tab == "dosare")
+                            {
+                                Html.RenderAction("SearchFiltered", "Dosare");
+                            }
+                            else
+                            {
+                                Html.RenderAction("Empty", "Dosare");
+                            }
+                        }
+                        else
+                        {
+                            if (Session["TOKEN"] == null)
+                            {
+                                if (tab == "dosare")
+                                {
+                                    Html.RenderAction("Search", "Dosare");
+                                }
+                                else
+                                {
+                                    Html.RenderAction("Empty", "Dosare");
+                                }
+                            }
+                            else // ViewContext.RouteData.Values["id"].ToString().IndexOf("|") > -1) // pt. acces direct din link email notificari
+                            {
+                                string token = ViewContext.RouteData.Values["id"].ToString();
+                                Html.RenderAction("eShow", "Dosare", new { token = token });
+                            }
+                        }
+                        /* -- nu ne mai trebuie ca folosim GetFilterd si pt. link cu ID, deci o ia pe prima varianta de mai sus --
+                        if ((ViewContext.RouteData.Values["id"] != null && TempData["_params"] == null) && Session["TOKEN"] == null) // ViewContext.RouteData.Values["id"].ToString().IndexOf("|") == -1) // pt. acces din link lista dosare
+                        {
+                            Html.RenderAction("Show", "Dosare", new { id = Convert.ToInt32(ViewContext.RouteData.Values["id"]) });
+                        }
+                        */
+                    }
+                </div>
+
+                <div class="tab-pane fade" id="documente" ng-controller="DocumenteScanateController">
+                    @{
+                        Html.RenderAction("Search", "DocumenteScanate");
+                    }
+                </div>
+
+                <div class="tab-pane fade" id="stadii" ng-controller="ProceseStadiiController">
+                    @{
+                        Html.RenderAction("Index", "ProceseStadii");
+                    }
+                </div>
+
+                <div class="tab-pane fade" id="plati" ng-controller="PlatiController">
+                    @{
+                        Html.RenderAction("Index", "Plati");
+                    }
+                </div>
+
+                <div class="tab-pane fade @(tab == "procese" ? "active in" : "")" id="procese" ng-controller="ProceseNavigatorController">
+                    @{
+                        if (TempData["_params"] != null && TempData["_params"].ToString().ToLower().IndexOf("procese") > -1)
+                        {
+                            Html.RenderAction("SearchFiltered", "Procese");
+                        }
+                        else
+                        {
+                            //if (TempData["_view"] != null && TempData["_view"].ToString() == "dosare")
+                            if (tab == "dosare")
+                            {
+                                Html.RenderAction("Empty", "Procese");
+                            }
+                            else
+                            {
+                                Html.RenderAction("Index", "Procese");
+                            }
+                        }
+                    }
+                </div>
+
+                <div class="tab-pane fade" id="mesaje" ng-controller="MesajeController">
+                    @{
+                        if (Session["TOKEN"] == null) // (ViewContext.RouteData.Values["id"] != null && ViewContext.RouteData.Values["id"].ToString().IndexOf("|") > -1) // pt. acces direct din link email notificari
+                        {
+                            Html.RenderAction("Index", "Mesaje");
+                        }
+                    }
+                </div>
+                @if (ut != "Regular")
+                {
+                    <div class="tab-pane fade" id="utilizatori" style="padding-top:15px;" ng-controller="DosareDashboardAdminAndSuperController">
+                        @{
+                            if (Session["TOKEN"] == null)
+                            {
+                                Html.RenderAction("GetDosareDashboardAdminAndSuper", "Dashboard", new { _type = 0 });
+                            }
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="calitateSocietate" ng-show="activeTab.Value == 'detalii' && !ExternalUser.Value" a-disabled="ExternalUser.Value == true">
+                <table>
+                    <tr>
+                        <td>
+                            @{
+                                string soc = ((SOCISA.Models.SocietateAsigurare)Session["SOCIETATE_ASIGURARE"]).DENUMIRE;
+                            }
+                        </td>
+                        <td>
+                            <div class="radio">
+                                <label class="label_casco">
+                                    <input name="optionsRadios" id="CASCO" value="CASCO" checked="" type="radio" ng-model="calitateSocietateCurenta.Value" ng-disabled="editMode > 0">
+                                    @socisaV2.Resources.DosareResx.PAGUBIT_CASCO
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="radio">
+                                <label class="label_rca">
+                                    <input name="optionsRadios" id="RCA" value="RCA" type="radio" ng-model="calitateSocietateCurenta.Value" ng-disabled="editMode > 0">
+                                    @socisaV2.Resources.DosareResx.VINOVAT_RCA
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="infoNumarDosar" ng-show="activeTab.Value != 'detalii'">
+                <span class="navbar-brand" a-disabled="true">@socisaV2.Resources.DosareResx.NR_DOSAR_CASCO: <b>{{NR_DOSAR_CASCO}}</b></span>
+            </div>
+        </div>
+    </div>

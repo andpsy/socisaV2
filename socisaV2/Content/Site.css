@@ -1,0 +1,892 @@
+﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+body {
+  background: url(citysky.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    /* width:1920px !important; */
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 290px;
+}
+
+a.logoLink
+{
+    background: url(logo-cabinet-white.png) no-repeat top left;
+     display: block;
+     text-indent: -9999px; /* hides the link text */
+}
+
+ /* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 50px;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 30px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+    box-shadow: 10px 10px 10px black;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 26px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main, .main_div {
+    transition: margin-left .5s, width 2s, left 2s, top 1s;
+    padding: 10px;
+    margin-right:250px;
+    margin-top:50px;
+    margin-bottom:50px;
+    margin-left:50px;
+    opacity: 0.9;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+    -webkit-box-shadow: 5px 5px 10px #363636;
+    box-shadow: 5px 5px 10px #363636;
+    border-radius: 4px;
+    /*
+    min-height:760px;
+    max-height:100%;
+    */
+    min-height:400px;
+    /* max-height:730px; */
+    overflow:auto;
+}
+
+.main_div_responsive {
+    padding: 15px;
+    background-color: rgb(255, 255, 255);
+    max-width: 1024px;
+    margin: auto;
+    opacity: 0.9;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+    -webkit-box-shadow: 5px 5px 10px #363636;
+    box-shadow: 5px 5px 10px #363636;
+    min-height:600px;
+    border-radius:3px;
+}
+
+.inner_content {
+    /*
+    width:1380px !important;
+    height:700px !important;
+    */
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.sidenavRight {
+    height: 100%; /* 100% Full-height */
+    width: 200px; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 50px;
+    right: 0;
+    bottom:0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding: 15px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+.toToDates{
+    padding-right:10px;
+}
+
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+a.disabled {
+    color: #AAAAAA;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+.lista_documente {
+    position:relative;
+    top:0;
+    bottom:0;
+    left:0;
+    width:340px;
+    /* height:700px; */
+    background-color:white;
+    margin: 10px;
+}
+
+.main_documente{
+    background-color:white;
+    overflow-y:auto;
+    /* height:680px; */
+    position:relative;
+    border: 1px solid lightgray;
+    margin-top: 7px;
+    border-radius: 5px;
+}
+
+.drop-box{
+    border: 2px dashed lightsalmon;
+    color:lightsalmon;
+    text-align:center;
+    vertical-align: middle;
+    width:100%;
+    height:100px;
+    margin-top:5px;
+}
+
+/* tree view */
+.treeview_tbody {
+    display:block;
+    overflow-y:auto;
+    overflow-x:auto;
+    height:250px;
+}
+
+.treeview_thead{
+    display:block;
+    /*table-layout:fixed;*/
+}
+
+.treeview_collapse {
+    width:15px;
+    background-image: url('../Content/images/treeview/ui-icons_454545_256x240.png');
+    background-repeat: no-repeat;
+    background-position: -36px -17px;
+    display:inline-block;
+    cursor:pointer;
+}
+.expand {
+    width: 15px;
+    background-image: url('../Content/images/treeview/ui-icons_454545_256x240.png');
+    background-repeat: no-repeat;
+    background-position: -50px -17px;
+    display: inline-block;
+    cursor:pointer;
+}    
+.treeview ul{
+    font:14px Arial, Sans-Serif;
+    margin:0px;
+    padding-left:20px;
+    list-style:none;
+}
+.treeview > li > a {
+    font-weight:bold;
+}
+.treeview li{
+               
+}
+.treeview li a{
+    padding:4px;
+    font-size:12px;
+    display:inline-block;
+    text-decoration:none;
+    width:auto;
+}
+/* end tree view */
+
+/* The starting CSS styles for the enter animation */
+.fade.ng-enter {
+  transition:0.5s linear all;
+  opacity:0;
+}
+/* The finishing CSS styles for the enter animation */
+.fade.ng-enter.ng-enter-active {
+  opacity:1;
+}
+/* now the element will fade out before it is removed from the DOM */
+.fade.ng-leave {
+  transition:0.5s linear all;
+  opacity:1;
+}
+.fade.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.label_casco{
+    min-height: 20px;
+    padding-left: 25px !important;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+    margin-right: 20px;
+    background-color: green;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-weight:bold;
+    font-size:14px;
+    color:white;
+    border-radius: 4px;
+}
+
+.label_rca{
+    min-height: 20px;
+    padding-left: 25px !important;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+    margin-right: 20px;
+    background-color: red;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-weight:bold;
+    font-size:14px;
+    color:white;
+    border-radius: 4px;
+}
+
+.label_a{
+    display: block ;
+    padding: 3px 20px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333333;
+    white-space: nowrap;
+    font-size:14px;
+}
+.label_a:hover,
+.label_a:focus {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #446e9b;
+}
+
+.checkOverImage{
+    position: absolute; bottom: 10px; right: 13px;
+}
+
+.checkOverImageBadge{
+    position: absolute; bottom: 3px; left: 13px;
+    font-size: 20px; color:darkseagreen;
+}
+
+#thumbScroller{
+    position:relative;
+    margin:auto;
+    width:547px;
+    overflow-x:auto;
+    height:192px;
+}
+
+#thumbScrollerContent{
+    height:172px;
+    margin:auto;
+}
+
+#thumbScrollerThumb {
+    position: relative;
+    width: 130px;
+    height: 160px;
+    border: 1px solid lightgray;
+    margin: 3px;
+    padding: 5px;
+    float: left;
+    border-radius: 4px;
+    box-shadow: 5px 5px 5px black;
+}
+
+#thumbScrollerThumb.active{
+    border: 3px solid lightblue;
+}
+
+.sortorder:after {
+  content: '\25b2';
+}
+.sortorder.reverse:after {
+  content: '\25bc';
+}
+
+.subGroupListItem{
+    font-size: 90%;
+    margin-left:15px;
+}
+.subGroupListItem:before{
+    content: '\25b6';
+}
+
+.checkForImport {
+}
+
+.docsRightMenu {
+    width: 40px;
+    top: 210px;
+    position: absolute;
+    right: 25px;
+    border-radius: 4px;
+    box-shadow: 5px 5px 8px black;
+    opacity: 0.9;
+    /* 
+    overflow-y: hidden;
+    float: right;
+    background: gray;
+    padding: 4px;
+    height: 215px;
+    margin: auto;
+    display: inline-block;
+    */
+}
+
+.docsRightMenuButton{
+    border-radius: 50%;
+    background-color: red;
+    color: wheat;
+    text-align: center;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    font-size: 15pt;
+    box-shadow: 3px 3px 3px black;
+    cursor:pointer;
+    margin-top:5px;
+    margin-bottom:10px;
+}
+
+.docsDetails{
+    position:absolute;
+    width:94%;
+    bottom:0;
+    height:240px;
+    border:1px solid lightgray;
+    border-radius: 4px; 
+    padding:10px;
+    display:none; 
+    margin-top:5px;
+    box-shadow: 3px 3px 3px black;
+    opacity: 0.9;
+    background-color:white;
+}
+
+.grad_tab {
+    background: #e3eded; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#e3eded, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#e3eded, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#e3eded, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#e3eded, white); /* Standard syntax */
+    border-bottom:1px solid white !important;
+    top:1px;
+}
+
+.grad_tab_avizat {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #e3eded); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #e3eded); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #e3eded); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #e3eded); /* Standard syntax */
+    border-bottom: 1px solid #e3eded !important;
+    top:1px; 
+}
+
+.grad_tab_neavizat {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #fffff0); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #fffff0); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #fffff0); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #fffff0); /* Standard syntax */
+    border-bottom: 1px solid #fffff0 !important;
+    top:1px;
+}
+
+.grad_tab_incomplet {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #f8eeee); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #f8eeee); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #f8eeee); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #f8eeee); /* Standard syntax */
+    border-bottom: 1px solid #f8eeee !important;
+    top:1px;
+}
+
+.grad_tab_neachitat {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #C8ABAB); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #C8ABAB); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #C8ABAB); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #C8ABAB); /* Standard syntax */
+    border-bottom: 1px solid #C8ABAB !important;
+    top: 1px;
+}
+
+.grad_tab_achitat_partial {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #F6EFD9); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #F6EFD9); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #F6EFD9); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #F6EFD9); /* Standard syntax */
+    border-bottom: 1px solid #F6EFD9 !important;
+    top: 1px;
+}
+
+.grad_tab_achitat {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #D6E7BA); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #D6E7BA); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #D6E7BA); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #D6E7BA); /* Standard syntax */
+    border-bottom: 1px solid #D6E7BA !important;
+    top: 1px;
+}
+
+.grad_tab_compensat {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #B9B9CC); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #B9B9CC); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #B9B9CC); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #B9B9CC); /* Standard syntax */
+    border-bottom: 1px solid #B9B9CC !important;
+    top: 1px;
+}
+
+.grad_tab_partial_compensat {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #C6C2B3); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #C6C2B3); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #C6C2B3); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #C6C2B3); /* Standard syntax */
+    border-bottom: 1px solid #C6C2B3 !important;
+    top: 1px;
+}
+
+.grad_tab_necompensat {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, #C5B3B3); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #C5B3B3); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #C5B3B3); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #C5B3B3); /* Standard syntax */
+    border-bottom: 1px solid #C5B3B3 !important;
+    top: 1px;
+}
+
+.div_default {
+    background-color: white;
+}
+
+.div_avizat {
+    background-color: #e3eded;
+}
+
+.div_neavizat {
+    background-color: #fffff0;
+}
+
+.div_incomplet {
+    background-color: #f8eeee;
+}
+
+.div_neachitat {
+    background-color: #C8ABAB;
+}
+
+.div_achitat_partial {
+    background-color: #F6EFD9;
+}
+
+.div_achitat {
+    background-color: #D6E7BA;
+}
+
+.div_compensat {
+    background-color: #B9B9CC;
+}
+
+.div_partial_compensat {
+    background-color: #C6C2B3;
+}
+
+.div_necompensat {
+    background-color: #C5B3B3;
+}
+
+.badgeDosar{
+    max-width:280px;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+}
+
+.badgeDosarAVIZAT{
+    max-width:280px;
+    background-color: darkgreen;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.badgeDosarNEAVIZAT {
+    max-width: 280px;
+    background-color: #d5d544;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+}
+
+.badgeDosarINCOMPLET{
+    max-width:280px;
+    background-color: red;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.badgeDosarNEACHITAT {
+    max-width: 280px;
+    background-color: #961E28;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.badgeDosarACHITAT_PARTIAL {
+    max-width: 280px;
+    background-color: #EFB554;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.badgeDosarACHITAT {
+    max-width: 280px;
+    background-color: #8FB416;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.badgeDosarCOMPENSAT {
+    max-width: 280px;
+    background-color: #222244;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.badgeDosarPARTIAL_COMPENSAT {
+    max-width: 280px;
+    background-color: #634222;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.badgeDosarNECOMPENSAT {
+    max-width: 280px;
+    background-color: #630000;
+    border-radius: 5px;
+    opacity: 0.9;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    /*margin-right: 20px;*/
+    color: white;
+}
+
+.calitateSocietate {
+    display: flex;
+    position: absolute;
+    top: -15px;
+    right: 0px;
+    background-color: transparent;
+    /*
+    width: 750px;
+    height: 45px;
+    padding: 10px;
+    text-align: right;
+    vertical-align: middle;
+    align-items: center;
+    */
+}
+
+.infoNumarDosar {
+    display: flex;
+    position: absolute;
+    top: -10px;
+    /* left: 50%; */
+    right: 10px;
+    background-color: transparent;
+    /*
+    width: 750px;
+    height: 45px;
+    padding: 10px;
+    text-align: right;
+    vertical-align: middle;
+    align-items: center;
+    */
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
+
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-submenu > a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #ccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+
+    .dropdown-submenu:hover > a:after {
+        border-left-color: #fff;
+    }
+
+    .dropdown-submenu.pull-left {
+        float: none;
+    }
+
+    .dropdown-submenu.pull-left > .dropdown-menu {
+        left: -100%;
+        margin-left: 10px;
+        -webkit-border-radius: 6px 0 6px 6px;
+        -moz-border-radius: 6px 0 6px 6px;
+        border-radius: 6px 0 6px 6px;
+    }
+
+    .customInput{
+        max-height:26px !important;
+        /* height:26px !important; */
+        font-size:11px;
+    }
+
+    .customInputGroupAddOn{
+        padding:1px 3px;
+        cursor: pointer;
+    }
+
+.customInputTextArea {
+    min-height: 60px;
+    max-height:120px;
+    font-size: 11px;
+}
+.dateTimeInput {
+    max-width: 80px !important;
+}
+
+.dosareSideNav {
+    color:white;
+    width: 0px;
+    height: 93%;
+    overflow-y: auto;
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    margin: 5px;
+    /* border-right: 1px solid black; */
+    background-color: #111;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+    z-index: 3;
+    transition: 0.5s;
+}
+
+.activeSelectionDiv{
+    border: 5px solid red;
+    box-shadow: 5px 5px 8px black;
+}
+
+#modal-background, #local-modal-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: .50;
+    -webkit-opacity: .5;
+    -moz-opacity: .5;
+    filter: alpha(opacity=50);
+    z-index: 1000;
+}
+
+.save {
+    color:green;
+}
+.delete{
+    color:red;
+}
+
+.dosareNavigatorButon{
+    font-size:12px;
+}
+
+.operationResult {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    margin-left:50px;
+    min-width: 250px;
+    min-height: 50px;
+    /* max-width:500px; */
+    /* box-shadow: 5px 5px 8px black; */
+}
+.operationResult_innerMessage {
+    right: 0px;
+    box-shadow: 5px 5px 8px black;
+}
+
+.ngdialog.ngdialog-theme-default.custom-width .ngdialog-content {
+    width: 1000px;
+    top: -80px;
+}
+
+#AdditionalInfoDocumente {
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+    margin-left: 50px;
+    min-width: 250px;
+    min-height: 30px;
+    box-shadow: 5px 5px 8px black;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align:center;
+}
+
+.selectedDocForTypeChange {
+    background-color: aqua;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.popover{
+    max-width:400px !important;
+}
+
+.numberFormat {
+    text-align: right !important;
+}
+
+#ui-datepicker-div {
+    z-index: 99999999999999 !important;
+}
+
+.unformatedTable{
+    padding:0px;
+    border:none;
+    margin:0px;
+}
+
+.activeProces{
+    background-color:orange !important;
+}
+
+.formGroupSmaller {
+    margin-bottom: 5px !important;
+}

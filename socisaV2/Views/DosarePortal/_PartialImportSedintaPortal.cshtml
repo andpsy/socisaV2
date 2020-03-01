@@ -1,0 +1,256 @@
+﻿@using socisaWeb.Helpers
+@model socisaWeb.ImportSedintaPortalView
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div ng-controller="ImportSedintePortalController" ng-cloak>
+    <div ng-init="@String.Format("model = {0};", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))"></div>
+
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Valoare portal</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Valoare de preluat</b></span>
+            </div>
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Denumire stadiu</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span>{{model.Dosar.stadiuProcesualNume}}</span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <select name="stadiiSelect" id="stadiiSelect" class="form-control input-sm customInput" style="width:150px;" ng-model="model.ProcesStadiuExtended.ProcesStadiu.ID_STADIU"
+                        ng-options="stadiu.ID as stadiu.DENUMIRE group by stadiu.CATEGORIE for stadiu in model.Stadii"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Data</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span>{{model.SedintaPortal.DATA}}</span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <div class="input-group">
+                    <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                    <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.ProcesStadiuExtended.ProcesStadiu.DATA" jqdatepicker />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Ora</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span>{{model.SedintaPortal.ORA}}</span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <input class="form-control input-sm customInput dateTimeInput" type="text" ng-model="model.ProcesStadiuExtended.ProcesStadiu.ORA" />
+            </div>
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Scadenta</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <div class="input-group">
+                    <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                    <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.ProcesStadiuExtended.ProcesStadiu.SCADENTA" jqdatepicker />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Termen</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span>{{model.SedintaPortal.DATA_SEDINTA}}</span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <div class="input-group">
+                    <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                    <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.ProcesStadiuExtended.ProcesStadiu.TERMEN" jqdatepicker />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Termen administrativ</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <input type="checkbox" a-disabled="true" ng-model="model.TermenAdministrativPortal" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <input type="checkbox" ng-model="model.TermenAdministrativ" />
+            </div>
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span><b>Observatii</b></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <span></span>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="formGroupSmaller">
+                <textarea rows="2" cols="100" class="small" ng-model="model.ProcesStadiuExtended.ProcesStadiu.OBSERVATII"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row small" style="border: 2px solid red; margin:1px;">
+        <div class="col-sm-12">
+            <div class="row small">
+                <div class="col-sm-12">
+                    <div class="formGroupSmaller">
+                        <label for="chk_is_sentinta" style="color:red;font-weight:bold;">Sentinta?</label>
+                        <input type="checkbox" name="chk_is_sentinta" id="chk_is_sentinta" ng-model="model.Sentinta" />
+                    </div>
+                </div>
+            </div>
+            <div class="row small">
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <span>Nr. sentinta</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <span>{{model.DosarSedinta.numarDocument}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <input class="form-control input-sm customInput dateTimeInput" type="text" ng-model="model.ProcesStadiuExtended.Sentinta.NR_SENTINTA" />
+                    </div>
+                </div>
+            </div>
+            <div class="row small">
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <span>Data. sentinta</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <span>{{model.DosarSedinta.dataDocument}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <div class="input-group">
+                            <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                            <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.ProcesStadiuExtended.Sentinta.DATA_SENTINTA" jqdatepicker />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row small">
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <span>Data. comunicare</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <span>{{model.DosarSedinta.dataPronuntare}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <div class="input-group">
+                            <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                            <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.ProcesStadiuExtended.Sentinta.DATA_COMUNICARE" jqdatepicker />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row small">
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <span>Solutie</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <div style="height:60px;width:260px;overflow-y:auto;">{{model.DosarSedinta.solutie}} - {{model.DosarSedinta.solutieSumar}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="formGroupSmaller">
+                        <!--
+                        <input class="form-control input-sm customInput" type="text" ng-model="model.ProcesStadiuExtended.Sentinta.SOLUTIE" />
+                        -->
+                        <textarea rows="2" cols="100" class="small" ng-model="model.ProcesStadiuExtended.Sentinta.SOLUTIE"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="row small">
+        <div class="col-sm-12">
+            <div class="formGroupSmaller">
+                <span class="glyphicon glyphicon-floppy-saved save" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE" style="font-size:16px;cursor:pointer;" ng-click="confirm(model)" />
+                <span class="glyphicon glyphicon-floppy-remove delete" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE" style="font-size:16px;cursor:pointer;" ng-click="closeThisDialog('button')" />
+            </div>
+        </div>
+    </div>
+</div>
+}

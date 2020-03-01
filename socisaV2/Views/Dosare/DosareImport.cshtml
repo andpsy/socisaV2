@@ -1,0 +1,292 @@
+﻿@model socisaWeb.ImportDosarView
+@{
+    ViewBag.Title = "Import dosare";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div id="dosareImportMainDiv" class="inner_content">
+        <div class="btn-group" a-disabled="editMode == 1">
+            <button ng-show="HasHtml.indexOf('mainDosareImportDashboard') > -1" type="button" class="btn btn-danger" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</button>    
+            <button type="button" class="btn btn-primary" ng-click="toggleDiv()">Import</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Istoric <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" data-ng-init="@String.Format("model.ImportDates = {0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.ImportDates))">
+                    <li><a href="#" ng-click="GetDosareFromLog(null)">Toate</a></li>
+                    <li ng-repeat="data in model.ImportDates"><a href="#" ng-click="GetDosareFromLog(data)">{{data}}</a></li>
+                </ul>
+            </div>
+            <div class="input-group" style="padding-left: 5px;margin-top: 2px;">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                <input class="form-control input-sm" type="text" ng-model="generalQueryText.$">
+            </div>
+        </div>
+
+        <!--
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li ng-show="HasHtml.indexOf('mainDosareImportDashboard') > -1">
+                            <div class="docsRightMenuButton" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</div>
+                        </li>
+                        <li><a href="#" ng-click="toggleDiv()">Import</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Istoric <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu" data-ng-init="@String.Format("model.ImportDates = {0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.ImportDates))">
+                                <li ng-repeat="data in model.ImportDates"><a href="#" ng-click="GetDosareFromLog(data)">{{data}}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="input-group">
+                        <span class="input-group-addon customInputGroupAddOn"><span class="glyphicon glyphicon-search"></span></span>
+                        <input class="form-control input-sm customInput" type="text" ng-model="generalQueryText.$">
+                    </div>
+                </form>
+            </div>
+        </nav>
+        -->
+
+        <!--
+        <div ng-show="(result.Status == true || result.Status == false) && showMessage" ng-class="result.Status == false ? 'alert alert-danger' : 'alert alert-success'">
+            <button type="button" class="close" ng-click="showMessage = false">&times;</button>
+            <strong>{{result.Status ? 'Succes!' : 'Eroare!'}}</strong><br />
+            <p ng-repeat="s in result.Message.split(';')">
+                {{s}}
+            </p>
+        </div>
+        -->
+
+        <div id="IncarcareFisierExcel" style="border:1px solid lightgray;border-radius: 4px; padding:10px;margin-top:5px;display:none;">
+            <div class="input-group" style="display:flex;max-width:300px;">
+                <div class="input-group" style="margin-right:5px;">
+                    <span class="input-group-addon">Sheet:</span>
+                    <input class="form-control input-sm" type="text" ng-model="sheet" value="Sheet1">
+                </div>
+                <div class="btn btn-primary btn-sm" ngf-accept="'application/xlsx'" ngf-max-size="'20MB'" ngf-select="upload($file)">Incarca fisier...</div>
+            </div>
+            <!--
+            <a href="#" ng-if="model.ImportDosarView.length > 0" class="btn btn-primary" ng-click="Import()">Importa</a>
+            -->
+            <br />
+            <div ngf-drop="upload($file)" class="drop-box"
+                    ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-accept="'application/xlsx'" ngf-max-size="'20MB'"
+                    ngf-pattern="'application/xlsx'">... sau Drag&Drop fisier .xlsx aici</div>
+            <div ngf-no-file-drop>Functionalitatea Drag&Drop nu este suportata de browserul dumneavoastra</div>
+            <p>Sunt admise doar fisiere .xlsx cu dimensiunea maxima de 20Mb!</p>
+        </div>
+
+        <div id="ListaDosareImportate" ng-show="model.ImportDosarView.length > 0" style="width:100%;overflow-x:auto;max-height:600px;overflow-y:scroll;">
+            @{ 
+                string x = String.Format("model.SocietatiRCA = {0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.SocietatiRCA));
+            }
+            <table class="table table-striped table-hover" ng-init="@x">
+                <thead>
+                    <tr>
+                        <!--
+    <th><input type="checkbox" id="chk_All" checked onchange="toggleChecks(this)" /></th>
+    -->
+                        <th>
+                            <a href="#" ng-click="sortBy('Status')" a-disabled="editMode == 1">Status</a>
+                            <span class="sortorder" ng-show="propertyName === 'Status'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.NR_DOSAR_CASCO')" a-disabled="editMode == 1">NUMAR DOSAR CASCO</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.NR_DOSAR_CASCO'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.NR_SCA')" a-disabled="editMode == 1">NUMAR SCA</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.NR_SCA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.DATA_SCA')" a-disabled="editMode == 1">DATA SCA</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.DATA_SCA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.NR_POLITA_CASCO')" a-disabled="editMode == 1">NUMAR POLITA CASCO</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.NR_POLITA_CASCO'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.DATA_EVENIMENT')" a-disabled="editMode == 1">DATA EVENIMENT</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.DATA_EVENIMENT'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('SocietateCasco.DENUMIRE_SCURTA')" a-disabled="editMode == 1">SOCIETATE CASCO</a>
+                            <span class="sortorder" ng-show="propertyName === 'SocietateCasco.DENUMIRE_SCURTA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('AsiguratCasco.DENUMIRE')" a-disabled="editMode == 1">ASIGURAT CASCO</a>
+                            <span class="sortorder" ng-show="propertyName === 'AsiguratCasco.DENUMIRE'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('AutoCasco.NR_AUTO')" a-disabled="editMode == 1">NUMAR AUTO CASCO</a>
+                            <span class="sortorder" ng-show="propertyName === 'AutoCasco.NR_AUTO'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.NR_POLITA_RCA')" a-disabled="editMode == 1">NUMAR POLITA RCA</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.NR_POLITA_RCA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('SocietateRca.DENUMIRE_SCURTA')" a-disabled="editMode == 1">SOCIETATE RCA</a>
+                            <span class="sortorder" ng-show="propertyName === 'SocietateRca.DENUMIRE_SCURTA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('AsiguratRca.DENUMIRE')" a-disabled="editMode == 1">ASIGURAT RCA</a>
+                            <span class="sortorder" ng-show="propertyName === 'AsiguratRca.DENUMIRE'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('AutoRca.NR_AUTO')" a-disabled="editMode == 1">NUMAR AUTO RCA</a>
+                            <span class="sortorder" ng-show="propertyName === 'AutoRca.NR_AUTO'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th style="text-align:right;">
+                            <a href="#" ng-click="sortBy('Dosar.VALOARE_DAUNA')" a-disabled="editMode == 1">VALOARE DAUNA</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.VALOARE_DAUNA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th style="text-align:right;padding-right:10px;">
+                            <a href="#" ng-click="sortBy('Dosar.VALOARE_REGRES')" a-disabled="editMode == 1">VALOARE REGRES</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.VALOARE_REGRES'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.CAZ')" a-disabled="editMode == 1">CAZ</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.CAZ'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align:middle;">
+                            <div class="btn-group">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" a-disabled="editMode == 1">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" ng-click="query='1';applyFilter()">Toate</a></li>
+                                        <li><a href="#" ng-click="query='2';applyFilter()">Cu erori</a></li>
+                                        <li><a href="#" ng-click="query='3';applyFilter()">Fara erori</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.NR_DOSAR_CASCO"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.NR_SCA"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="generalQueryText.DATA_SCA"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.NR_POLITA_CASCO"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="generalQueryText.DATA_EVENIMENT"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.SocietateCasco.DENUMIRE_SCURTA"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.AsiguratCasco.DENUMIRE"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.AutoCasco.NR_AUTO"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.NR_POLITA_RCA"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.SocietateRca.DENUMIRE_SCURTA"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.AsiguratRca.DENUMIRE"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.AutoRca.NR_AUTO"></td>
+                        <td style="text-align:right;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.VALOARE_DAUNA"></td>
+                        <td style="text-align:right;padding-right:10px;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.VALOARE_REGRES"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.CAZ"></td>
+                    </tr>
+                    <tr ng-repeat="item in dosareFiltrate = (model.ImportDosarView | filter:queryText | filter:filterByColumns | filter:applyFilter) | orderBy:propertyName:reverse">
+                        <!--
+    <td><input type="checkbox" checked class="checkForImport" id="chk_{{$index}}" ng-model="item.selected" /></td>
+    -->
+                        <td style="text-align:center;vertical-align:middle;white-space:nowrap;">
+                            <span id="tooltipStatus_{{$index}}" a-disabled="editMode == 1" ng-show="editMode == 0 || curIndex != $index" style="{{setStyle(item)}}" ng-class="item[0].Status ? 'glyphicon glyphicon-ok-sign' : 'glyphicon glyphicon-alert'" ng-click="EditMode(item, $index)" ng-attr-title="{{item[0].Message.split(';').join('&#13;')}}"></span>
+                            <!--
+        <span id="tooltipStatus_{{$index}}" a-disabled="editMode == 1" ng-show="editMode == 0 || curIndex != $index" style="{{item[0].Status ? 'color:green;font-size:24px;' : 'color:red;font-size:24px;cursor:pointer;'}}" ng-class="item[0].Status ? 'glyphicon glyphicon-ok-sign' : 'glyphicon glyphicon-alert'"  data-toggle="tooltip" ng-click="EditMode(item, $index)" data-placement="right" title="{{item[0].Message.split(';').join('&#13;')}}"></span>
+        <img ng-show="editMode == 0 || curDosar[1].Dosar.NR_DOSAR_CASCO != item[1].Dosar.NR_DOSAR_CASCO" src="{{item[0].Status ? '../Content/images/ok.png' : '../Content/images/error.png'}}" width="32" height="32" data-toggle="tooltip" ng-click="EditMode(item)" data-placement="right" ng-attr-title="{{item[0].Message.split(';').join('&#13;')}}" data-original-title="{{item[0].Message.split(';').join('&#13;')}}" />
+        -->
+                            <span class="glyphicon glyphicon-floppy-saved" title="Salveaza" style="font-size:16px;color:green;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Save(item)" />
+                            <span class="glyphicon glyphicon-floppy-remove" title="Anuleaza" style="font-size:16px;color:red;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Cancel()" />
+                            <!--
+        <span>
+            <img src="../Content/images/save.gif" ng-show="editMode == 1 && curDosar[1].Dosar.NR_DOSAR_CASCO == item[1].Dosar.NR_DOSAR_CASCO" ng-click="Save(item)" />
+            <img src="../Content/images/cancel.gif" ng-show="editMode == 1 && curDosar[1].Dosar.NR_DOSAR_CASCO == item[1].Dosar.NR_DOSAR_CASCO" ng-click="Cancel()" />
+        </span>
+        -->
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.NR_DOSAR_CASCO}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].Dosar.NR_DOSAR_CASCO" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.NR_SCA}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].Dosar.NR_SCA" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-init="item[1].Dosar.DATA_SCA = (item[1].Dosar.DATA_SCA | dateFilter | date : DATE_FORMAT)" ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.DATA_SCA}}</span>
+                            <div class="input-group" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index">
+                                <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                <input type="text" class="form-control input-sm customInput dateTimeInput" style="width:100px;" ng-model="curDosar[1].Dosar.DATA_SCA" jqdatepicker />
+                            </div>
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.NR_POLITA_CASCO}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].Dosar.NR_POLITA_CASCO" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-init="item[1].Dosar.DATA_EVENIMENT = (item[1].Dosar.DATA_EVENIMENT | dateFilter | date : DATE_FORMAT)" ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.DATA_EVENIMENT}}</span>
+                            <div class="input-group" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index">
+                                <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                <input type="text" class="form-control input-sm customInput dateTimeInput" style="width:100px;" ng-model="curDosar[1].Dosar.DATA_EVENIMENT" jqdatepicker />
+                            </div>
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index" style="{{itemHasError(item, 'newAsiguratorCasco') ? 'color:red;' : 'color:initial;'}}">{{item[1].SocietateCasco.DENUMIRE_SCURTA}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].SocietateCasco.DENUMIRE_SCURTA" readonly ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].AsiguratCasco.DENUMIRE}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].AsiguratCasco.DENUMIRE" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].AutoCasco.NR_AUTO}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].AutoCasco.NR_AUTO" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.NR_POLITA_RCA}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].Dosar.NR_POLITA_RCA" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index" style="{{itemHasError(item, 'newAsiguratorRca') ? 'color:red;' : 'color:black;'}}">{{item[1].SocietateRca.DENUMIRE_SCURTA}}</span>
+                            <select class="form-control input-sm customInput" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" ng-model="curDosar[1].Dosar.ID_SOCIETATE_RCA" ng-change="setCurAsigRca()">
+                                <option ng-repeat="soc in model.SocietatiRCA" ng-value="soc.ID" ng-selected="soc.ID == item[1].Dosar.ID_SOCIETATE_RCA">{{soc.DENUMIRE_SCURTA}}</option>
+                            </select>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].SocietateRca.DENUMIRE_SCURTA" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index && curDosar[1].Dosar.ID_SOCIETATE_RCA == null" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].AsiguratRca.DENUMIRE}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].AsiguratRca.DENUMIRE" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].AutoRca.NR_AUTO}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].AutoRca.NR_AUTO" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.VALOARE_DAUNA}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].Dosar.VALOARE_DAUNA" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.VALOARE_REGRES}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].Dosar.VALOARE_REGRES" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.CAZ}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curDosar[1].Dosar.CAZ" ng-show="editMode == 1 && curDosar[1].Dosar.ID == item[1].Dosar.ID && curIndex == $index" />
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="IncarcareDocumente" style="display:none;">
+            <input id="caleFisiere" type="text" value="C:\\Uploads\\PlanseFoto" />
+            <input type="button" value="Importa" ng-click="importDocumente()" />
+            <select name="importDocumenteResult" size="10"></select>
+        </div>
+    </div>
+
+    <script>$("span[id^='tooltipStatus_']").tooltip();</script>
+}

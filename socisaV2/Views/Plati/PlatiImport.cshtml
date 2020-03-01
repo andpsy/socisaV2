@@ -1,0 +1,138 @@
+﻿@model socisaWeb.ImportPlataView
+@{
+    ViewBag.Title = "Import plati";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div id="platiImportMainDiv" class="inner_content">
+        <div class="btn-group" a-disabled="editMode == 1">
+            <button ng-show="HasHtml.indexOf('mainPlatiImportDashboard') > -1" type="button" class="btn btn-danger" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</button>    
+            <button type="button" class="btn btn-primary" ng-click="toggleDiv()">Import</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Istoric <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" data-ng-init="@String.Format("model.ImportDates = {0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.ImportDates))">
+                    <li><a href="#" ng-click="GetPlatiFromLog(null)">Toate</a></li>
+                    <li ng-repeat="data in model.ImportDates"><a href="#" ng-click="GetPlatiFromLog(data)">{{data}}</a></li>
+                </ul>
+            </div>
+            <div class="input-group" style="padding-left: 5px;margin-top: 2px;">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                <input class="form-control input-sm" type="text" ng-model="generalQueryText.$">
+            </div>
+        </div>
+
+        <div id="IncarcareFisierExcel" style="border:1px solid lightgray;border-radius: 4px; padding:10px;margin-top:5px;display:none;">
+            <div class="btn btn-primary" ngf-accept="'application/xlsx'" ngf-max-size="'20MB'" ngf-select="upload($file)">Incarca fisier...</div>
+            <!--
+            <a href="#" ng-if="model.ImportPlataView.length > 0" class="btn btn-primary" ng-click="Import()">Importa</a>
+            -->
+            <br />
+            <div ngf-drop="upload($file)" class="drop-box"
+                    ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-accept="'application/xlsx'" ngf-max-size="'20MB'"
+                    ngf-pattern="'application/xlsx'">... sau Drag&Drop fisier .xlsx aici</div>
+            <div ngf-no-file-drop>Functionalitatea Drag&Drop nu este suportata de browserul dumneavoastra</div>
+            <p>Sunt admise doar fisiere .xlsx cu dimensiunea maxima de 20Mb!</p>
+        </div>
+
+        <div id="ListaPlatiImportate" ng-show="model.ImportPlataView.length > 0" style="width:100%;overflow-x:auto;max-height:600px;overflow-y:scroll;">
+            @{ 
+                string x = String.Format("model.SocietatiRCA = {0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.SocietatiRCA));
+            }
+            <table class="table table-striped table-hover" ng-init="@x">
+                <thead>
+                    <tr>
+                        <!--
+                    <th><input type="checkbox" id="chk_All" checked onchange="toggleChecks(this)" /></th>
+                    -->
+                        <th>
+                            <a href="#" ng-click="sortBy('Status')" a-disabled="editMode == 1">Status</a>
+                            <span class="sortorder" ng-show="propertyName === 'Status'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Plata.NR_DOCUMENT')" a-disabled="editMode == 1">@socisaV2.Resources.PlatiResx.NR_DOCUMENT</a>
+                            <span class="sortorder" ng-show="propertyName === 'Plata.NR_DOCUMENT'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Plata.DATA_DOCUMENT')" a-disabled="editMode == 1">@socisaV2.Resources.PlatiResx.DATA_DOCUMENT</a>
+                            <span class="sortorder" ng-show="propertyName === 'Plata.DATA_DOCUMENT'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Plata.SUMA')" a-disabled="editMode == 1">@socisaV2.Resources.PlatiResx.SUMA</a>
+                            <span class="sortorder" ng-show="propertyName === 'Plata.SUMA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('Dosar.NR_DOSAR_CASCO')" a-disabled="editMode == 1">@socisaV2.Resources.PlatiResx.ID_DOSAR</a>
+                            <span class="sortorder" ng-show="propertyName === 'Dosar.NR_DOSAR_CASCO'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('TipPlata.DENUMIRE')" a-disabled="editMode == 1">@socisaV2.Resources.PlatiResx.ID_TIP_PLATA</a>
+                            <span class="sortorder" ng-show="propertyName === 'TipPlata.DENUMIRE'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align:middle;">
+                            <div class="btn-group">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" a-disabled="editMode == 1">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" ng-click="query='1';applyFilter()">Toate</a></li>
+                                        <li><a href="#" ng-click="query='2';applyFilter()">Cu erori</a></li>
+                                        <li><a href="#" ng-click="query='3';applyFilter()">Fara erori</a></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                        </td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Plata.NR_DOCUMENT"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="generalQueryText.DATA_DOCUMENT"></td>
+                        <td style="text-align:right;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Plata.SUMA"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.Dosar.NR_DOSAR_CASCO"></td>
+                        <td><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.TipPlata.DENUMIRE"></td>
+                    </tr>
+                    <tr ng-repeat="item in platiFiltrate = (model.ImportPlataView | filter:queryText | filter:filterByColumns | filter:applyFilter) | orderBy:propertyName:reverse">
+                        <!--
+                        <td><input type="checkbox" checked class="checkForImport" id="chk_{{$index}}" ng-model="item.selected" /></td>
+                        -->
+                        <td style="text-align:center;vertical-align:middle;white-space:nowrap;">
+                            <span id="tooltipStatus_{{$index}}" a-disabled="editMode == 1" ng-show="editMode == 0 || curIndex != $index" style="{{item[0].Status ? 'color:green;font-size:24px;' : 'color:red;font-size:24px;cursor:pointer;'}}" ng-class="item[0].Status ? 'glyphicon glyphicon-ok-sign' : 'glyphicon glyphicon-alert'"  ng-click="EditMode(item, $index)" ng-attr-title="{{item[0].Message.split(';').join('&#13;')}}"></span>
+                            <span class="glyphicon glyphicon-floppy-saved" title="Salveaza" style="font-size:16px;color:green;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Save(item)" />
+                            <span class="glyphicon glyphicon-floppy-remove" title="Anuleaza" style="font-size:16px;color:red;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Cancel()" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Plata.NR_DOCUMENT}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curPlata[1].Plata.NR_DOCUMENT" ng-show="editMode == 1 && curPlata[1].Plata.ID == item[1].Plata.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-init="item[1].Plata.DATA_DOCUMENT = (item[1].Plata.DATA_DOCUMENT | dateFilter | date : DATE_FORMAT)" ng-show="editMode == 0 || curIndex != $index">{{item[1].Plata.DATA_DOCUMENT}}</span>
+                            <div class="input-group" ng-show="editMode == 1 && curPlata[1].Plata.ID == item[1].Plata.ID && curIndex == $index">
+                                <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                <input type="text" class="form-control input-sm customInput dateTimeInput" style="width:100px;" ng-model="curPlata[1].Plata.DATA_DOCUMENT" jqdatepicker />
+                            </div>                            
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Plata.SUMA}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curPlata[1].Plata.SUMA" ng-show="editMode == 1 && curPlata[1].Plata.ID == item[1].Plata.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].Dosar.NR_DOSAR_CASCO}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curPlata[1].Dosar.NR_DOSAR_CASCO" readonly ng-show="editMode == 1 && curPlata[1].Plata.ID == item[1].Plata.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item[1].TipPlata.DENUMIRE}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curPlata[1].TipPlata.DENUMIRE" ng-show="editMode == 1 && curPlata[1].Plata.ID == item[1].Plata.ID && curIndex == $index" />
+                        </td>   
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>$("span[id^='tooltipStatus_']").tooltip();</script>
+}

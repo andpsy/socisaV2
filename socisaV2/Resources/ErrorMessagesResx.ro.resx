@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="actiuneExistenta" xml:space="preserve">
+    <value>Actiune existenta in baza de date!</value>
+  </data>
+  <data name="campInexistentInTabela" xml:space="preserve">
+    <value>Camp inexistent in tabela!</value>
+  </data>
+  <data name="cannotConvertStringToTableColumns" xml:space="preserve">
+    <value>Nu am putut converti stringul in campuri din tabela!</value>
+  </data>
+  <data name="couldNotInsertAsiguratCasco" xml:space="preserve">
+    <value>Eroare la salvarea Asiguratului CASCO!</value>
+  </data>
+  <data name="couldNotInsertAsiguratorCasco" xml:space="preserve">
+    <value>Eroare la salvarea Asiguratorului CASCO!</value>
+  </data>
+  <data name="couldNotInsertAsiguratorRca" xml:space="preserve">
+    <value>Eroare la salvarea Asiguratorului RCA!</value>
+  </data>
+  <data name="couldNotInsertAsiguratRca" xml:space="preserve">
+    <value>Eroare la salvarea Asiguratului RCA!</value>
+  </data>
+  <data name="couldNotInsertAutoCasco" xml:space="preserve">
+    <value>Eroare la salvarea Autoturismului CASCO!</value>
+  </data>
+  <data name="couldNotInsertAutoRca" xml:space="preserve">
+    <value>Eroare la salvarea Autoturismului RCA!</value>
+  </data>
+  <data name="couldNotInsertIntervenient" xml:space="preserve">
+    <value>Eroare la salvarea Intervenientului!</value>
+  </data>
+  <data name="dosarExistent" xml:space="preserve">
+    <value>Dosar existent in baza de date!</value>
+  </data>
+  <data name="dosarFaraDocumente" xml:space="preserve">
+    <value>Dosarul nu are documente scanate atasate!</value>
+  </data>
+  <data name="dreptExistent" xml:space="preserve">
+    <value>Drept existent in baza de date!</value>
+  </data>
+  <data name="emptyAction" xml:space="preserve">
+    <value>Campul "Actiune" nu poate fi gol!</value>
+  </data>
+  <data name="emptyAsiguratCasco" xml:space="preserve">
+    <value>Nu ati introdus "Asiguratul CASCO"!</value>
+  </data>
+  <data name="emptyAsiguratorCasco" xml:space="preserve">
+    <value>Nu ati introdus "Asiguratorul CASCO"!</value>
+  </data>
+  <data name="emptyAsiguratorRca" xml:space="preserve">
+    <value>Nu ati introdus "Asiguratorul RCA"!</value>
+  </data>
+  <data name="emptyAsiguratRca" xml:space="preserve">
+    <value>Nu ati introdus "Asiguratul RCA"!</value>
+  </data>
+  <data name="emptyAutoCasco" xml:space="preserve">
+    <value>Nu ati introdus "Autoturismul CASCO"!</value>
+  </data>
+  <data name="emptyAutoRca" xml:space="preserve">
+    <value>Nu ati introdus "Autoturismul RCA"!</value>
+  </data>
+  <data name="emptyCuiSocietate" xml:space="preserve">
+    <value>Campul "CUI Societate asigurare" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDataEveniment" xml:space="preserve">
+    <value>Nu ati completat Data evenimentului!</value>
+  </data>
+  <data name="emptyDataSentinta" xml:space="preserve">
+    <value>Campul "Data sentinta" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireAsigurat" xml:space="preserve">
+    <value>Campul "Denumire Asigurat" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireDrept" xml:space="preserve">
+    <value>Campul "Denumire Drept" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireFisier" xml:space="preserve">
+    <value>Campul "Denumire fisier" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireIntervenient" xml:space="preserve">
+    <value>Campul "Denumire Intervenient" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireNomenclator" xml:space="preserve">
+    <value>Campul "Denumire" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireScurtaSocietate" xml:space="preserve">
+    <value>Campul "Denumire Scurta Societate asigurare" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireSocietate" xml:space="preserve">
+    <value>Campul "Denumire Societate asigurare" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireSolutie" xml:space="preserve">
+    <value>Campul "Denumire Solutie" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireStadiu" xml:space="preserve">
+    <value>Campul "Denumire Stadiu" nu poate fi gol!</value>
+  </data>
+  <data name="emptyMessageBody" xml:space="preserve">
+    <value>Nu ati introdus "Continutul mesajului"!</value>
+  </data>
+  <data name="emptyMessageReceiver" xml:space="preserve">
+    <value>Campul "Destinatar mesaj" nu poate fi gol!</value>
+  </data>
+  <data name="emptyMessageSender" xml:space="preserve">
+    <value>Campul "Expeditor mesaj" nu poate fi gol!</value>
+  </data>
+  <data name="emptyMessageSubject" xml:space="preserve">
+    <value>Nu ati introdus "Subiectul mesajului"!</value>
+  </data>
+  <data name="emptyNotificareId" xml:space="preserve">
+    <value>ID-ul mesajului nu poate lipsi!</value>
+  </data>
+  <data name="emptyNotificareText" xml:space="preserve">
+    <value>Textul mesajului nu poate lipsi!</value>
+  </data>
+  <data name="emptyNrAuto" xml:space="preserve">
+    <value>Campul "Numar Auto" nu poate fi gol!</value>
+  </data>
+  <data name="emptyNrContract" xml:space="preserve">
+    <value>Campul "Numar Contract" nu poate fi gol!</value>
+  </data>
+  <data name="emptyNrDosarCasco" xml:space="preserve">
+    <value>Nu ati introdus "Numarul dosarului CASCO"!</value>
+  </data>
+  <data name="emptyNrPolitaCasco" xml:space="preserve">
+    <value>Nu ati introdus "Numarul politei CASCO"!</value>
+  </data>
+  <data name="emptyNrPolitaRca" xml:space="preserve">
+    <value>Nu ati introdus "Numarul politei RCA"!</value>
+  </data>
+  <data name="emptyNrSentinta" xml:space="preserve">
+    <value>Campul "Numar sentinta" nu poate fi gol!</value>
+  </data>
+  <data name="emptyNumeAction" xml:space="preserve">
+    <value>Campul "Nume actiune" nu poate fi gol!</value>
+  </data>
+  <data name="emptyNumeSetare" xml:space="preserve">
+    <value>Campul "Nume setare" nu poate fi gol!</value>
+  </data>
+  <data name="emptyOperation" xml:space="preserve">
+    <value>Campul OPERATION nu poate lipsi!</value>
+  </data>
+  <data name="emptySerieSasiuAuto" xml:space="preserve">
+    <value>Campul "Serie Sasiu Auto" nu poate fi gol!</value>
+  </data>
+  <data name="emptySolutieSentinta" xml:space="preserve">
+    <value>Campul "Solutie" nu poate fi gol!</value>
+  </data>
+  <data name="emptyTipDocument" xml:space="preserve">
+    <value>Nu ati completat campul "Denumire Tip document"!</value>
+  </data>
+  <data name="emptyUserName" xml:space="preserve">
+    <value>Campul "Nume utilizator" nu poate fi gol!</value>
+  </data>
+  <data name="emptyUserPassword" xml:space="preserve">
+    <value>Campul "Parola utilizator" nu poate fi gol!</value>
+  </data>
+  <data name="emptyValoareDauna" xml:space="preserve">
+    <value>Nu ati introdus "Valoarea daunei"!</value>
+  </data>
+  <data name="emptyValoareRegres" xml:space="preserve">
+    <value>Nu ati introdus "Valoarea de regres"!</value>
+  </data>
+  <data name="emptyValoareSetare" xml:space="preserve">
+    <value>Campul "Valoare setare" nu poate fi gol!</value>
+  </data>
+  <data name="FAILED_LOGIN" xml:space="preserve">
+    <value>Autentificare esuata!</value>
+  </data>
+  <data name="intervenientExistent" xml:space="preserve">
+    <value>Intervenient existent in baza de date!</value>
+  </data>
+  <data name="mySql_1169" xml:space="preserve">
+    <value>Exista un {1} cu aceeasi denumire in baza de date!</value>
+  </data>
+  <data name="mySql_1451" xml:space="preserve">
+    <value>Inregistrarea selectata are referinte in alte tabele si nu poate fi stearsa!</value>
+  </data>
+  <data name="passwordsDontMatch" xml:space="preserve">
+    <value>Parolele nu coincid!</value>
+  </data>
+  <data name="societateExistenta" xml:space="preserve">
+    <value>Societate existenta in baza de date!</value>
+  </data>
+  <data name="unauthorisedUser" xml:space="preserve">
+    <value>Utilizator neautorizat!</value>
+  </data>
+  <data name="unsupportedFormat" xml:space="preserve">
+    <value>Format fisier invalid!</value>
+  </data>
+  <data name="emptyBody" xml:space="preserve">
+    <value>Campul "Mesaj" nu este completat</value>
+  </data>
+  <data name="emptyDataMesaj" xml:space="preserve">
+    <value>Campul "Data mesaj" este obligatoriu!</value>
+  </data>
+  <data name="emptyFrom" xml:space="preserve">
+    <value>Nu ati introdus expeditorul!</value>
+  </data>
+  <data name="emptyIdDosar" xml:space="preserve">
+    <value>Lipseste dosarul asociat mesajului!</value>
+  </data>
+  <data name="emptyPolitaCasco" xml:space="preserve">
+    <value>Nu ati introdus "Polita CASCO"!</value>
+  </data>
+  <data name="emptyPolitaRca" xml:space="preserve">
+    <value>Nu ati introdus "Polita RCA"!</value>
+  </data>
+  <data name="emptySubject" xml:space="preserve">
+    <value>Nu ati introdus subiectul mesajului!</value>
+  </data>
+  <data name="emptyTo" xml:space="preserve">
+    <value>Nu ati introdus destinatarul!</value>
+  </data>
+  <data name="emptyUserType" xml:space="preserve">
+    <value>Campul "Tip utilizator" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDataDocumentPlata" xml:space="preserve">
+    <value>Campul "Data document" este obligatoriu!</value>
+  </data>
+  <data name="emptyIdDosarPlata" xml:space="preserve">
+    <value>Dosarul este obligatoriu!</value>
+  </data>
+  <data name="emptyIdTipPlata" xml:space="preserve">
+    <value>Tipul platii este obligatoriu!</value>
+  </data>
+  <data name="emptyNrDocumentPlata" xml:space="preserve">
+    <value>Campul "Nr. document" este obligatoriu!</value>
+  </data>
+  <data name="emptySumaPlata" xml:space="preserve">
+    <value>Campul "Suma" este obligatoriu!</value>
+  </data>
+  <data name="dosarInexistent" xml:space="preserve">
+    <value>Dosar inexistent!</value>
+  </data>
+  <data name="plataExistenta" xml:space="preserve">
+    <value>Plata existenta in baza de date!</value>
+  </data>
+  <data name="dosarNeavizat" xml:space="preserve">
+    <value>Dosarul nu este avizat!</value>
+  </data>
+  <data name="emptyDataDepunereProcese" xml:space="preserve">
+    <value>Campul "Data depunere" este obligatoriu!</value>
+  </data>
+  <data name="emptyNrDosarInstantaProcese" xml:space="preserve">
+    <value>Campul "Numar dosar instanta" este obligatoriu!</value>
+  </data>
+  <data name="emptyNrInternProcese" xml:space="preserve">
+    <value>Campul "Numar intern" este obligatoriu!</value>
+  </data>
+  <data name="emptyPenalitatiProcese" xml:space="preserve">
+    <value>Campul "Penalitati" este obligatoriu!</value>
+  </data>
+  <data name="emptySumaSolicitataProcese" xml:space="preserve">
+    <value>Campul "Suma solicitata" este obligatoriu!</value>
+  </data>
+  <data name="numarDosarInstantaProceseExistent" xml:space="preserve">
+    <value>Exista deja un proces cu acelasi Nr. dosar instanta in baza de date</value>
+  </data>
+  <data name="numarInternProceseExistent" xml:space="preserve">
+    <value>Exista deja un proces cu acelasi nr. intern in baza de date!</value>
+  </data>
+  <data name="emptyDataContract" xml:space="preserve">
+    <value>Campul "Data contract" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDataProceseStadii" xml:space="preserve">
+    <value>Campul "Data" nu poate fi gol!</value>
+  </data>
+  <data name="emptyProcesProceseStadii" xml:space="preserve">
+    <value>Nu ati selectat "Procesul"!</value>
+  </data>
+  <data name="emptyStadiuProceseStadii" xml:space="preserve">
+    <value>Nu ati selectat "Stadiul"!</value>
+  </data>
+  <data name="EMPTY_PASSWORD" xml:space="preserve">
+    <value>Introduceti Parola!</value>
+  </data>
+  <data name="EMPTY_USERNAME" xml:space="preserve">
+    <value>Introduceti Utilizatorul!</value>
+  </data>
+  <data name="EMPTY_CODE" xml:space="preserve">
+    <value>Introduceti codul de verificare!</value>
+  </data>
+  <data name="VERIFICATION_CODE_EXPIRED" xml:space="preserve">
+    <value>Codul de verificare a expirat!</value>
+  </data>
+  <data name="VERIFICATION_CODE_DONT_MATCH" xml:space="preserve">
+    <value>Codul de verificare introdus nu coincide cu cel trimis pe email!</value>
+  </data>
+  <data name="emptyDataCompensari" xml:space="preserve">
+    <value>Campul "Data" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDosarCompensari" xml:space="preserve">
+    <value>Nu ati selectat Dosarul!</value>
+  </data>
+  <data name="emptyRestCompensari" xml:space="preserve">
+    <value>Campul "Rest" nu poate fi gol!</value>
+  </data>
+  <data name="emptySumaCompensari" xml:space="preserve">
+    <value>Campul "Suma" nu poate fi gol!</value>
+  </data>
+  <data name="emptyDenumireParte" xml:space="preserve">
+    <value>Campul "Denumire parte" nu poate fi gol!</value>
+  </data>
+  <data name="emptyTipDosar" xml:space="preserve">
+    <value>Campul "Tip dosar"este obligatoriu!</value>
+  </data>
+  <data name="newAsiguratorCasco" xml:space="preserve">
+    <value>Societatea CASCO din fisier nu exista in baza de date. Sigur doriti sa introduceti o societate noua?</value>
+  </data>
+  <data name="newAsiguratorRca" xml:space="preserve">
+    <value>Societatea RCA din fisier nu exista in baza de date. Sigur doriti sa introduceti o societate noua?</value>
+  </data>
+</root>

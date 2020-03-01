@@ -1,0 +1,12 @@
+﻿@model socisaWeb.DashboardJson
+<div>
+    <ul class="list-group">
+        @foreach (var property in ViewData.ModelMetadata.Properties)
+        {
+            <li class="list-group-item">
+                <span class="badge">@Html.Display(property.PropertyName)</span>
+                @(property.DisplayName ?? property.PropertyName)
+            </li>
+        }
+    </ul>
+</div>

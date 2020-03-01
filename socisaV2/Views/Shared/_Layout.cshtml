@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Sistem de Compensare intre Asiguratori - @ViewBag.Title</title>
+    @Scripts.Render("~/Scripts/AllScripts")
+    @Styles.Render("~/Content/AllStyles")
+</head>
+<body ng-app="SocisaApp">
+    <!--
+    <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1"></span>
+    -->
+    @Html.Partial("_PartialHeaderNavBar")
+    <div id="main_container" class="container-fluid small" style="margin:20px;">
+        <div id="modal-background"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+    @Html.Partial("_PartialFooter")
+
+
+    <div id="operationResult" ng-show="operationResult.Results.length > 0 && operationResult.ShowMessage" class="operationResult" ng-cloak>
+        <div id="operationResultInnerDiv_{{$index}}" ng-repeat="result in operationResult.Results" ng-class="result.Status == false ? 'alert alert-danger operationResult_innerMessage' : 'alert alert-success operationResult_innerMessage'">
+            <button type="button" class="close" ng-click="operationResult.ShowMessage=false; operationResult.Results=new Array();">&times;</button>
+            <strong>{{result.Status ? '@socisaV2.Resources.GlobalResx.SUCCES' : '@socisaV2.Resources.GlobalResx.ERROR'}}</strong><br />
+            <p ng-show="!result.Status" ng-repeat="s in result.Message.split(';')">
+                {{s}}
+            </p>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="confirmationDialogId">
+        <div class="ngdialog-message">
+            <h3>{{confirmMessage}}</h3>
+            <!--
+            <p>Confirm can take a value. Enter one here for example and see the console output: <input ng-model="confirmValue" /></p>
+            -->
+        </div>
+        <div class="ngdialog-buttons">
+            <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">@socisaV2.Resources.GlobalResx.CONFIRM</button>
+            <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">@socisaV2.Resources.GlobalResx.RENUNTA</button>
+        </div>
+    </script>
+
+    <script>
+        //enable dropdowns
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+        //enable tooltips
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        //enable popovers
+        /*
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+        */
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $(document).idleTimeout({
+                inactivity: LOGOUT_INTERVAL,
+                noconfirm: LOGOUT_NO_CONFIRM,
+                //sessionAlive: 20000,
+                click_reset: true,
+                //alive_url: '/Utilizatori/Logout',
+                redirect_url: '/Utilizatori/Logout',
+                //logout_url: '/Utilizatori/Logout',
+                showDialog: true,
+                dialogTitle: 'Auto Logout',
+                dialogText: 'Nu ati interactionat cu aplicatia timp de ' + (LOGOUT_INTERVAL / (60 * 100)) + ' de minute. Veti fi delogat in ' + (LOGOUT_NO_CONFIRM / 1000) + ' secunde!',
+                dialogButton: 'Ramai logat'
+            });
+        });
+    </script>
+</body>
+</html>

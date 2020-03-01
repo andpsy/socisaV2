@@ -1,0 +1,664 @@
+﻿@using socisaWeb.Helpers
+@model socisaWeb.DashboardJson
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    string jsController = Session["TOKEN"] != null ? "DosareIndexController" : "DashboardController";
+
+    <div id="mainDashboard" class="row main_div_responsive small" dynamic="html" ng-controller="@jsController" ng-cloak>
+        @{
+            var ut = ((SOCISA.Models.Nomenclator)Session["CURENT_USER_TYPE"]).DENUMIRE;
+            var idSoc = Convert.ToInt32(Session["ID_SOCIETATE"]);
+            var lastLogin = Session["CURENT_USER"] == null || ((SOCISA.Models.Utilizator)Session["CURENT_USER"]).LAST_LOGIN == null ? null : SOCISA.CommonFunctions.ToMySqlFormatDateWithTime(Convert.ToDateTime(((SOCISA.Models.Utilizator)Session["CURENT_USER"]).LAST_LOGIN));
+            var dataExpirare = SOCISA.CommonFunctions.ToMySqlFormatDate(DateTime.Now.AddDays(-15));
+        }
+        @if (Session["TOKEN"] != null && (ViewContext.RouteData.Values["id"] != null && ViewContext.RouteData.Values["id"].ToString().IndexOf("|") > -1)) // (ViewContext.RouteData.Values["id"] != null && ViewContext.RouteData.Values["id"].ToString().IndexOf("|") > -1) // daca se intra direct din link email notificare
+        {
+            <span data-ng-init="ExternalUser.Value = true"></span>
+            Html.RenderAction("Index", "Dosare", new { id = Session["TOKEN"] });
+        }
+
+        @if (((Session["TOKEN"] != null && (ViewContext.RouteData.Values["id"] == null || ViewContext.RouteData.Values["id"].ToString().IndexOf("|") < 0)) || (Session["TOKEN"] == null)) && ut == "Email") // (ViewContext.RouteData.Values["id"] != null && ViewContext.RouteData.Values["id"].ToString().IndexOf("|") > -1) // daca se intra direct din link email notificare
+        {
+            Response.Redirect("/Utilizatori/Logout");
+        }
+
+        @if ((Session["TOKEN"] == null || (Session["TOKEN"] != null && (ViewContext.RouteData.Values["id"] == null || ViewContext.RouteData.Values["id"].ToString().IndexOf("|") < 0))) && ut != "Email")
+        {
+            <div ng-init="@String.Format("model={0};",
+            Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }) )">
+            </div>
+
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-success" id="DOSARE_TOTAL">
+                            <div class="panel-heading" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_TOTAL)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_TOTAL == 0 ? true : false))">
+                                            <span ng-init="model.DOSARE_TOTAL = '@Model.DOSARE_TOTAL'" ng-bind="model.DOSARE_TOTAL"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "toateDosarele", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_TOTAL', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "toateDosarele", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_CASCO_TOTAL)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_CASCO_TOTAL == 0 ? true : false))" style="background-color:#5B8956;">
+                                            <span ng-init="model.DOSARE_CASCO_TOTAL = '@Model.DOSARE_CASCO_TOTAL'" ng-bind="model.DOSARE_CASCO_TOTAL"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareCasco", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_TOTAL', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareCasco", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_RCA_TOTAL)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_RCA_TOTAL == 0 ? true : false))" style="background-color:#5B8956;">
+                                            <span ng-init="model.DOSARE_RCA_TOTAL = '@Model.DOSARE_RCA_TOTAL'" ng-bind="model.DOSARE_RCA_TOTAL"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareRca", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_TOTAL', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareRca", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer">
+                                <a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_DOSARE</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel panel-warning" id="DOSARE_FROM_LAST_LOGIN">
+                            <div class="panel-heading" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_FROM_LAST_LOGIN)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_FROM_LAST_LOGIN == 0 ? true : false))">
+                                            <span ng-init="model.DOSARE_FROM_LAST_LOGIN = '@Model.DOSARE_FROM_LAST_LOGIN'" ng-bind="model.DOSARE_FROM_LAST_LOGIN"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNoiDeLaUltimulLogin", new object[] { idSoc, lastLogin })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_FROM_LAST_LOGIN', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNoiDeLaUltimulLogin", new object[] { idSoc, lastLogin } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_CASCO_FROM_LAST_LOGIN)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_CASCO_FROM_LAST_LOGIN == 0 ? true : false))" style="background-color:#B2935E;">
+                                            <span ng-init="model.DOSARE_CASCO_FROM_LAST_LOGIN = '@Model.DOSARE_CASCO_FROM_LAST_LOGIN'" ng-bind="model.DOSARE_CASCO_FROM_LAST_LOGIN"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNoiCascoDeLaUltimulLogin", new object[] { idSoc, lastLogin })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_FROM_LAST_LOGIN', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNoiCascoDeLaUltimulLogin", new object[] { idSoc, lastLogin } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_RCA_FROM_LAST_LOGIN)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_RCA_FROM_LAST_LOGIN == 0 ? true : false))" style="background-color:#B2935E;">
+                                            <span ng-init="model.DOSARE_RCA_FROM_LAST_LOGIN = '@Model.DOSARE_RCA_FROM_LAST_LOGIN'" ng-bind="model.DOSARE_RCA_FROM_LAST_LOGIN"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNoiRcaDeLaUltimulLogin", new object[] { idSoc, lastLogin })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_FROM_LAST_LOGIN', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNoiRcaDeLaUltimulLogin", new object[] { idSoc, lastLogin } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer"><a href="#" ng-click="ToggleDiv('mainDosareDashboardRegular', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_DOSARE</a></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel panel-danger" id="DOSARE_NEOPERATE">
+                            <div class="panel-heading" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_NEOPERATE)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_NEOPERATE == 0 ? true : false))">
+                                            <span ng-init="model.DOSARE_NEOPERATE = '@Model.DOSARE_NEOPERATE'" ng-bind="model.DOSARE_NEOPERATE"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNeoperate", new object[] { idSoc, dataExpirare })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_NEOPERATE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNeoperate", new object[] { idSoc, dataExpirare } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_CASCO_NEOPERATE)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_CASCO_NEOPERATE == 0 ? true : false))" style="background-color:#AC5955;">
+                                            <span ng-init="model.DOSARE_CASCO_NEOPERATE = '@Model.DOSARE_CASCO_NEOPERATE'" ng-bind="model.DOSARE_CASCO_NEOPERATE"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareCascoNeoperate", new object[] { idSoc, dataExpirare })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_NEOPERATE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareCascoNeoperate", new object[] { idSoc, dataExpirare } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_RCA_NEOPERATE)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_RCA_NEOPERATE == 0 ? true : false))" style="background-color:#AC5955;">
+                                            <span ng-init="model.DOSARE_RCA_NEOPERATE = '@Model.DOSARE_RCA_NEOPERATE'" ng-bind="model.DOSARE_RCA_NEOPERATE"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareRcaNeoperate", new object[] { idSoc, dataExpirare })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_NEOPERATE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareRcaNeoperate", new object[] { idSoc, dataExpirare } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer"><a href="#" ng-click="ToggleDiv('mainDosareDashboardRegular', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_DOSARE</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-default" id="DOSARE_TERMENE_FILTRE_SUPLIMENTARE">
+                            <div class="panel-heading" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        Filtre suplimentare
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body" style="padding:0px;">
+
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_FARA_DOCUMENTE)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_FARA_DOCUMENTE == 0 ? true : false))">
+                                            <span ng-init="model.DOSARE_FARA_DOCUMENTE = '@Model.DOSARE_FARA_DOCUMENTE'" ng-bind="model.DOSARE_FARA_DOCUMENTE"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareFaraDocumente", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_TERMENE_FILTRE_SUPLIMENTARE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareFaraDocumente", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.DOSARE_FARA_PROCES)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_FARA_PROCES == 0 ? true : false))">
+                                            <span ng-init="model.DOSARE_FARA_PROCES = '@Model.DOSARE_FARA_PROCES'" ng-bind="model.DOSARE_FARA_PROCES"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareFaraProces", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_TERMENE_FILTRE_SUPLIMENTARE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareFaraProces", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item" style="background-color:#f2dede;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.TERMENE_DEPASITE)
+                                        <div class="badge btn-group" style="background-color:#AC5955" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.TERMENE_DEPASITE == 0 ? true : false))">
+                                            <span ng-init="model.TERMENE_DEPASITE = '@Model.TERMENE_DEPASITE'" ng-bind="model.TERMENE_DEPASITE"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainSedintePortalDashboard', true, null, 'get')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;Mergi la termene...</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_TERMENE_FILTRE_SUPLIMENTARE', null, null, null, null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;Exporta in Excel...</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="background-color:#fcf8e3;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.TERMENE_IN_URMATOARELE_7_ZILE)
+                                        <div class="badge btn-group" style="background-color:#8a6d3b;" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.TERMENE_IN_URMATOARELE_7_ZILE == 0 ? true : false))">
+                                            <span ng-init="model.TERMENE_IN_URMATOARELE_7_ZILE = '@Model.TERMENE_IN_URMATOARELE_7_ZILE'" ng-bind="model.TERMENE_IN_URMATOARELE_7_ZILE"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainSedintePortalDashboard', true, null, 'get')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;Mergi la termene...</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('DOSARE_TERMENE_FILTRE_SUPLIMENTARE', null, null, null, null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;Exporta in Excel...</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="panel-footer">
+                                <a href="#" ng-click="ToggleDiv('mainDosareDashboardAdminAndSuper', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_DOSARE</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        @{
+                            //var ut = ((SOCISA.Models.Nomenclator)Session["CURENT_USER_TYPE"]).DENUMIRE;
+                            if (ut != "Regular")
+                            {
+                                <div class="panel panel-warning" id="DOSARE_NEASIGNATE_FROM_LAST_LOGIN">
+                                    <div class="panel-heading" style="padding:0px;">
+                                        <ul class="list-group" style="margin-bottom:0px;">
+                                            <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_NEASIGNATE_FROM_LAST_LOGIN)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_NEASIGNATE_FROM_LAST_LOGIN == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_NEASIGNATE_FROM_LAST_LOGIN = '@Model.DOSARE_NEASIGNATE_FROM_LAST_LOGIN'" ng-bind="model.DOSARE_NEASIGNATE_FROM_LAST_LOGIN"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNeasignateFromLastLogin", new object[] { idSoc, lastLogin })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_NEASIGNATE_FROM_LAST_LOGIN', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNeasignateFromLastLogin", new object[] { idSoc, lastLogin } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-body" style="padding:0px;">
+                                        <ul class="list-group" style="margin-bottom:0px;">
+                                            <li class="list-group-item" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_NEASIGNATE_CASCO_FROM_LAST_LOGIN)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_NEASIGNATE_CASCO_FROM_LAST_LOGIN == 0 ? true : false))" style="background-color:#B2935E;">
+                                                    <span ng-init="model.DOSARE_NEASIGNATE_CASCO_FROM_LAST_LOGIN = '@Model.DOSARE_NEASIGNATE_CASCO_FROM_LAST_LOGIN'" ng-bind="model.DOSARE_NEASIGNATE_CASCO_FROM_LAST_LOGIN"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareCascoNeasignateFromLastLogin", new object[] { idSoc, lastLogin })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_NEASIGNATE_FROM_LAST_LOGIN', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareCascoNeasignateFromLastLogin", new object[] { idSoc, lastLogin } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_NEASIGNATE_RCA_FROM_LAST_LOGIN)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_NEASIGNATE_RCA_FROM_LAST_LOGIN == 0 ? true : false))" style="background-color:#B2935E;">
+                                                    <span ng-init="model.DOSARE_NEASIGNATE_RCA_FROM_LAST_LOGIN = '@Model.DOSARE_NEASIGNATE_RCA_FROM_LAST_LOGIN'" ng-bind="model.DOSARE_NEASIGNATE_RCA_FROM_LAST_LOGIN"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareRcaNeasignateFromLastLogin", new object[] { idSoc, lastLogin })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_NEASIGNATE_FROM_LAST_LOGIN', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareRcaNeasignateFromLastLogin", new object[] { idSoc, lastLogin } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-footer"><a href="#" ng-click="ToggleDiv('mainDosareDashboardAdminAndSuper', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_DOSARE</a></div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="col-sm-4">
+                        @{
+                            if (ut != "Regular")
+                            {
+                                <div class="panel panel-danger" id="DOSARE_NEASIGNATE">
+                                    <div class="panel-heading" style="padding:0px;">
+                                        <ul class="list-group" style="margin-bottom:0px;">
+                                            <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_NEASIGNATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_NEASIGNATE == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_NEASIGNATE = '@Model.DOSARE_NEASIGNATE'" ng-bind="model.DOSARE_NEASIGNATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNeasignate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_NEASIGNATE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNeasignate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-body" style="padding:0px;">
+                                        <ul class="list-group" style="margin-bottom:0px;">
+                                            <li class="list-group-item" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_CASCO_NEASIGNATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_CASCO_NEASIGNATE == 0 ? true : false))" style="background-color:#AC5955;">
+                                                    <span ng-init="model.DOSARE_CASCO_NEASIGNATE = '@Model.DOSARE_CASCO_NEASIGNATE'" ng-bind="model.DOSARE_CASCO_NEASIGNATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareCascoNeasignate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_NEASIGNATE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareCascoNeasignate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_RCA_NEASIGNATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_RCA_NEASIGNATE == 0 ? true : false))" style="background-color:#AC5955;">
+                                                    <span ng-init="model.DOSARE_RCA_NEASIGNATE = '@Model.DOSARE_RCA_NEASIGNATE'" ng-bind="model.DOSARE_RCA_NEASIGNATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareRcaNeasignate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_NEASIGNATE', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareRcaNeasignate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-footer"><a href="#" ng-click="ToggleDiv('mainDosareDashboardAdminAndSuper', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_DOSARE</a></div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-danger" id="PROCESE_TOTAL">
+                            <div class="panel-heading" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.PROCESE_TOTAL)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.PROCESE_TOTAL == 0 ? true : false))">
+                                            <span ng-init="model.PROCESE_TOTAL = '@Model.PROCESE_TOTAL'" ng-bind="model.PROCESE_TOTAL"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "proceseTotal", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('PROCESE_TOTAL', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "proceseTotal", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.PROCESE_RECLAMANT_TOTAL)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.PROCESE_RECLAMANT_TOTAL == 0 ? true : false))" style="background-color:#AC5955;">
+                                            <span ng-init="model.PROCESE_RECLAMANT_TOTAL = '@Model.PROCESE_RECLAMANT_TOTAL'" ng-bind="model.PROCESE_RECLAMANT_TOTAL"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "proceseReclamantTotal", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('PROCESE_TOTAL', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "proceseReclamantTotal", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.PROCESE_PARAT_TOTAL)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.PROCESE_PARAT_TOTAL == 0 ? true : false))" style="background-color:#AC5955;">
+                                            <span ng-init="model.PROCESE_PARAT_TOTAL = '@Model.PROCESE_PARAT_TOTAL'" ng-bind="model.PROCESE_PARAT_TOTAL"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "proceseParatTotal", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('PROCESE_TOTAL', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "proceseParatTotal", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.PROCESE_NOI_TOTAL)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.PROCESE_NOI_TOTAL == 0 ? true : false))" style="background-color:#AC5955;">
+                                            <span ng-init="model.PROCESE_NOI_TOTAL = '@Model.PROCESE_NOI_TOTAL'" ng-bind="model.PROCESE_NOI_TOTAL"></span>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span class="caret" style="color:white"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "proceseNoiTotal", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                <li><a href="#" ng-click="ExportToExcel('PROCESE_TOTAL', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "proceseNoiTotal", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer"><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, 'PROCESE', 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_PROCESE</a></div>
+                        </div>
+                        <div class="panel panel-primary" id="MESAJE_NOI">
+                            <div class="panel-heading" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.MESAJE_NOI)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.MESAJE_NOI == 0 ? true : false))">
+                                            <span ng-init="model.MESAJE_NOI = '@Model.MESAJE_NOI'" ng-bind="model.MESAJE_NOI"></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body" style="padding:0px;">
+                                <ul class="list-group" style="margin-bottom:0px;">
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.MESAJE_NOI_DOSAR_NOU)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.MESAJE_NOI_DOSAR_NOU == 0 ? true : false))">
+                                            <span ng-init="model.MESAJE_NOI_DOSAR_NOU = '@Model.MESAJE_NOI_DOSAR_NOU'" ng-bind="model.MESAJE_NOI_DOSAR_NOU"></span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item" style="border-width:0px;">
+                                        @Html.DisplayNameFor(model => model.MESAJE_NOI_DOCUMENT_NOU)
+                                        <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject( Model.MESAJE_NOI_DOCUMENT_NOU == 0 ? true : false))">
+                                            <span ng-init="model.MESAJE_NOI_DOCUMENT_NOU = '@Model.MESAJE_NOI_DOCUMENT_NOU'" ng-bind="model.MESAJE_NOI_DOCUMENT_NOU"></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer"><a href="#" ng-click="ToggleDiv('mainMesajeDashboard', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_MESAJE</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="panel panel-info" id="DOSARE_STATISTICS">
+                            <div class="panel-heading" style="padding:0px;">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <ul class="list-group" style="margin-bottom:0px;">
+                                            <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_INCOMPLETE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_INCOMPLETE == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_INCOMPLETE = '@Model.DOSARE_INCOMPLETE'" ng-bind="model.DOSARE_INCOMPLETE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareIncomplete", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareIncomplete", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_NEAVIZATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_NEAVIZATE == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_NEAVIZATE = '@Model.DOSARE_NEAVIZATE'" ng-bind="model.DOSARE_NEAVIZATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNeavizate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNeavizate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="background-color:inherit;border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_AVIZATE_TOTAL)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_AVIZATE_TOTAL == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_AVIZATE_TOTAL = '@Model.DOSARE_AVIZATE_TOTAL'" ng-bind="model.DOSARE_AVIZATE_TOTAL"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareAvizateTotal", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareAvizateTotal", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subGroupListItem" style="background-color:inherit;border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_AVIZATE_NEEXPEDIATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_AVIZATE_NEEXPEDIATE == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_AVIZATE_NEEXPEDIATE = '@Model.DOSARE_AVIZATE_NEEXPEDIATE'" ng-bind="model.DOSARE_AVIZATE_NEEXPEDIATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareAvizateNeexpediate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareAvizateNeexpediate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <canvas id="pieStatus" class="chart chart-pie" ng-init="@String.Format("statusLabels={0};statusData={1}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.LABELS_STATUS), Newtonsoft.Json.JsonConvert.SerializeObject(Model.VALUES_STATUS))"
+                                                chart-data="statusData" chart-labels="statusLabels" chart-options="options"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding:0px;">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <ul class="list-group" style="margin-bottom:0px;">
+                                            <li class="list-group-item subGroupListItem" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_AVIZATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_AVIZATE == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_AVIZATE = '@Model.DOSARE_AVIZATE'" ng-bind="model.DOSARE_AVIZATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareAvizate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareAvizate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subGroupListItem" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_NEACHITATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_NEACHITATE == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_NEACHITATE = '@Model.DOSARE_NEACHITATE'" ng-bind="model.DOSARE_NEACHITATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareNeachitate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareNeachitate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subGroupListItem" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_ACHITATE_PARTIAL)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_ACHITATE_PARTIAL == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_ACHITATE_PARTIAL = '@Model.DOSARE_ACHITATE_PARTIAL'" ng-bind="model.DOSARE_ACHITATE_PARTIAL"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareAchitatePartial", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareAchitatePartial", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item subGroupListItem" style="border-width:0px;">
+                                                @Html.DisplayNameFor(model => model.DOSARE_ACHITATE)
+                                                <div class="badge btn-group" a-disabled="@String.Format("{0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DOSARE_ACHITATE == 0 ? true : false))">
+                                                    <span ng-init="model.DOSARE_ACHITATE = '@Model.DOSARE_ACHITATE'" ng-bind="model.DOSARE_ACHITATE"></span>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret" style="color:white"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, @Newtonsoft.Json.JsonConvert.SerializeObject(SOCISA.PredefinedFilters.CreateJsonFilter("predefinedDashboardFilters", "dosareAchitate", new object[] { idSoc })), 'post')"><i class="fa fa-file-text-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.FILTER_IN_INTERFACE</a></li>
+                                                        <li><a href="#" ng-click="ExportToExcel('DOSARE_STATISTICS', null, null, @Newtonsoft.Json.JsonConvert.SerializeObject(new object[] { "predefinedDashboardFilters", "dosareAchitate", new object[] { idSoc } }), null)"><i class="fa fa-file-excel-o delete" style="background-color:white;border-radius: 2px 2px 2px 2px;padding:2px;"></i>&nbsp;@socisaV2.Resources.DashboardResx.EXPORT_EXCEL</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <canvas id="pieStatusAvizare" class="chart chart-pie" style="width:100%; height: auto !important" ng-init="@String.Format("statusLabelsAvizate={0};statusDataAvizate={1}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.LABELS_STATUS_AVIZATE), Newtonsoft.Json.JsonConvert.SerializeObject(Model.VALUES_STATUS_AVIZATE))"
+                                                chart-data="statusDataAvizate" chart-labels="statusLabelsAvizate" chart-options="options"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <a href="#" ng-click="ToggleDiv('mainDosareDashboard', true, null, 'get')">@socisaV2.Resources.DashboardResx.MERGI_LA_DOSARE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    if (Session["TOKEN"] == null)
+    {
+        <div id="mainDosareDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="DosareIndexController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainDosareDashboardAdminAndSuper" class="row main_div_responsive small" style="display:none;" ng-controller="DosareDashboardAdminAndSuperController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainDosareDashboardRegular" class="row main_div_responsive small" style="display:none;" ng-controller="DosareDashboardRegularController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainMesajeDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="MesajeController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainUtilizatoriDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="UtilizatoriController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainDosareImportDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="DosareImportController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainPlatiImportDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="PlatiImportController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainFileManagerDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="FileManagerController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainSocietatiAsigurareDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="SocietatiAsigurareController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainStadiiDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="StadiiController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainCompensariDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="CompensariController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainRapoarteDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="RapoarteController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainRapoarteDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="RapoarteController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainSedintePortalDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="DosarePortalController" dynamic="html" ng-cloak>
+        </div>
+        <div id="mainNotificariEmailDashboard" class="row main_div_responsive small" style="display:none;" ng-controller="NotificariEmailController" dynamic="html" ng-cloak>
+        </div>
+    }
+    <!--
+    <div id="mainContactDashboard" class="row main_div_responsive small" style="display:none;" dynamic="html" ng-cloak>
+    </div>
+    <div id="mainDespreDashboard" class="row main_div_responsive small" style="display:none;" dynamic="html" ng-cloak>
+    </div>
+    -->
+
+
+}

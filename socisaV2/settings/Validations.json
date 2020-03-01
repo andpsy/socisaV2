@@ -1,0 +1,414 @@
+{
+  "dosare": [
+    {
+      "FieldName": "ID_ASIGURAT_CASCO",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyAsiguratCasco",
+      "Active": true
+    },
+    {
+      "FieldName": "ID_SOCIETATE_CASCO",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyAsiguratorCasco",
+      "Active": true
+    },
+    {
+      "FieldName": "ID_TIP_DOSAR",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyTipDosar",
+      "Active": true
+    },
+    {
+      "FieldName": "ID_SOCIETATE_RCA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyAsiguratorRca",
+      "Active": true,
+      "Conditions": [
+        {
+          "FieldName": "ID_TIP_DOSAR",
+          "Operator": "=",
+          "FieldValue": "Regres RCA",
+          "ExternalTable": "tip_dosare",
+          "ExternalFieldName": "DENUMIRE",
+          "Nomenclature": true,
+          "Active": true
+        }
+      ]
+    },
+    {
+      "FieldName": "NR_DOSAR_CASCO",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNrDosarCasco",
+      "Active": true
+    },
+    {
+      "FieldName": "NR_POLITA_CASCO",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNrPolitaCasco",
+      "Active": true
+    },
+    {
+      "FieldName": "NR_POLITA_RCA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNrPolitaRca",
+      "Active": true,
+      "Conditions": [
+        {
+          "FieldName": "ID_TIP_DOSAR",
+          "Operator": "=",
+          "FieldValue": "Regres RCA",
+          "ExternalTable": "tip_dosare",
+          "ExternalFieldName": "DENUMIRE",
+          "Nomenclature": true,
+          "Active": true
+        }
+      ]
+    },
+    {
+      "FieldName": "ID_AUTO_CASCO",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyAutoCasco",
+      "Active": true,
+      "Conditions": [
+        {
+          "FieldName": "ID_TIP_DOSAR",
+          "Operator": "=",
+          "FieldValue": "Regres RCA",
+          "ExternalTable": "tip_dosare",
+          "ExternalFieldName": "DENUMIRE",
+          "Nomenclature": true,
+          "Active": true
+        }
+      ]
+    },
+    {
+      "FieldName": "ID_AUTO_RCA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyAutoRca",
+      "Active": true,
+      "Conditions": [
+        {
+          "FieldName": "ID_TIP_DOSAR",
+          "Operator": "=",
+          "FieldValue": "Regres RCA",
+          "ExternalTable": "tip_dosare",
+          "ExternalFieldName": "DENUMIRE",
+          "Nomenclature": true,
+          "Active": true
+        }
+      ]
+    },
+    {
+      "FieldName": "VALOARE_DAUNA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyValoareDauna",
+      "Active": true
+    },
+    {
+      "FieldName": "VALOARE_REGRES",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyValoareRegres",
+      "Active": true
+    },
+    {
+      "FieldName": "DATA_EVENIMENT",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDataEveniment",
+      "Active": true
+    },
+    {
+      "FieldName": "ID_ASIGURAT_RCA",
+      "ValidationType": "Confirmation",
+      "ErrorCode": "emptyAsiguratRca",
+      "Active": true,
+      "Conditions": [
+        {
+          "FieldName": "ID_TIP_DOSAR",
+          "Operator": "=",
+          "FieldValue": "Regres RCA",
+          "ExternalTable": "tip_dosare",
+          "ExternalFieldName": "DENUMIRE",
+          "Nomenclature": true,
+          "Active": true
+        }
+      ]
+    },
+    {
+      "FieldName": "NR_DOSAR_CASCO",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "dosarExistent",
+      "Active": true
+    }
+  ],
+  "documente_scanate": [
+    {
+      "FieldName": "DENUMIRE_FISIER",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireFisier",
+      "Active": true
+    }
+  ],
+  "documente_scanate_procese": [
+    {
+      "FieldName": "DENUMIRE_FISIER",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireFisier",
+      "Active": true
+    }
+  ],
+  "asigurati": [
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireAsigurat",
+      "Active": true
+    }
+  ],
+  "parti": [
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireParte",
+      "Active": true
+    }
+  ],
+  "auto": [
+    {
+      "FieldName": "NR_AUTO",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNrAuto",
+      "Active": true
+    },
+    {
+      "FieldName": "SERIE_SASIU",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptySerieSasiuAuto",
+      "Active": false
+    }
+  ],
+  "societati_asigurare": [
+    {
+      "FieldName": "DENUMIRE_SCURTA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireScurtaSocietate",
+      "Active": true
+    },
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireSocietate",
+      "Active": true
+    },
+    {
+      "FieldName": "CUI",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyCuiSocietate",
+      "Active": false
+    },
+    {
+      "FieldName": "DENUMIRE_SCURTA",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "societateExistenta",
+      "Active": true
+    }
+  ],
+  "actions": [
+    {
+      "FieldName": "NAME",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNumeActiune",
+      "Active": true
+    },
+    {
+      "FieldName": "ACTION",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyAction",
+      "Active": true
+    },
+    {
+      "FieldName": "NAME",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "actiuneExistenta",
+      "Active": true
+    }
+  ],
+  "drepturi": [
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireDrept",
+      "Active": true
+    },
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "dreptExistent",
+      "Active": true
+    }
+  ],
+  "intervenienti": [
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireIntervenient",
+      "Active": true
+    },
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "intervenientExistent",
+      "Active": false
+    }
+  ],
+  "plati": [
+    {
+      "FieldName": "NR_DOCUMENT",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNrDocumentPlata",
+      "Active": true
+    },
+    {
+      "FieldName": "DATA_DOCUMENT",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDataDocumentPlata",
+      "Active": true
+    },
+    {
+      "FieldName": "SUMA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptySumaPlata",
+      "Active": true
+    },
+    {
+      "FieldName": "ID_DOSAR",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyIdDosarPlata",
+      "Active": true
+    },
+    {
+      "FieldName": "ID_TIP_PLATA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyIdTipPlata",
+      "Active": true
+    },
+    {
+      "FieldName": "NR_DOCUMENT,DATA_DOCUMENT,SUMA,ID_DOSAR,ID_TIP_PLATA",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "plataExistenta",
+      "Active": true
+    }
+  ],
+  "email_notifications_new": [],
+  "procese": [
+    {
+      "FieldName": "NR_DOSAR_INSTANTA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNrDosarInstantaProcese",
+      "Active": true
+    },
+    {
+      "FieldName": "DATA_DEPUNERE",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDataDepunereProcese",
+      "Active": true
+    },
+    {
+      "FieldName": "SUMA_SOLICITATA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptySumaSolicitataProcese",
+      "Active": true
+    },
+    {
+      "FieldName": "PENALITATI",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyPenalitatiProcese",
+      "Active": true
+    },
+    {
+      "FieldName": "NR_INTERN",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "numarInternProceseExistent",
+      "Active": true
+    },
+    {
+      "FieldName": "NR_DOSAR_INSTANTA",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "numarDosarInstantaProceseExistent",
+      "Active": true
+    }
+  ],
+  "contracte": [
+    {
+      "FieldName": "NR_CONTRACT",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyNrContract",
+      "Active": true
+    },
+    {
+      "FieldName": "DATA_contract",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDataContract",
+      "Active": true
+    },
+    {
+      "FieldName": "NR_CONTRACT,DATA_CONTRACT",
+      "ValidationType": "Duplicate",
+      "ErrorCode": "contractExistent",
+      "Active": false
+    }
+  ],
+  "stadii": [
+    {
+      "FieldName": "DENUMIRE",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDenumireStadiu",
+      "Active": true
+    }
+  ],
+  "procese_stadii": [
+    {
+      "FieldName": "ID_PROCES",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyProcesProceseStadii",
+      "Active": true
+    },
+    {
+      "FieldName": "ID_STADIU",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyStadiuProceseStadii",
+      "Active": true
+    },
+    {
+      "FieldName": "DATA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDataProceseStadii",
+      "Active": true
+    }
+  ],
+  "compensari": [
+    {
+      "FieldName": "ID_DOSAR",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDosarCompensari",
+      "Active": true
+    },
+    {
+      "FieldName": "DATA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyDataCompensari",
+      "Active": true
+    },
+    {
+      "FieldName": "SUMA",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptySumaCompensari",
+      "Active": true
+    },
+    {
+      "FieldName": "REST",
+      "ValidationType": "Mandatory",
+      "ErrorCode": "emptyRestCompensari",
+      "Active": true
+    }
+  ]
+}

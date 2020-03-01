@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="actiuneExistenta" xml:space="preserve">
+    <value>The action already exists in the data base!</value>
+  </data>
+  <data name="campInexistentInTabela" xml:space="preserve">
+    <value>The field already exists in the table!</value>
+  </data>
+  <data name="cannotConvertStringToTableColumns" xml:space="preserve">
+    <value>The string could not be converted into table field names!</value>
+  </data>
+  <data name="couldNotInsertAsiguratCasco" xml:space="preserve">
+    <value>Error saving the loss insured party (CASCO)!</value>
+  </data>
+  <data name="couldNotInsertAsiguratorCasco" xml:space="preserve">
+    <value>Error saving the loss party company (CASCO)!</value>
+  </data>
+  <data name="couldNotInsertAsiguratorRca" xml:space="preserve">
+    <value>Error saving the guilty party company (RCA)!</value>
+  </data>
+  <data name="couldNotInsertAsiguratRca" xml:space="preserve">
+    <value>Error saving the guilty insured party (RCA)!</value>
+  </data>
+  <data name="couldNotInsertAutoCasco" xml:space="preserve">
+    <value>Error savin the loss party car plate no.!</value>
+  </data>
+  <data name="couldNotInsertAutoRca" xml:space="preserve">
+    <value>Error saving the guilty party car plate no.!</value>
+  </data>
+  <data name="couldNotInsertIntervenient" xml:space="preserve">
+    <value>Error saving the Intervener (guilty driver)!</value>
+  </data>
+  <data name="dosarExistent" xml:space="preserve">
+    <value>The file already exists in the data base!</value>
+  </data>
+  <data name="dosarFaraDocumente" xml:space="preserve">
+    <value>The file doesn't have any attached document</value>
+  </data>
+  <data name="dreptExistent" xml:space="preserve">
+    <value>The wright already exists in the data base!</value>
+  </data>
+  <data name="emptyAction" xml:space="preserve">
+    <value>The field "Action" is mandatory!</value>
+  </data>
+  <data name="emptyAsiguratCasco" xml:space="preserve">
+    <value>The field "Loss party (CASCO)" is mandatory!</value>
+  </data>
+  <data name="emptyAsiguratorCasco" xml:space="preserve">
+    <value>The field "Loss party company (CASCO)" is mandatory!</value>
+  </data>
+  <data name="emptyAsiguratorRca" xml:space="preserve">
+    <value>The field "Guilty party company (RCA)" is mandatory!</value>
+  </data>
+  <data name="emptyAsiguratRca" xml:space="preserve">
+    <value>The field "Guilty party (RCA)" is mandatory!</value>
+  </data>
+  <data name="emptyAutoCasco" xml:space="preserve">
+    <value>The field "Loss party (CASCO) car plate no." is mandatory!</value>
+  </data>
+  <data name="emptyAutoRca" xml:space="preserve">
+    <value>The field "Guilty party (RCA) car plate no." is mandatory!</value>
+  </data>
+  <data name="emptyCuiSocietate" xml:space="preserve">
+    <value>The field "Insurance company CIF no." is mandatory!</value>
+  </data>
+  <data name="emptyDataEveniment" xml:space="preserve">
+    <value>The field "Event Date" is mandatory!</value>
+  </data>
+  <data name="emptyDataSentinta" xml:space="preserve">
+    <value>The field "Sentence date" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireAsigurat" xml:space="preserve">
+    <value>The field "Insured party name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireDrept" xml:space="preserve">
+    <value>The field "Wright name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireFisier" xml:space="preserve">
+    <value>The field "File name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireIntervenient" xml:space="preserve">
+    <value>The field "Intervener (guilty driver) name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireNomenclator" xml:space="preserve">
+    <value>The field "Name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireScurtaSocietate" xml:space="preserve">
+    <value>The field "Insurance company short name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireSocietate" xml:space="preserve">
+    <value>The field "Insurance company name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireSolutie" xml:space="preserve">
+    <value>The field "Solution name" is mandatory!</value>
+  </data>
+  <data name="emptyDenumireStadiu" xml:space="preserve">
+    <value>The field "Status name" is mandatory!</value>
+  </data>
+  <data name="emptyMessageBody" xml:space="preserve">
+    <value>The field "Message body" is mandatory!</value>
+  </data>
+  <data name="emptyMessageReceiver" xml:space="preserve">
+    <value>The field "Message receiver" is mandatory!</value>
+  </data>
+  <data name="emptyMessageSender" xml:space="preserve">
+    <value>The field "Message sender" is mandatory!</value>
+  </data>
+  <data name="emptyMessageSubject" xml:space="preserve">
+    <value>The field "Message subject" is mandatory!</value>
+  </data>
+  <data name="emptyNotificareId" xml:space="preserve">
+    <value>Message ID is missing!</value>
+  </data>
+  <data name="emptyNotificareText" xml:space="preserve">
+    <value>Message text body is mandatory!</value>
+  </data>
+  <data name="emptyNrAuto" xml:space="preserve">
+    <value>The field "Car plate no." is mandatory!</value>
+  </data>
+  <data name="emptyNrContract" xml:space="preserve">
+    <value>The field "Contract no." is mandatory!</value>
+  </data>
+  <data name="emptyNrDosarCasco" xml:space="preserve">
+    <value>The field "CASCO file no." is mandatory!</value>
+  </data>
+  <data name="emptyNrPolitaCasco" xml:space="preserve">
+    <value>The field "CASCO policy no." is mandatory!</value>
+  </data>
+  <data name="emptyNrPolitaRca" xml:space="preserve">
+    <value>The field "RCA policy no." is mandatory!</value>
+  </data>
+  <data name="emptyNrSentinta" xml:space="preserve">
+    <value>The field "Sentence no." is mandatory!</value>
+  </data>
+  <data name="emptyNumeAction" xml:space="preserve">
+    <value>The field "Action name" is mandatory!</value>
+  </data>
+  <data name="emptyNumeSetare" xml:space="preserve">
+    <value>The field "Setting name" is mandatory!</value>
+  </data>
+  <data name="emptyOperation" xml:space="preserve">
+    <value>The field "Operation" is mandatory!</value>
+  </data>
+  <data name="emptySerieSasiuAuto" xml:space="preserve">
+    <value>The field "Car chassis identification no." is mandatory!</value>
+  </data>
+  <data name="emptySolutieSentinta" xml:space="preserve">
+    <value>The field "Solution" is mandatory!</value>
+  </data>
+  <data name="emptyTipDocument" xml:space="preserve">
+    <value>The field "Document type name" is mandatory!</value>
+  </data>
+  <data name="emptyUserName" xml:space="preserve">
+    <value>The field "User name" is mandatory!</value>
+  </data>
+  <data name="emptyUserPassword" xml:space="preserve">
+    <value>The field "User password" is mandatory!</value>
+  </data>
+  <data name="emptyValoareDauna" xml:space="preserve">
+    <value>The field "Loss value" is mandatory!</value>
+  </data>
+  <data name="emptyValoareRegres" xml:space="preserve">
+    <value>The field "Regress value" is mandatory!</value>
+  </data>
+  <data name="emptyValoareSetare" xml:space="preserve">
+    <value>The field "Setting value" is mandatory!</value>
+  </data>
+  <data name="FAILED_LOGIN" xml:space="preserve">
+    <value>Athentication failled!</value>
+  </data>
+  <data name="intervenientExistent" xml:space="preserve">
+    <value>The intervener (guilty driver) already exists in the data base!</value>
+  </data>
+  <data name="mySlq_1451" xml:space="preserve">
+    <value>The selected record has references in another table(s) and can not be deleted!</value>
+  </data>
+  <data name="mySql_1169" xml:space="preserve">
+    <value>There is already an {1} with the same name in the data base!</value>
+  </data>
+  <data name="passwordsDontMatch" xml:space="preserve">
+    <value>The passwords don't match!</value>
+  </data>
+  <data name="societateExistenta" xml:space="preserve">
+    <value>The company already exists in the data base!</value>
+  </data>
+  <data name="unauthorisedUser" xml:space="preserve">
+    <value>Unauthorised user!</value>
+  </data>
+  <data name="unsupportedFormat" xml:space="preserve">
+    <value>Invalid file type!</value>
+  </data>
+  <data name="emptyBody" xml:space="preserve">
+    <value>The field "Body" is not filled!</value>
+  </data>
+  <data name="emptyDataMesaj" xml:space="preserve">
+    <value>The field "Message date" is mandatory!</value>
+  </data>
+  <data name="emptyFrom" xml:space="preserve">
+    <value>The field "From" is mandatory!</value>
+  </data>
+  <data name="emptyIdDosar" xml:space="preserve">
+    <value>The File associated with the message is mandatory!</value>
+  </data>
+  <data name="emptyPolitaCasco" xml:space="preserve">
+    <value>The field "Loss party (CASCO) policy no." is mandatory!</value>
+  </data>
+  <data name="emptyPolitaRca" xml:space="preserve">
+    <value>The field "Guilty party (RCA) policy no." is mandatory</value>
+  </data>
+  <data name="emptySubject" xml:space="preserve">
+    <value>The field "Subject" is mandatory!</value>
+  </data>
+  <data name="emptyTo" xml:space="preserve">
+    <value>The field "To" is mandatory!</value>
+  </data>
+  <data name="emptyUserType" xml:space="preserve">
+    <value>The "User type" field is mandatory!</value>
+  </data>
+  <data name="emptyDataDocumentPlata" xml:space="preserve">
+    <value>The field "Payment documment date" is mandatory!</value>
+  </data>
+  <data name="emptyIdDosarPlata" xml:space="preserve">
+    <value>The File is mandatory!</value>
+  </data>
+  <data name="emptyIdTipPlata" xml:space="preserve">
+    <value>The payment type is mandatory!</value>
+  </data>
+  <data name="emptyNrDocumentPlata" xml:space="preserve">
+    <value>The field "Payment documment no." is mandatory!</value>
+  </data>
+  <data name="emptySumaPlata" xml:space="preserve">
+    <value>The field "Payment amount" is mandatory!</value>
+  </data>
+  <data name="dosarInexistent" xml:space="preserve">
+    <value>The File is missing!</value>
+  </data>
+  <data name="plataExistenta" xml:space="preserve">
+    <value>The payment exists in the data base!</value>
+  </data>
+  <data name="dosarNeavizat" xml:space="preserve">
+    <value>The File is not yet accepted!</value>
+  </data>
+  <data name="emptyDataDepunereProcese" xml:space="preserve">
+    <value>The field "Submission date" is mandatory!</value>
+  </data>
+  <data name="emptyNrDosarInstantaProcese" xml:space="preserve">
+    <value>The field "Action Court number" is mandatory!</value>
+  </data>
+  <data name="emptyNrInternProcese" xml:space="preserve">
+    <value>The field "Action internal number" is mandatory!</value>
+  </data>
+  <data name="emptyPenalitatiProcese" xml:space="preserve">
+    <value>The field "Penalties" is mandatory!</value>
+  </data>
+  <data name="emptySumaSolicitataProcese" xml:space="preserve">
+    <value>The field "Requested amount" is mandatory!</value>
+  </data>
+  <data name="numarDosarInstantaProceseExistent" xml:space="preserve">
+    <value>There is already an Action with the same Court number in the data base!</value>
+  </data>
+  <data name="numarInternProceseExistent" xml:space="preserve">
+    <value>There is already an Action with the same Internal number in the data base!</value>
+  </data>
+  <data name="emptyDataContract" xml:space="preserve">
+    <value>The field "Contract date" is mandatory!</value>
+  </data>
+  <data name="emptyDataProceseStadii" xml:space="preserve">
+    <value>The "Date" is mandatory!</value>
+  </data>
+  <data name="emptyProcesProceseStadii" xml:space="preserve">
+    <value>The "Court file" is mandatory!</value>
+  </data>
+  <data name="emptyStadiuProceseStadii" xml:space="preserve">
+    <value>The "Stage" is mandatory!</value>
+  </data>
+  <data name="EMPTY_PASSWORD" xml:space="preserve">
+    <value>Please fill in the Password!</value>
+  </data>
+  <data name="EMPTY_USERNAME" xml:space="preserve">
+    <value>Please fill in the Username!</value>
+  </data>
+  <data name="EMPTY_CODE" xml:space="preserve">
+    <value>Please fill in the "Verification code"!</value>
+  </data>
+  <data name="VERIFICATION_CODE_EXPIRED" xml:space="preserve">
+    <value>The verification code has expired!</value>
+  </data>
+  <data name="VERIFICATION_CODE_DONT_MATCH" xml:space="preserve">
+    <value>The enterd verification code doesn't match the one send by email!</value>
+  </data>
+  <data name="emptyDataCompensari" xml:space="preserve">
+    <value>The Date is mandatory!</value>
+  </data>
+  <data name="emptyDosarCompensari" xml:space="preserve">
+    <value>The File is mandatory!</value>
+  </data>
+  <data name="emptyRestCompensari" xml:space="preserve">
+    <value>The Rest is mandatory!</value>
+  </data>
+  <data name="emptySumaCompensari" xml:space="preserve">
+    <value>The Amount is mandatory!</value>
+  </data>
+  <data name="emptyDenumireParte" xml:space="preserve">
+    <value>The field "Part name" is mandatory!</value>
+  </data>
+  <data name="emptyTipDosar" xml:space="preserve">
+    <value>The field "File type" is mandatory!</value>
+  </data>
+  <data name="newAsiguratorCasco" xml:space="preserve">
+    <value>The loss party company (CASCO) from the Excel file is not in the database. Are you sure you want to insert a new company in the database?</value>
+  </data>
+  <data name="newAsiguratorRca" xml:space="preserve">
+    <value>The guilty party company (RCA) from the Excel file is not in the database. Are you sure you want to insert a new company in the database?</value>
+  </data>
+</root>

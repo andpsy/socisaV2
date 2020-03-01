@@ -1,0 +1,25 @@
+﻿@using socisaWeb.Helpers
+@model socisaWeb.RaportView
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div ng-init="@String.Format("model = {0};", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))"></div>
+    <div class="btn-group">
+        <button ng-show="HasHtml.indexOf('mainRapoarteDashboard') > -1" type="button" class="btn btn-danger" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</button>
+    </div>
+    <div class="row" id="rapoarteMainContent">
+        <div class="col-sm-3">
+            <ul class="list-group">
+                <li ng-repeat="action in model.Actions" class="list-group-item" ng-click="ShowRaportSelector(action)" style="cursor:pointer;">
+                    <span>{{action.NAME}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9" id="raportSelectionContent">
+
+        </div>
+    </div>
+}

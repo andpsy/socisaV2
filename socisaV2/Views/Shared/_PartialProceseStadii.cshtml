@@ -1,0 +1,293 @@
+﻿@using socisaWeb.Helpers
+@model socisaWeb.ProcesStadiuView
+@{
+    ViewBag.Title = socisaV2.Resources.ProceseStadiiResx.TITLE;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div ng-controller="ProceseStadiiController">
+        <div ng-init="@String.Format("model = {0};", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))"></div>
+        <table id="stadiiTable" class="table table-striped table-hover" style="margin-bottom:5px;">
+            <thead>
+                <tr>
+                    <th style="width:55px;">
+                        &nbsp;
+                    </th>
+                    <th style="display:none;"></th>
+                    <th style="width:26px;"></th>
+                    <th style="width:160px;">
+                        @socisaV2.Resources.ProceseStadiiResx.ID_STADIU
+                    </th>
+                    <th style="width:120px;">
+                        @socisaV2.Resources.ProceseStadiiResx.DATA
+                    </th>
+                    <th style="width:120px;">
+                        @socisaV2.Resources.ProceseStadiiResx.ORA
+                    </th>
+                    <th style="width:120px;">
+                        @socisaV2.Resources.ProceseStadiiResx.TERMEN
+                    </th>
+                    <th style="width:120px;">
+                        @socisaV2.Resources.ProceseStadiiResx.SCADENTA
+                    </th>
+                    <th style="width:120px;">
+                        @socisaV2.Resources.ProceseStadiiResx.TERMEN_ADMINISTRATIV
+                    </th>
+                    <th>
+                        @socisaV2.Resources.ProceseStadiiResx.OBSERVATII
+                    </th>
+                    <!--
+                    <th>
+                        @socisaV2.Resources.ProceseStadiiResx.ID_SENTINTA
+                    </th>
+                    -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr a-disabled="editMode == 2" ng-repeat="item in model.ProceseStadii | orderBy:-CustomOrdering">
+                    <td colspan="10">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="text-align:center;vertical-align:middle;white-space:nowrap;width:55px;">
+                                    @if (Helpers.HasRight("modificare"))
+                                    {
+                                        <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.EDITARE_TITLE" a-disabled="editMode == 1" ng-show="editMode == 0 || curIndex != $index" ng-click="EditMode(item, $index)"><span class="glyphicon glyphicon-edit"></span></a>
+                                    }
+                                    @if (Helpers.HasRight("stergere"))
+                                    {
+                                        <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.STERGERE_TITLE" a-disabled="editMode == 1" ng-show="editMode == 0 || curIndex != $index" ng-click="EnterStadiuProcesDeleteMode(item, '@socisaV2.Resources.GlobalResx.CONFIRM_DELETE_MESSAGE')"><span class="glyphicon glyphicon-trash"></span></a>
+                                    }
+                                    <a href="#" class="btn btn-default btn-xs save" ng-show="editMode == 1 && curIndex == $index" ng-click="Save()" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE"><span class="glyphicon glyphicon-floppy-saved"></span></a>
+                                    <a href="#" class="btn btn-default btn-xs delete" ng-show="editMode == 1 && curIndex == $index" ng-click="Cancel()" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                                </td>
+                                <td style="display:none;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.ProcesStadiu.ID}}</span>
+                                    <input class="form-control input-sm customInput" type="text" ng-model="model.CurProcesStadiu.ProcesStadiu.ID" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" />
+                                </td>
+                                <td style="width:26px;text-align:center;">
+                                    &nbsp;
+                                </td>
+                                <td style="width:160px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.Stadiu.DENUMIRE}}</span>
+                                    <select ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" name="selectStadiu" id="selectStadiu" class="form-control input-sm customInput" style="width:150px;" ng-model="model.CurProcesStadiu.ProcesStadiu.ID_STADIU">
+                                        <option ng-repeat="stadiu in model.Stadii" ng-value="stadiu.ID">{{stadiu.DENUMIRE}}</option>
+                                    </select>
+                                </td>
+                                <td style="width:120px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.ProcesStadiu.DATA}}</span>
+                                    <div class="input-group" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.DATA" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.ProcesStadiu.ORA}}</span>
+                                    <input class="form-control input-sm customInput" type="text" ng-model="model.CurProcesStadiu.ProcesStadiu.ORA" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" />
+                                </td>
+                                <td style="width:120px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.ProcesStadiu.SCADENTA}}</span>
+                                    <div class="input-group" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.SCADENTA" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.ProcesStadiu.TERMEN}}</span>
+                                    <div class="input-group" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.TERMEN" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.ProcesStadiu.TERMEN_ADMINISTRATIV}}</span>
+                                    <div class="input-group" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.TERMEN_ADMINISTRATIV" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td>
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.ProcesStadiu.OBSERVATII}}</span>
+                                    <textarea class="form-control input-sm customInput" ng-model="model.CurProcesStadiu.ProcesStadiu.OBSERVATII" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" />
+                                </td>
+                                <td style="width:30px;text-align:right;">
+                                    <a href="#" class="btn btn-default btn-xs" a-disabled="editMode > 0" ng-click="SwitchDocsPanel(item)" title="@socisaV2.Resources.ProceseStadiiResx.ADAUGA_DOCUMENTE_SCANATE"><span class="glyphicon glyphicon-briefcase"></span></a>
+                                </td>
+                                <!--
+                                <td style="width:70px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.Sentinta.NR_SENTINTA}}</span>
+                                    <div class="input-group" ng-show="CurStadiuIsSentinta">
+                                        <select ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" name="selectSentinta" id="selectSentinta" class="form-control input-sm customInput" ng-model="model.CurProcesStadiu.ProcesStadiu.ID_SENTINTA">
+                                            <option ng-repeat="sentinta in model.Sentinte" ng-value="sentinta.ID">{{sentinta.NR_SENTINTA}}</option>
+                                        </select>
+                                        <span class="input-group-addon customInputGroupAddOn" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" ng-click="OpenSentinteDialog()">...</span>
+                                    </div>
+                                </td>
+                                -->
+                            </tr>
+                            <tr style="margin-top:5px;" ng-show="(item.Stadiu.STADIU_CU_SENTINTA && !(model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index )) || (editMode != 0 && CurStadiuIsSentinta && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index)" style="margin-top:5px;">
+                                <th></th>
+                                <th style="display:none;"></th>
+                                <th></th>
+                                <th style="width:160px;">@socisaV2.Resources.SentinteResx.NR_SENTINTA</th>
+                                <th style="width:120px;">@socisaV2.Resources.SentinteResx.DATA_SENTINTA</th>
+                                <th style="width:120px;">@socisaV2.Resources.SentinteResx.DATA_COMUNICARE</th>
+                                <th colspan="5">@socisaV2.Resources.SentinteResx.SOLUTIE</th>
+                            </tr>
+                            <tr ng-show="(item.Stadiu.STADIU_CU_SENTINTA && !(model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index)) || (editMode != 0 && CurStadiuIsSentinta && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index)">
+                                <td></td>
+                                <td style="display:none;"></td>
+                                <td style="text-align:right;">
+                                    @if (Helpers.HasRight("stergere"))
+                                    {
+                                        <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.STERGERE_TITLE" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" ng-click="DeleteSentinta()"><span class="glyphicon glyphicon-trash"></span></a>
+                                    }
+                                </td>
+                                <td style="width:160px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.Sentinta.NR_SENTINTA}}</span>
+                                    <input class="form-control input-sm customInput" type="text" style="width:150px;" ng-model="model.CurProcesStadiu.Sentinta.NR_SENTINTA" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" />
+                                </td>
+                                <td style="width:120px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.Sentinta.DATA_SENTINTA}}</span>
+                                    <div class="input-group" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.Sentinta.DATA_SENTINTA" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.Sentinta.DATA_COMUNICARE}}</span>
+                                    <div class="input-group" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.Sentinta.DATA_COMUNICARE" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td colspan="5">
+                                    <span ng-show="editMode == 0 || curIndex != $index">{{item.Sentinta.SOLUTIE}}</span>
+                                    <input class="form-control input-sm customInput" type="text" style="max-width:100%;width:100%;" ng-model="model.CurProcesStadiu.Sentinta.SOLUTIE" ng-show="editMode == 1 && model.CurProcesStadiu.ProcesStadiu.ID == item.ProcesStadiu.ID && curIndex == $index" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                @if (Helpers.HasRight("adaugare"))
+                {
+                    <tr ng-show="editMode == 0">
+                        <td colspan="10">
+                            <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.ADAUGARE_TITLE" ng-click="AddMode()"><span class="glyphicon glyphicon-plus"></span></a>
+                        </td>
+                    </tr>
+                }
+                <tr ng-show="editMode == 2">
+                    <td colspan="10">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="text-align:center;vertical-align:middle;white-space:nowrap;width:55px;">
+                                    <a href="#" class="btn btn-default btn-xs save" ng-click="Save()" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE"><span class="glyphicon glyphicon-floppy-saved"></span></a>
+                                    <a href="#" class="btn btn-default btn-xs delete" ng-click="Cancel()" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                                </td>
+                                <td style="display:none;">
+                                    <input class="form-control input-sm customInput" type="hidden" ng-model="model.CurProcesStadiu.ProcesStadiu.ID" />
+                                </td>
+                                <td style="width:26px;text-align:center;">
+                                    &nbsp;
+                                </td>
+                                <td style="width:160px;">
+                                    <!--
+                                    <select name="selectNewStadiu" id="selectNewStadiu" class="form-control input-sm customInput" style="width:150px;" ng-model="model.CurProcesStadiu.ProcesStadiu.ID_STADIU">
+                                        <option ng-repeat="stadiu in model.Stadii" ng-value="stadiu.ID">{{stadiu.DENUMIRE}}</option>
+                                    </select>
+                                    -->
+                                    <select name="selectNewStadiu" id="selectNewStadiu" class="form-control input-sm customInput" style="width:150px;" ng-model="model.CurProcesStadiu.ProcesStadiu.ID_STADIU"
+                                            ng-options="stadiu.ID as stadiu.DENUMIRE group by stadiu.CATEGORIE for stadiu in model.Stadii">
+                                    </select>
+                                </td>
+                                <td style="width:120px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.DATA" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <input class="form-control input-sm customInput" type="text" style="width:65px;" ng-model="model.CurProcesStadiu.ProcesStadiu.ORA" />
+                                </td>
+                                <td style="width:120px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.SCADENTA" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.TERMEN" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.ProcesStadiu.TERMEN_ADMINISTRATIV" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td>
+                                    <input class="form-control input-sm customInput" type="text" style="max-width:100%;width:100%;" ng-model="model.CurProcesStadiu.ProcesStadiu.OBSERVATII" />
+                                </td>
+                                <td style="width:30px;text-align:right;">
+                                </td>
+                                <!--
+                                <td>
+                                    <div class="input-group" ng-show="CurStadiuIsSentinta">
+                                        <select name="selectSentinta" id="selectSentinta" class="form-control input-sm customInput" ng-model="model.CurProcesStadiu.ProcesStadiu.ID_SENTINTA">
+                                            <option ng-repeat="sentinta in model.Sentinte" ng-value="sentinta.ID">{{sentinta.NR_SENTINTA}}</option>
+                                        </select>
+                                        <span class="input-group-addon customInputGroupAddOn" ng-click="OpenSentinteDialog()">...</span>
+                                    </div>
+                                </td>
+                                -->
+                            </tr>
+                            <tr style="margin-top:5px;" ng-show="editMode != 0 && CurStadiuIsSentinta">
+                                <th></th>
+                                <th style="display:none;"></th>
+                                <th></th>
+                                <th style="width:160px;">@socisaV2.Resources.SentinteResx.NR_SENTINTA</th>
+                                <th style="width:120px;">@socisaV2.Resources.SentinteResx.DATA_SENTINTA</th>
+                                <th style="width:120px;">@socisaV2.Resources.SentinteResx.DATA_COMUNICARE</th>
+                                <th colspan="5">@socisaV2.Resources.SentinteResx.SOLUTIE</th>
+                            </tr>
+                            <tr ng-show="editMode != 0 && CurStadiuIsSentinta">
+                                <td></td>
+                                <td style="display:none;"></td>
+                                <td style="text-align:right;">
+                                    @if (Helpers.HasRight("stergere"))
+                                    {
+                                        <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.STERGERE_TITLE" a-disabled="editMode == 0" ng-click="DeleteSentinta()"><span class="glyphicon glyphicon-trash"></span></a>
+                                    }
+                                </td>
+                                <td style="width:160px;">
+                                    <input class="form-control input-sm customInput" type="text" style="width:150px;" ng-model="model.CurProcesStadiu.Sentinta.NR_SENTINTA" />
+                                </td>
+                                <td style="width:120px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.Sentinta.DATA_SENTINTA" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td style="width:120px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                        <input type="text" class="form-control input-sm customInput dateTimeInput" ng-model="model.CurProcesStadiu.Sentinta.DATA_COMUNICARE" jqdatepicker />
+                                    </div>
+                                </td>
+                                <td colspan="5">
+                                    <input class="form-control input-sm customInput" type="text" style="max-width:100%;width:100%;" ng-model="model.CurProcesStadiu.Sentinta.SOLUTIE" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

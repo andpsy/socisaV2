@@ -1,0 +1,1459 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5BC8D58C-E57F-4210-B3EE-0D2FB3A1D4A6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>socisaV2</RootNamespace>
+    <AssemblyName>socisaV2</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK, Version=2.3.55.2, Culture=neutral, PublicKeyToken=9f476d3089b52be3, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.2.3.55.2\lib\net45\AWSSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="ImranB.ModelBindingFix, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImranB.ModelBindingFix.1.1.0\lib\ImranB.ModelBindingFix.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.11\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OfficeOpenXml.Core.ExcelPackage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OfficeOpenXml.Core.ExcelPackage.1.0.0\lib\net46\OfficeOpenXml.Core.ExcelPackage.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.5.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xfinium.Pdf.Render.Win, Version=6.9.0.1, Culture=neutral, PublicKeyToken=148fa7b1dc392cc9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\xfinium\Redist\Xfinium.Pdf.Render.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Xfinium.Pdf.Win, Version=6.9.0.1, Culture=neutral, PublicKeyToken=3a083ecebc95eb1c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\xfinium\Redist\Xfinium.Pdf.Win.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.html" />
+    <Content Include="AppSettings.json" />
+    <Content Include="App_Code\ActionsTreeView.cshtml" />
+    <Content Include="App_Code\TreeView.cshtml" />
+    <Content Include="App_Data\socisa_empty.sql" />
+    <Content Include="bower_components\angular-chart.js\angular-chart.js" />
+    <Content Include="bower_components\angular-chart.js\dist\angular-chart.js" />
+    <Content Include="bower_components\angular-chart.js\dist\angular-chart.min.js" />
+    <Content Include="bower_components\angular-chart.js\gulpfile.js" />
+    <Content Include="bower_components\angular\angular-csp.css" />
+    <Content Include="bower_components\angular\angular.js" />
+    <Content Include="bower_components\angular\angular.min.js" />
+    <Content Include="bower_components\angular\index.js" />
+    <Content Include="bower_components\chart.js\dist\Chart.bundle.js" />
+    <Content Include="bower_components\chart.js\dist\Chart.bundle.min.js" />
+    <Content Include="bower_components\chart.js\dist\Chart.js" />
+    <Content Include="bower_components\chart.js\dist\Chart.min.js" />
+    <Content Include="bower_components\chart.js\docs\style.css" />
+    <Content Include="bower_components\chart.js\gulpfile.js" />
+    <Content Include="bower_components\chart.js\karma.conf.js" />
+    <Content Include="bower_components\chart.js\samples\advanced\data-labelling.html" />
+    <Content Include="bower_components\chart.js\samples\advanced\progress-bar.html" />
+    <Content Include="bower_components\chart.js\samples\charts\area\analyser.js" />
+    <Content Include="bower_components\chart.js\samples\charts\area\line-boundaries.html" />
+    <Content Include="bower_components\chart.js\samples\charts\area\line-datasets.html" />
+    <Content Include="bower_components\chart.js\samples\charts\area\line-stacked.html" />
+    <Content Include="bower_components\chart.js\samples\charts\area\radar.html" />
+    <Content Include="bower_components\chart.js\samples\charts\bar\horizontal.html" />
+    <Content Include="bower_components\chart.js\samples\charts\bar\multi-axis.html" />
+    <Content Include="bower_components\chart.js\samples\charts\bar\stacked-group.html" />
+    <Content Include="bower_components\chart.js\samples\charts\bar\stacked.html" />
+    <Content Include="bower_components\chart.js\samples\charts\bar\vertical.html" />
+    <Content Include="bower_components\chart.js\samples\charts\bubble.html" />
+    <Content Include="bower_components\chart.js\samples\charts\combo-bar-line.html" />
+    <Content Include="bower_components\chart.js\samples\charts\doughnut.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\basic.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\interpolation-modes.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\line-styles.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\multi-axis.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\point-sizes.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\point-styles.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\skip-points.html" />
+    <Content Include="bower_components\chart.js\samples\charts\line\stepped.html" />
+    <Content Include="bower_components\chart.js\samples\charts\pie.html" />
+    <Content Include="bower_components\chart.js\samples\charts\polar-area.html" />
+    <Content Include="bower_components\chart.js\samples\charts\radar-skip-points.html" />
+    <Content Include="bower_components\chart.js\samples\charts\radar.html" />
+    <Content Include="bower_components\chart.js\samples\charts\scatter\basic.html" />
+    <Content Include="bower_components\chart.js\samples\charts\scatter\multi-axis.html" />
+    <Content Include="bower_components\chart.js\samples\favicon.ico" />
+    <Content Include="bower_components\chart.js\samples\index.html" />
+    <Content Include="bower_components\chart.js\samples\legend\point-style.html" />
+    <Content Include="bower_components\chart.js\samples\legend\positioning.html" />
+    <Content Include="bower_components\chart.js\samples\logo.svg" />
+    <Content Include="bower_components\chart.js\samples\samples.js" />
+    <Content Include="bower_components\chart.js\samples\scales\filtering-labels.html" />
+    <Content Include="bower_components\chart.js\samples\scales\gridlines-display.html" />
+    <Content Include="bower_components\chart.js\samples\scales\gridlines-style.html" />
+    <Content Include="bower_components\chart.js\samples\scales\linear\min-max-suggested.html" />
+    <Content Include="bower_components\chart.js\samples\scales\linear\min-max.html" />
+    <Content Include="bower_components\chart.js\samples\scales\linear\step-size.html" />
+    <Content Include="bower_components\chart.js\samples\scales\logarithmic\line.html" />
+    <Content Include="bower_components\chart.js\samples\scales\logarithmic\scatter.html" />
+    <Content Include="bower_components\chart.js\samples\scales\multiline-labels.html" />
+    <Content Include="bower_components\chart.js\samples\scales\non-numeric-y.html" />
+    <Content Include="bower_components\chart.js\samples\scales\time\combo.html" />
+    <Content Include="bower_components\chart.js\samples\scales\time\financial.html" />
+    <Content Include="bower_components\chart.js\samples\scales\time\line-point-data.html" />
+    <Content Include="bower_components\chart.js\samples\scales\time\line.html" />
+    <Content Include="bower_components\chart.js\samples\scriptable\bubble.html" />
+    <Content Include="bower_components\chart.js\samples\style.css" />
+    <Content Include="bower_components\chart.js\samples\tooltips\border.html" />
+    <Content Include="bower_components\chart.js\samples\tooltips\callbacks.html" />
+    <Content Include="bower_components\chart.js\samples\tooltips\custom-line.html" />
+    <Content Include="bower_components\chart.js\samples\tooltips\custom-pie.html" />
+    <Content Include="bower_components\chart.js\samples\tooltips\custom-points.html" />
+    <Content Include="bower_components\chart.js\samples\tooltips\interactions.html" />
+    <Content Include="bower_components\chart.js\samples\tooltips\positioning.html" />
+    <Content Include="bower_components\chart.js\samples\utils.js" />
+    <Content Include="bower_components\chart.js\src\chart.js" />
+    <Content Include="bower_components\chart.js\src\charts\Chart.Bar.js" />
+    <Content Include="bower_components\chart.js\src\charts\Chart.Bubble.js" />
+    <Content Include="bower_components\chart.js\src\charts\Chart.Doughnut.js" />
+    <Content Include="bower_components\chart.js\src\charts\Chart.Line.js" />
+    <Content Include="bower_components\chart.js\src\charts\Chart.PolarArea.js" />
+    <Content Include="bower_components\chart.js\src\charts\Chart.Radar.js" />
+    <Content Include="bower_components\chart.js\src\charts\Chart.Scatter.js" />
+    <Content Include="bower_components\chart.js\src\controllers\controller.bar.js" />
+    <Content Include="bower_components\chart.js\src\controllers\controller.bubble.js" />
+    <Content Include="bower_components\chart.js\src\controllers\controller.doughnut.js" />
+    <Content Include="bower_components\chart.js\src\controllers\controller.line.js" />
+    <Content Include="bower_components\chart.js\src\controllers\controller.polarArea.js" />
+    <Content Include="bower_components\chart.js\src\controllers\controller.radar.js" />
+    <Content Include="bower_components\chart.js\src\controllers\controller.scatter.js" />
+    <Content Include="bower_components\chart.js\src\core\core.animation.js" />
+    <Content Include="bower_components\chart.js\src\core\core.controller.js" />
+    <Content Include="bower_components\chart.js\src\core\core.datasetController.js" />
+    <Content Include="bower_components\chart.js\src\core\core.defaults.js" />
+    <Content Include="bower_components\chart.js\src\core\core.element.js" />
+    <Content Include="bower_components\chart.js\src\core\core.helpers.js" />
+    <Content Include="bower_components\chart.js\src\core\core.interaction.js" />
+    <Content Include="bower_components\chart.js\src\core\core.js" />
+    <Content Include="bower_components\chart.js\src\core\core.layoutService.js" />
+    <Content Include="bower_components\chart.js\src\core\core.plugin.js" />
+    <Content Include="bower_components\chart.js\src\core\core.scale.js" />
+    <Content Include="bower_components\chart.js\src\core\core.scaleService.js" />
+    <Content Include="bower_components\chart.js\src\core\core.ticks.js" />
+    <Content Include="bower_components\chart.js\src\core\core.tooltip.js" />
+    <Content Include="bower_components\chart.js\src\elements\element.arc.js" />
+    <Content Include="bower_components\chart.js\src\elements\element.line.js" />
+    <Content Include="bower_components\chart.js\src\elements\element.point.js" />
+    <Content Include="bower_components\chart.js\src\elements\element.rectangle.js" />
+    <Content Include="bower_components\chart.js\src\elements\index.js" />
+    <Content Include="bower_components\chart.js\src\helpers\helpers.canvas.js" />
+    <Content Include="bower_components\chart.js\src\helpers\helpers.core.js" />
+    <Content Include="bower_components\chart.js\src\helpers\helpers.easing.js" />
+    <Content Include="bower_components\chart.js\src\helpers\helpers.options.js" />
+    <Content Include="bower_components\chart.js\src\helpers\index.js" />
+    <Content Include="bower_components\chart.js\src\platforms\platform.basic.js" />
+    <Content Include="bower_components\chart.js\src\platforms\platform.dom.js" />
+    <Content Include="bower_components\chart.js\src\platforms\platform.js" />
+    <Content Include="bower_components\chart.js\src\plugins\plugin.filler.js" />
+    <Content Include="bower_components\chart.js\src\plugins\plugin.legend.js" />
+    <Content Include="bower_components\chart.js\src\plugins\plugin.title.js" />
+    <Content Include="bower_components\chart.js\src\scales\scale.category.js" />
+    <Content Include="bower_components\chart.js\src\scales\scale.linear.js" />
+    <Content Include="bower_components\chart.js\src\scales\scale.linearbase.js" />
+    <Content Include="bower_components\chart.js\src\scales\scale.logarithmic.js" />
+    <Content Include="bower_components\chart.js\src\scales\scale.radialLinear.js" />
+    <Content Include="bower_components\chart.js\src\scales\scale.time.js" />
+    <Content Include="bower_components\chart.js\test\fixtures\core.scale\label-offset-vertical-axes.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-end-span.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-end.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-span.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-spline-span.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-spline.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-stepped-span.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-stepped.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-start-span.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-start.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset-span.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset-spline-span.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset-spline.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-radar-boundary-origin-spline.png" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-radar-boundary-origin.png" />
+    <Content Include="bower_components\chart.js\test\jasmine.context.js" />
+    <Content Include="bower_components\chart.js\test\jasmine.index.js" />
+    <Content Include="bower_components\chart.js\test\jasmine.matchers.js" />
+    <Content Include="bower_components\chart.js\test\jasmine.utils.js" />
+    <Content Include="bower_components\chart.js\test\specs\controller.bar.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\controller.bubble.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\controller.doughnut.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\controller.line.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\controller.polarArea.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\controller.radar.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.controller.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.datasetController.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.element.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.helpers.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.interaction.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.layoutService.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.plugin.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.scale.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.scaleService.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\core.tooltip.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\element.arc.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\element.line.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\element.point.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\element.rectangle.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\global.defaults.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\global.deprecations.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\helpers.canvas.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\helpers.core.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\helpers.easing.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\helpers.options.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\platform.dom.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\plugin.filler.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\plugin.legend.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\plugin.title.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\scale.category.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\scale.linear.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\scale.logarithmic.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\scale.radialLinear.tests.js" />
+    <Content Include="bower_components\chart.js\test\specs\scale.time.tests.js" />
+    <None Include="Connected Services\PortalWS\configuration91.svcinfo" />
+    <None Include="Connected Services\PortalWS\configuration.svcinfo" />
+    <None Include="Connected Services\PortalWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Contact.html" />
+    <Content Include="Content\arial.ttf" />
+    <Content Include="Content\arialblack.ttf" />
+    <Content Include="Content\arialbold.ttf" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="bower_components\angular-chart.js\.bower.json" />
+    <Content Include="bower_components\angular-chart.js\bower.json" />
+    <Content Include="bower_components\angular-chart.js\CONTRIBUTING.md" />
+    <Content Include="bower_components\angular-chart.js\dist\angular-chart.js.tar.gz" />
+    <Content Include="bower_components\angular-chart.js\dist\angular-chart.min.js.map" />
+    <Content Include="bower_components\angular-chart.js\Dockerfile" />
+    <Content Include="bower_components\angular-chart.js\ISSUE_TEMPLATE.md" />
+    <Content Include="bower_components\angular-chart.js\LICENSE" />
+    <Content Include="bower_components\angular-chart.js\package.json" />
+    <Content Include="bower_components\angular-chart.js\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="bower_components\angular-chart.js\README.md" />
+    <Content Include="bower_components\angular\.bower.json" />
+    <Content Include="bower_components\angular\angular.min.js.gzip" />
+    <Content Include="bower_components\angular\angular.min.js.map" />
+    <Content Include="bower_components\angular\bower.json" />
+    <Content Include="bower_components\angular\LICENSE.md" />
+    <Content Include="bower_components\angular\package.json" />
+    <Content Include="bower_components\angular\README.md" />
+    <Content Include="bower_components\chart.js\.bower.json" />
+    <Content Include="bower_components\chart.js\.editorconfig" />
+    <Content Include="bower_components\chart.js\.eslintignore" />
+    <Content Include="bower_components\chart.js\.eslintrc" />
+    <Content Include="bower_components\chart.js\book.json" />
+    <Content Include="bower_components\chart.js\bower.json" />
+    <Content Include="bower_components\chart.js\composer.json" />
+    <Content Include="bower_components\chart.js\docs\axes\cartesian\category.md" />
+    <Content Include="bower_components\chart.js\docs\axes\cartesian\linear.md" />
+    <Content Include="bower_components\chart.js\docs\axes\cartesian\logarithmic.md" />
+    <Content Include="bower_components\chart.js\docs\axes\cartesian\README.md" />
+    <Content Include="bower_components\chart.js\docs\axes\cartesian\time.md" />
+    <Content Include="bower_components\chart.js\docs\axes\labelling.md" />
+    <Content Include="bower_components\chart.js\docs\axes\radial\linear.md" />
+    <Content Include="bower_components\chart.js\docs\axes\radial\README.md" />
+    <Content Include="bower_components\chart.js\docs\axes\README.md" />
+    <Content Include="bower_components\chart.js\docs\axes\styling.md" />
+    <Content Include="bower_components\chart.js\docs\charts\area.md" />
+    <Content Include="bower_components\chart.js\docs\charts\bar.md" />
+    <Content Include="bower_components\chart.js\docs\charts\bubble.md" />
+    <Content Include="bower_components\chart.js\docs\charts\doughnut.md" />
+    <Content Include="bower_components\chart.js\docs\charts\line.md" />
+    <Content Include="bower_components\chart.js\docs\charts\mixed.md" />
+    <Content Include="bower_components\chart.js\docs\charts\polar.md" />
+    <Content Include="bower_components\chart.js\docs\charts\radar.md" />
+    <Content Include="bower_components\chart.js\docs\charts\README.md" />
+    <Content Include="bower_components\chart.js\docs\charts\scatter.md" />
+    <Content Include="bower_components\chart.js\docs\configuration\animations.md" />
+    <Content Include="bower_components\chart.js\docs\configuration\elements.md" />
+    <Content Include="bower_components\chart.js\docs\configuration\layout.md" />
+    <Content Include="bower_components\chart.js\docs\configuration\legend.md" />
+    <Content Include="bower_components\chart.js\docs\configuration\README.md" />
+    <Content Include="bower_components\chart.js\docs\configuration\title.md" />
+    <Content Include="bower_components\chart.js\docs\configuration\tooltip.md" />
+    <Content Include="bower_components\chart.js\docs\developers\api.md" />
+    <Content Include="bower_components\chart.js\docs\developers\axes.md" />
+    <Content Include="bower_components\chart.js\docs\developers\charts.md" />
+    <Content Include="bower_components\chart.js\docs\developers\contributing.md" />
+    <Content Include="bower_components\chart.js\docs\developers\plugins.md" />
+    <Content Include="bower_components\chart.js\docs\developers\README.md" />
+    <Content Include="bower_components\chart.js\docs\developers\updates.md" />
+    <Content Include="bower_components\chart.js\docs\general\colors.md" />
+    <Content Include="bower_components\chart.js\docs\general\device-pixel-ratio.md" />
+    <Content Include="bower_components\chart.js\docs\general\fonts.md" />
+    <Content Include="bower_components\chart.js\docs\general\interactions\events.md" />
+    <Content Include="bower_components\chart.js\docs\general\interactions\modes.md" />
+    <Content Include="bower_components\chart.js\docs\general\interactions\README.md" />
+    <Content Include="bower_components\chart.js\docs\general\options.md" />
+    <Content Include="bower_components\chart.js\docs\general\README.md" />
+    <Content Include="bower_components\chart.js\docs\general\responsive.md" />
+    <Content Include="bower_components\chart.js\docs\getting-started\installation.md" />
+    <Content Include="bower_components\chart.js\docs\getting-started\integration.md" />
+    <Content Include="bower_components\chart.js\docs\getting-started\README.md" />
+    <Content Include="bower_components\chart.js\docs\getting-started\usage.md" />
+    <Content Include="bower_components\chart.js\docs\notes\comparison.md" />
+    <Content Include="bower_components\chart.js\docs\notes\extensions.md" />
+    <Content Include="bower_components\chart.js\docs\notes\license.md" />
+    <Content Include="bower_components\chart.js\docs\notes\README.md" />
+    <Content Include="bower_components\chart.js\docs\README.md" />
+    <Content Include="bower_components\chart.js\docs\SUMMARY.md" />
+    <Content Include="bower_components\chart.js\LICENSE.md" />
+    <Content Include="bower_components\chart.js\MAINTAINING.md" />
+    <Content Include="bower_components\chart.js\package.json" />
+    <Content Include="bower_components\chart.js\README.md" />
+    <Content Include="bower_components\chart.js\test\.eslintrc" />
+    <Content Include="bower_components\chart.js\test\fixtures\core.scale\label-offset-vertical-axes.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-end-span.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-end.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-span.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-spline-span.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-spline.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-stepped-span.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin-stepped.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-origin.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-start-span.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-boundary-start.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset-span.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset-spline-span.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset-spline.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-line-dataset.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-radar-boundary-origin-spline.json" />
+    <Content Include="bower_components\chart.js\test\fixtures\plugin.filler\fill-radar-boundary-origin.json" />
+    <Content Include="COMPENSARI\Anexe_10_02_2018.pdf" />
+    <Content Include="COMPENSARI\PROCES_VERBAL_10_02_2018.pdf" />
+    <Content Include="COMPENSARI\Sinteza_10_02_2018.pdf" />
+    <None Include="Connected Services\PortalWS\Query.wsdl" />
+    <Content Include="Connected Services\PortalWS\socisaV2.PortalWS.CautareDosare2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\PortalWS\socisaV2.PortalWS.CautareDosareResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\PortalWS\socisaV2.PortalWS.CautareSedinteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\PortalWS\socisaV2.PortalWS.Dosar.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\PortalWS\socisaV2.PortalWS.HelloWorldResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\PortalWS\socisaV2.PortalWS.Sedinta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Content\fixed_table_header.less" />
+    <Content Include="Content\images\ro.png" />
+    <Content Include="Content\images\uk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\ngDialog-theme-default.css" />
+    <Content Include="Content\ngDialog-theme-default.min.css" />
+    <Content Include="Content\ngDialog-theme-plain.css" />
+    <Content Include="Content\ngDialog-theme-plain.min.css" />
+    <Content Include="Content\ngDialog.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\socisaV2.csproj.CoreCompileInputs.cache" />
+    <Content Include="App_Code\ActionsNavBar.cshtml" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\Controllers\CompensariController.js" />
+    <Content Include="Scripts\Controllers\ContracteController.js" />
+    <Content Include="Scripts\Controllers\DetailsUpdaterController.js" />
+    <Content Include="Scripts\Controllers\DocumenteScanateProceseController.js" />
+    <Content Include="Scripts\Controllers\DosareImportController.js" />
+    <Content Include="Scripts\Controllers\DosareIndexController.js" />
+    <Content Include="Scripts\Controllers\DosareNavigatorController.js" />
+    <Content Include="Scripts\Controllers\NotificariEmailController.js" />
+    <Content Include="Scripts\Controllers\DosarePortalController.js" />
+    <Content Include="Scripts\Controllers\HeaderController.js" />
+    <Content Include="Scripts\Controllers\ImportSedintePortalController.js" />
+    <Content Include="Scripts\Controllers\PlatiController.js" />
+    <Content Include="Scripts\Controllers\PlatiImportController.js" />
+    <Content Include="Scripts\Controllers\ProceseNavigatorController.js" />
+    <Content Include="Scripts\Controllers\ProceseStadiiController.js" />
+    <Content Include="Scripts\Controllers\RapoarteController.js" />
+    <Content Include="Scripts\Controllers\SentinteController.js" />
+    <Content Include="Scripts\Controllers\SocietatiAsigurareController.js" />
+    <Content Include="Scripts\Controllers\StadiiController.js" />
+    <Content Include="Scripts\Controllers\TestController.js" />
+    <Content Include="Scripts\html5shiv-printshiv.js" />
+    <Content Include="Scripts\html5shiv-printshiv.min.js" />
+    <Content Include="Scripts\html5shiv.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-idleTimeout.js" />
+    <Content Include="Scripts\jquery.fixedheadertable.js" />
+    <Content Include="Scripts\jquery.fixedheadertable.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.min.js" />
+    <Content Include="Scripts\spin.js" />
+    <Content Include="settings\template_email_cerere_despagubire.html" />
+    <Content Include="settings\template_email_cod_acces.html" />
+    <Content Include="settings\Validations.json" />
+    <Content Include="Views\Contracte\ContracteView.cshtml" />
+    <Content Include="Views\Dashboard\_DashboardMain.cshtml" />
+    <Content Include="Views\Dashboard\_DosareDashboardAdminAndSuper.cshtml" />
+    <Content Include="Views\Dashboard\_DosareDashboardRegular.cshtml" />
+    <Content Include="Views\DocumenteScanate\_DocumenteScanate.cshtml" />
+    <Content Include="Views\DocumenteScanate\_ViewStart.cshtml" />
+    <Content Include="Views\Dosare\DosareImport.cshtml" />
+    <Content Include="Views\Dosare\Index.cshtml" />
+    <Content Include="Views\Dosare\_DosareNavigator.cshtml" />
+    <Content Include="Views\Dosare\_ViewStart.cshtml" />
+    <Content Include="Views\FileManager\FileManagerView.cshtml" />
+    <EmbeddedResource Include="Resources\AsiguratiResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AsiguratiResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AsiguratiResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AsiguratiResx.ro.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="settings\PredefinedFilters.json" />
+    <Content Include="Views\Procese\ProceseView.cshtml" />
+    <Content Include="Views\Rapoarte\RapoarteView.cshtml" />
+    <Content Include="Views\Sentinte\SentinteView.cshtml" />
+    <Content Include="Views\DocumenteScanateProcese\_DocumenteScanateProcese.cshtml" />
+    <Content Include="Views\Compensari\Compensari.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\DosarePortal\SedintePortal.cshtml" />
+    <Content Include="Views\DosarePortal\_PartialImportSedintaPortal.cshtml" />
+    <None Include="Views\Home\About.cshtml" />
+    <None Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Mesaje\_MesajeView.cshtml" />
+    <Content Include="Views\Mesaje\_ViewStart.cshtml" />
+    <Content Include="Views\Plati\PlatiView.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Dashboard.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_PartialAsigurat.cshtml" />
+    <Content Include="Views\Shared\_PartialComplet.cshtml" />
+    <Content Include="Views\Shared\_PartialFooter.cshtml" />
+    <Content Include="Views\Shared\_PartialHeaderNavBar.cshtml" />
+    <Content Include="Views\Shared\_PartialInstanta.cshtml" />
+    <Content Include="Views\Shared\_PartialSocietateAsigurare.cshtml" />
+    <Content Include="Views\Shared\_PartialStadiu.cshtml" />
+    <Content Include="Views\Shared\_PartialTipProces.cshtml" />
+    <Content Include="Views\SocietatiAsigurare\SocietatiAsigurare.cshtml" />
+    <Content Include="Views\test.cshtml" />
+    <Content Include="Views\Utilizatori\Login.cshtml" />
+    <Content Include="Views\Utilizatori\SelectSocietate.cshtml" />
+    <Content Include="Views\Utilizatori\Utilizatori.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_ActionsMenuNavBar.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Shared\_PartialIntervenient.cshtml" />
+    <Content Include="Views\Shared\_PartialAuto.cshtml" />
+    <Content Include="Views\Plati\PlatiImport.cshtml" />
+    <Content Include="Views\Shared\_PartialProceseStadii.cshtml" />
+    <Content Include="Views\Utilizatori\TokenLogin.cshtml" />
+    <Content Include="Views\Test\Test.cshtml" />
+    <Content Include="Views\Rapoarte\Raport_termeneView.cshtml" />
+    <Content Include="Views\DosarePortal\_InfoDosarPortal.cshtml" />
+    <Content Include="Views\Shared\_PartialParte.cshtml" />
+    <Content Include="Views\NotificariEmail\NotificariEmail.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\ErrorMessages.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="BLL\ErrorLog.txt" />
+    <Content Include="BLL\ErrorMessages.xml" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min_init.css" />
+    <Content Include="Content\bootstrap_init.css" />
+    <Content Include="Content\calendar.gif" />
+    <Content Include="Content\citysky.jpg" />
+    <Content Include="Content\empty.jpg" />
+    <Content Include="Content\images\cancel.gif" />
+    <Content Include="Content\images\error.png" />
+    <Content Include="Content\images\ok.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\save.gif" />
+    <Content Include="Content\images\treeview\accent.png" />
+    <Content Include="Content\images\treeview\bullet.png" />
+    <Content Include="Content\images\treeview\heroAccent.png" />
+    <Content Include="Content\images\treeview\orderedList0.png" />
+    <Content Include="Content\images\treeview\orderedList1.png" />
+    <Content Include="Content\images\treeview\orderedList2.png" />
+    <Content Include="Content\images\treeview\orderedList3.png" />
+    <Content Include="Content\images\treeview\orderedList4.png" />
+    <Content Include="Content\images\treeview\orderedList5.png" />
+    <Content Include="Content\images\treeview\orderedList6.png" />
+    <Content Include="Content\images\treeview\orderedList7.png" />
+    <Content Include="Content\images\treeview\orderedList8.png" />
+    <Content Include="Content\images\treeview\orderedList9.png" />
+    <Content Include="Content\images\treeview\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\images\UnsupportedType_Custom.jpg" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
+    <Content Include="Content\loading2.gif" />
+    <Content Include="Content\logo-cabinet-white.png" />
+    <Content Include="Content\logo-white.png" />
+    <Content Include="Content\ngDialog.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="ErrorLog.txt" />
+    <Content Include="ErrorMessages.xml" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="logs\ErrorLog.txt" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controllers\DashboardController.js" />
+    <Content Include="Scripts\Controllers\DocumenteScanateController.js" />
+    <Content Include="Scripts\Controllers\DosareDashboardAdminAndSuperController.js" />
+    <Content Include="Scripts\Controllers\DosareDashboardRegularController.js" />
+    <Content Include="Scripts\Controllers\FileManagerController.js" />
+    <Content Include="Scripts\Controllers\MesajeController.js" />
+    <Content Include="Scripts\Controllers\UtilizatoriController.js" />
+    <Content Include="Scripts\FileAPI.flash.swf" />
+    <Content Include="Scripts\FileAPI.js" />
+    <Content Include="Scripts\FileAPI.min.js" />
+    <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ng-file-upload-all.js" />
+    <Content Include="Scripts\ng-file-upload-all.min.js" />
+    <Content Include="Scripts\ng-file-upload-shim.js" />
+    <Content Include="Scripts\ng-file-upload-shim.min.js" />
+    <Content Include="Scripts\ng-file-upload.js" />
+    <Content Include="Scripts\ng-file-upload.min.js" />
+    <Content Include="Scripts\ngDialog.js" />
+    <Content Include="Scripts\ngDialog.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SocisaApp.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="todo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BLL\CommonFunctions.cs" />
+    <Compile Include="BLL\DataAccess.cs" />
+    <Compile Include="BLL\ErrorParser.cs" />
+    <Compile Include="BLL\FilesManager\AcceptedFileExtensions.cs" />
+    <Compile Include="BLL\FilesManager\Emailing.cs" />
+    <Compile Include="BLL\FilesManager\FileManager.cs" />
+    <Compile Include="BLL\FilesManager\FlowChunk.cs" />
+    <Compile Include="BLL\FilesManager\FlowFile.cs" />
+    <Compile Include="BLL\FilesManager\FlowJsRepo.cs" />
+    <Compile Include="BLL\FilesManager\PdfGenerator.cs" />
+    <Compile Include="BLL\FilesManager\ThumbNails.cs" />
+    <Compile Include="BLL\Filtering.cs" />
+    <Compile Include="BLL\LogWriter.cs" />
+    <Compile Include="BLL\Models\Actions.cs" />
+    <Compile Include="BLL\Models\Asigurati.cs" />
+    <Compile Include="BLL\Models\Autos.cs" />
+    <Compile Include="BLL\Models\ClickCounts.cs" />
+    <Compile Include="BLL\Models\Compensare.cs" />
+    <Compile Include="BLL\Models\Compensari.cs" />
+    <Compile Include="BLL\Models\Contracte.cs" />
+    <Compile Include="BLL\Models\DocumenteScanate.cs" />
+    <Compile Include="BLL\Models\DocumenteScanateProcese.cs" />
+    <Compile Include="BLL\Models\Dosare.cs" />
+    <Compile Include="BLL\Models\DosareExtended.cs" />
+    <Compile Include="BLL\Models\IEmailNotificationsRepository.cs" />
+    <Compile Include="BLL\Models\ISedintePortalRepository.cs" />
+    <Compile Include="BLL\Models\ISentinteRepository.cs" />
+    <Compile Include="BLL\Models\SedintePortal.cs" />
+    <Compile Include="BLL\Models\DosareProcese.cs" />
+    <Compile Include="BLL\Models\IActionsRepository.cs" />
+    <Compile Include="BLL\Models\IAsiguratiRepository.cs" />
+    <Compile Include="BLL\Models\IAutoRepository.cs" />
+    <Compile Include="BLL\Models\ICompensariRepository.cs" />
+    <Compile Include="BLL\Models\IDocumenteScanateProceseRepository.cs" />
+    <Compile Include="BLL\Models\IDocumenteScanateRepository.cs" />
+    <Compile Include="BLL\Models\IPartiRepository.cs" />
+    <Compile Include="BLL\Models\IRapoarteRepository.cs" />
+    <Compile Include="BLL\Models\Parti.cs" />
+    <Compile Include="BLL\Models\PlatiExtended.cs" />
+    <Compile Include="BLL\Models\ProceseStadii.cs" />
+    <Compile Include="BLL\Models\Drepturi.cs" />
+    <Compile Include="BLL\Models\EmailNotifications.cs" />
+    <Compile Include="BLL\Models\GenericDbObject.cs" />
+    <Compile Include="BLL\Models\IContracteRepository.cs" />
+    <Compile Include="BLL\Models\IDosareProceseRepository.cs" />
+    <Compile Include="BLL\Models\IDosareRepository.cs" />
+    <Compile Include="BLL\Models\IProceseStadiiRepository.cs" />
+    <Compile Include="BLL\Models\IDrepturiRepository.cs" />
+    <Compile Include="BLL\Models\IIntervenientiRepository.cs" />
+    <Compile Include="BLL\Models\IMesajeRepository.cs" />
+    <Compile Include="BLL\Models\IMesajeUtilizatoriRepository.cs" />
+    <Compile Include="BLL\Models\INomenclatoareRepository.cs" />
+    <Compile Include="BLL\Models\Intervenienti.cs" />
+    <Compile Include="BLL\Models\IPlatiRepository.cs" />
+    <Compile Include="BLL\Models\IProceseRepository.cs" />
+    <Compile Include="BLL\Models\ISetariRepopsitory.cs" />
+    <Compile Include="BLL\Models\ISocietatiAsigurareRepository.cs" />
+    <Compile Include="BLL\Models\IStadiiRepository.cs" />
+    <Compile Include="BLL\Models\iTipDocumenteRepository.cs" />
+    <Compile Include="BLL\Models\IUtilizatoriActionsRepository.cs" />
+    <Compile Include="BLL\Models\IUtilizatoriDosareRepository.cs" />
+    <Compile Include="BLL\Models\IUtilizatoriDrepturiRepository.cs" />
+    <Compile Include="BLL\Models\IUtilizatoriRepository.cs" />
+    <Compile Include="BLL\Models\IUtilizatoriSetariRepository.cs" />
+    <Compile Include="BLL\Models\IUtilizatoriSocietatiAdministrateRepository.cs" />
+    <Compile Include="BLL\Models\Mesaje.cs" />
+    <Compile Include="BLL\Models\MesajeUtilizatori.cs" />
+    <Compile Include="BLL\Models\MesajExtended.cs" />
+    <Compile Include="BLL\Models\Nomenclatoare.cs" />
+    <Compile Include="BLL\Models\Plati.cs" />
+    <Compile Include="BLL\Models\Procese.cs" />
+    <Compile Include="BLL\Models\ProcesExtended.cs" />
+    <Compile Include="BLL\Models\ProcesStadiuExtended.cs" />
+    <Compile Include="BLL\Models\Sentinte.cs" />
+    <Compile Include="BLL\Models\Setari.cs" />
+    <Compile Include="BLL\Models\SocietatiAsigurare.cs" />
+    <Compile Include="BLL\Models\Stadii.cs" />
+    <Compile Include="BLL\Models\TipDocumente.cs" />
+    <Compile Include="BLL\Models\UtilizatorExtended.cs" />
+    <Compile Include="BLL\Models\Utilizatori.cs" />
+    <Compile Include="BLL\Models\UtilizatoriActions.cs" />
+    <Compile Include="BLL\Models\UtilizatoriDosare.cs" />
+    <Compile Include="BLL\Models\UtilizatoriDrepturi.cs" />
+    <Compile Include="BLL\Models\UtilizatoriSetari.cs" />
+    <Compile Include="BLL\Models\UtilizatoriSocietatiAdministrate.cs" />
+    <Compile Include="BLL\Validator.cs" />
+    <Compile Include="Connected Services\PortalWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="api\AWSController.cs" />
+    <Compile Include="Controllers\ActionsController.cs" />
+    <Compile Include="Controllers\AsiguratiController.cs" />
+    <Compile Include="Controllers\AutoController.cs" />
+    <Compile Include="Controllers\CompensariController.cs" />
+    <Compile Include="Controllers\CompleteController.cs" />
+    <Compile Include="Controllers\ContracteController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DocumenteScanateController.cs" />
+    <Compile Include="Controllers\DocumenteScanateProceseController.cs" />
+    <Compile Include="Controllers\DosareController.cs" />
+    <Compile Include="Controllers\NotificariEmailController.cs" />
+    <Compile Include="Controllers\DosarePortalController.cs" />
+    <Compile Include="Controllers\FileManagerController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstanteController.cs" />
+    <Compile Include="Controllers\IntervenientiController.cs" />
+    <Compile Include="Controllers\MesajeController.cs" />
+    <Compile Include="Controllers\PartiController.cs" />
+    <Compile Include="Controllers\PlatiController.cs" />
+    <Compile Include="Controllers\ProceseController.cs" />
+    <Compile Include="Controllers\ProceseStadiiController.cs" />
+    <Compile Include="Controllers\RapoarteController.cs" />
+    <Compile Include="Controllers\SentinteController.cs" />
+    <Compile Include="Controllers\SocietatiAsigurareController.cs" />
+    <Compile Include="Controllers\StadiiController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TipuriProceseController.cs" />
+    <Compile Include="Controllers\UtilizatoriActionsController.cs" />
+    <Compile Include="Controllers\UtilizatoriController.cs" />
+    <Compile Include="Controllers\UtilizatoriDosareController.cs" />
+    <Compile Include="Controllers\UtilizatoriDrepturiController.cs" />
+    <Compile Include="Controllers\UtilizatoriSocietatiAdministrateController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Models\Compensari\CompensariView.cs" />
+    <Compile Include="Models\Contracte\ContractView.cs" />
+    <Compile Include="Models\Dosare\DocumentView.cs" />
+    <Compile Include="Models\Dosare\ImportDosarView.cs" />
+    <Compile Include="Models\DosarePortal\DosarPortalView.cs" />
+    <Compile Include="Models\NotificariEmail\NotificariEmailView.cs" />
+    <Compile Include="Models\Procese\DocumentScanatProcesView.cs" />
+    <Compile Include="Models\Rapoarte\RaportTermeneView.cs" />
+    <Compile Include="Models\Rapoarte\RaportView.cs" />
+    <Compile Include="Models\Sentinte\SentintaView.cs" />
+    <Compile Include="Models\Dosare\DosarView.cs" />
+    <Compile Include="Models\Dosare\MesajView.cs" />
+    <Compile Include="Models\FileManager\FileManagerView.cs" />
+    <Compile Include="Models\Plati\ImportPlataView.cs" />
+    <Compile Include="Models\Plati\PlataView.cs" />
+    <Compile Include="Models\Procese\ProcesView.cs" />
+    <Compile Include="Models\Stadii\ProcesStadiuView.cs" />
+    <Compile Include="Models\Stadii\StadiuView.cs" />
+    <Compile Include="Models\Utilizatori\DashboardJson.cs" />
+    <Compile Include="Models\Utilizatori\LoginJson.cs" />
+    <Compile Include="Models\Utilizatori\UtilizatorView.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\AsiguratiResx.Designer.cs">
+      <DependentUpon>AsiguratiResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\AsiguratiResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AsiguratiResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\AutoResx.Designer.cs">
+      <DependentUpon>AutoResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\AutoResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AutoResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CompensariResx.Designer.cs">
+      <DependentUpon>CompensariResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\CompensariResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompensariResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ContracteResx.Designer.cs">
+      <DependentUpon>ContracteResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\ContracteResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContracteResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DashboardResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DashboardResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DashboardResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DashboardResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DocumenteResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocumenteResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DocumenteResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocumenteResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\NotificariEmailResx.ro.Designer.cs">
+      <DependentUpon>NotificariEmailResx.ro.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\SedintePortalResx.Designer.cs">
+      <DependentUpon>SedintePortalResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\SedintePortalResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SedintePortalResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DosareResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DosareResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DosareResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DosareResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ErrorMessagesResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessagesResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ErrorMessagesResx.ro1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessagesResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\GlobalResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\GlobalResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\IntervenientiResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IntervenientiResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\IntervenientiResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IntervenientiResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\LoginResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\LoginResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MenuResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MenuResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MenuResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MenuResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MesajeResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MesajeResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MesajeResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MesajeResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PlatiResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlatiResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PlatiResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlatiResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProceseResx.Designer.cs">
+      <DependentUpon>ProceseResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\ProceseResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProceseResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProceseStadiiResx.Designer.cs">
+      <DependentUpon>ProceseStadiiResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\ProceseStadiiResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProceseStadiiResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\NotificariEmailResx.Designer.cs">
+      <DependentUpon>NotificariEmailResx.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\SentinteResx.Designer.cs">
+      <DependentUpon>SentinteResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\SentinteResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SentinteResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\SocietatiAsigurareResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SocietatiAsigurareResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\SocietatiAsigurareResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SocietatiAsigurareResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\StadiiResx.Designer.cs">
+      <DependentUpon>StadiiResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\StadiiResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StadiiResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\TipDocumenteResx.Designer.cs">
+      <DependentUpon>TipDocumenteResx.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\TipDocumenteResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TipDocumenteResx.ro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UtilizatoriResx.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UtilizatoriResx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UtilizatoriResx.ro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UtilizatoriResx.ro.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="imports\" />
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="pdfs\" />
+    <Folder Include="scans\" />
+    <Folder Include="Temp\" />
+    <Folder Include="Views\Actions\" />
+    <Folder Include="Views\Asigurati\" />
+    <Folder Include="Views\AWS\" />
+    <Folder Include="Views\Stadii\" />
+    <Folder Include="Views\UtilizatoriActions\" />
+    <Folder Include="Views\UtilizatoriDosare\" />
+    <Folder Include="Views\UtilizatoriDrepturi\" />
+    <Folder Include="Views\UtilizatoriSocietatiAdministrate\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AutoResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AutoResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AutoResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AutoResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CompensariResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CompensariResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CompensariResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CompensariResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ContracteResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContracteResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ContracteResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContracteResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DashboardResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DashboardResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DashboardResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DashboardResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DocumenteResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DocumenteResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DocumenteResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DocumenteResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotificariEmailResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotificariEmailResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SedintePortalResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SedintePortalResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SedintePortalResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SedintePortalResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DosareResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DosareResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DosareResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DosareResx.ro.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ErrorMessagesResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessagesResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ErrorMessagesResx.ro.resx">
+      <LastGenOutput>ErrorMessagesResx.ro1.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GlobalResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GlobalResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\IntervenientiResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IntervenientiResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\IntervenientiResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IntervenientiResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LoginResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LoginResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MenuResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MenuResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MenuResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MenuResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MesajeResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MesajeResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MesajeResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MesajeResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PlatiResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PlatiResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PlatiResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PlatiResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProceseResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProceseResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProceseResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProceseResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProceseStadiiResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProceseStadiiResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProceseStadiiResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProceseStadiiResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotificariEmailResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotificariEmailResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SentinteResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SentinteResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SentinteResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SentinteResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SocietatiAsigurareResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SocietatiAsigurareResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SocietatiAsigurareResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SocietatiAsigurareResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\StadiiResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StadiiResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\StadiiResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StadiiResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TipDocumenteResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TipDocumenteResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TipDocumenteResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TipDocumenteResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UtilizatoriResx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UtilizatoriResx.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UtilizatoriResx.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UtilizatoriResx.ro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\PortalWS\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>14661</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:14661/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

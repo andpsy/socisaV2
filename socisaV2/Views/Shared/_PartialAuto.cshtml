@@ -1,0 +1,69 @@
+﻿@using socisaWeb.Helpers
+@model SOCISA.Models.Auto
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+    <div ng-controller="DetailsUpdaterController" ng-cloak>
+        <div ng-init="@String.Format("model = {0};", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))"></div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NR_AUTO, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NR_AUTO, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "true", data_ng_model = "model.NR_AUTO", data_ng_init = string.Format("model.NR_AUTO = '{0}'", Model.NR_AUTO) } })
+                    @Html.ValidationMessageFor(model => model.NR_AUTO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SERIE_SASIU, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.SERIE_SASIU, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.SERIE_SASIU", data_ng_init = string.Format("model.SERIE_SASIU = '{0}'", Model.SERIE_SASIU) } })
+                    @Html.ValidationMessageFor(model => model.SERIE_SASIU, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MARCA, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.MARCA, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.MARCA", data_ng_init = string.Format("model.MARCA = '{0}'", Model.MARCA) } })
+                    @Html.ValidationMessageFor(model => model.MARCA, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MODEL, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.MODEL, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.MODEL", data_ng_init = string.Format("model.MODEL = '{0}'", Model.MODEL) } })
+                    @Html.ValidationMessageFor(model => model.MODEL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DETALII, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DETALII, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.DETALII", data_ng_init = string.Format("model.DETALII = '{0}'", Model.DETALII) } })
+                    @Html.ValidationMessageFor(model => model.DETALII, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        @if ((Model.ID != null && Helpers.HasRight("modificare")) || (Model.ID == null && Helpers.HasRight("adaugare")))
+        {
+        <div class="row small" ng-if="editMode > 0">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <a href="#" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE" class="btn btn-default btn-sm" ng-click="Save()"><span class="glyphicon glyphicon-floppy-saved save"></span></a>
+                    <a href="#" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE" class="btn btn-default btn-sm" ng-click="Cancel()"><span class="glyphicon glyphicon-floppy-remove delete"></span></a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+}

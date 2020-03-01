@@ -1,0 +1,107 @@
+﻿@model socisaWeb.StadiuView
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <div class="panel" ng-init="@String.Format("model={0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))">
+        <div class="panel-body" style="max-height:500px;overflow-y:auto;">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th><a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.ADAUGARE_TITLE" a-disabled="editMode == 1" ng-click="EnterAddMode()"><span class="glyphicon glyphicon-plus"></span></a></th>
+                        <th>@socisaV2.Resources.StadiiResx.DENUMIRE</th>
+                        <th>@socisaV2.Resources.StadiiResx.PAS</th>
+                        <th>@socisaV2.Resources.StadiiResx.STADIU_INSTANTA</th>
+                        <th>@socisaV2.Resources.StadiiResx.STADIU_CU_TERMEN</th>
+                        <th>@socisaV2.Resources.StadiiResx.STADIU_CU_SENTINTA</th>
+                        <th>@socisaV2.Resources.StadiiResx.DETALII</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="stadiu in model.Stadii">
+                        <td style="width:70px;">
+                            <div style="width:100%;height:100%;" ng-show="stadiu.PARENT_ID != null">
+                                <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.EDITARE_TITLE" a-disabled="editMode == 1" ng-click="EnterEditMode(stadiu)"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.STERGERE_TITLE" a-disabled="editMode == 1" ng-click="EnterDeleteMode(stadiu, '@socisaV2.Resources.GlobalResx.CONFIRM_DELETE_MESSAGE')"><span class="glyphicon glyphicon-trash"></span></a>
+                            </div>
+                        </td>
+                        <td ng-style="stadiu.PARENT_ID == null ? {'font-weight':'bold'}:{'font-weight':'normal'}">{{stadiu.DENUMIRE}}</td>
+                        <td style="text-align:center;">{{stadiu.PAS}}</td>
+                        <td style="text-align:center;"><input type="checkbox" ng-model="stadiu.STADIU_INSTANTA"></td>
+                        <td style="text-align:center;"><input type="checkbox" ng-model="stadiu.STADIU_CU_TERMEN"></td>
+                        <td style="text-align:center;"><input type="checkbox" ng-model="stadiu.STADIU_CU_SENTINTA"></td>
+                        <td>{{stadiu.DETALII}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel" ng-show="editMode > 0" style="padding:10px;">
+        <div class="panel-body">
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.CurStadiu.ID)
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurStadiu.DENUMIRE, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurStadiu.DENUMIRE, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurStadiu.DENUMIRE" } })
+                            @Html.ValidationMessageFor(model => model.CurStadiu.DENUMIRE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurStadiu.PAS, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurStadiu.PAS, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurStadiu.PAS" } })
+                            @Html.ValidationMessageFor(model => model.CurStadiu.PAS, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurStadiu.STADIU_INSTANTA, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurStadiu.STADIU_INSTANTA, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurStadiu.STADIU_INSTANTA" } })
+                            @Html.ValidationMessageFor(model => model.CurStadiu.STADIU_INSTANTA, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurStadiu.STADIU_CU_TERMEN, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurStadiu.STADIU_CU_TERMEN, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurStadiu.STADIU_CU_TERMEN" } })
+                            @Html.ValidationMessageFor(model => model.CurStadiu.STADIU_CU_TERMEN, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurStadiu.STADIU_CU_SENTINTA, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurStadiu.STADIU_CU_SENTINTA, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurStadiu.STADIU_CU_SENTINTA" } })
+                            @Html.ValidationMessageFor(model => model.CurStadiu.STADIU_CU_SENTINTA, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <a href="#" class="btn btn-default btn-sm save" ng-click="SaveEdit()" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE"><span class="glyphicon glyphicon-floppy-saved dosareNavigatorButon"></span></a>
+                            <a href="#" class="btn btn-default btn-sm delete" ng-click="CancelEdit()" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE"><span class="glyphicon glyphicon-floppy-remove dosareNavigatorButon"></span></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurStadiu.DETALII, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurStadiu.DETALII, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurStadiu.DETALII" } })
+                            @Html.ValidationMessageFor(model => model.CurStadiu.DETALII, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

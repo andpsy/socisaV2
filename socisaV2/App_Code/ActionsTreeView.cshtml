@@ -1,0 +1,23 @@
+﻿@helper GetActionTreeView(SOCISA.Models.Action[] Actions, int? parentID)
+{
+    foreach (var i in Actions.Where(a => a.PARENT_ID.Equals(parentID)))
+    {
+        var submenu = Actions.Where(a => a.PARENT_ID.Equals(i.ID)).Count();
+        //string link = i.OBJECT_NAME == "" && i.ACTION == "" ? "#" : String.Format("/{0}/{1}", i.OBJECT_NAME, i.ACTION);
+        string link = "#";
+        string onclick = i.OBJECT_NAME == "" && i.ACTION == "" ? String.Format("onclick = toggleMenu('lnk_{0}')", i.ID) : "";
+        string ng_click = i.OBJECT_NAME == "" && i.ACTION == "" ? "" : String.Format("ng-click = ToggleDiv('{0}',{1},null,'get')", i.DIV_ID, true.ToString().ToLower());
+        <p>
+            <a href="@link" @onclick @ng_click><h5>@i.NAME </h5></a>
+        </p>
+        var id = i.ID == null ? "" : String.Format("lnk_{0}", i.ID);
+        var display = i.ID == null ? "block" : "none";
+
+        if (submenu > 0)
+        {
+            <div id="@id" style="padding-left:10px; display: @display">
+                @GetActionTreeView(Actions, Convert.ToInt32(i.ID))
+            </div>
+        }
+    }
+}

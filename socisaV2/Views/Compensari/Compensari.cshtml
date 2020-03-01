@@ -1,0 +1,39 @@
+﻿@model socisaWeb.CompensariView
+@{
+    ViewBag.Title = "Compensari";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div id="compensariMainDiv" class="inner_content">
+        <div class="btn-group" a-disabled="editMode == 1">
+            <button ng-show="HasHtml.indexOf('mainCompensariDashboard') > -1" type="button" class="btn btn-danger" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</button>    
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Istoric <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" data-ng-init="@String.Format("model.DateCompensari = {0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model.DateCompensari))">
+                    <li ng-repeat="data in model.DateCompensari"><a href="#" ng-click="GetCompensariFromLog(data)">{{data}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div ng-show="CurData != null">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th style="vertical-align:middle;text-align:right;width:150px;">@socisaV2.Resources.CompensariResx.PROCES_VERBAL</th>
+                    <td style="vertical-align:middle;"><button type="button" class="btn btn-primary btn-sm" ng-click="TiparirePdf(0)"><i class="fa fa-file-pdf-o"></i></button></td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;text-align:right;width:150px;">@socisaV2.Resources.CompensariResx.ANEXE_PROCES_VERBAL</th>
+                    <td style="vertical-align:middle;"><button type="button" class="btn btn-primary btn-sm" ng-click="TiparirePdf(1)"><i class="fa fa-file-pdf-o"></i></button></td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;text-align:right;width:150px;">@socisaV2.Resources.CompensariResx.SINTEZA_PROCES_VERBAL</th>
+                    <td style="vertical-align:middle;"><button type="button" class="btn btn-primary btn-sm" ng-click="TiparirePdf(2)"><i class="fa fa-file-pdf-o"></i></button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}

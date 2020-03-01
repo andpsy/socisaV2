@@ -1,0 +1,156 @@
+﻿@using socisaWeb.Helpers
+@model socisaWeb.DocumentView
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div id="DocumenteMain" class="row">
+        <div id="local-modal-background"></div>
+        <div id="AdditionalInfoDocumente" ng-show="model.TipuriDocumente[curDocumentIndex].TipDocument.DENUMIRE == 'FACTURA DE REPARATII'">@socisaV2.Resources.DosareResx.VALOARE_REGRES: {{VALOARE_REGRES}} lei</div>
+
+        <div class="col-sm-4" id="listaTipuriDocumente" data-ng-init="@String.Format("model.TipuriDocumente = {0}; model.TranslatedTipDocumenteNames = {1};", Newtonsoft.Json.JsonConvert.SerializeObject( Model.TipuriDocumente), Newtonsoft.Json.JsonConvert.SerializeObject( Model.TranslatedTipDocumenteNames))">
+            <div style="padding:5px;">
+                <ul class="list-group">
+                    <li ng-repeat="tipDoc in model.TipuriDocumente" id="{{tipDoc.TipDocument.ID}}" ng-class="curDocumentIndex == -1 || model.TipuriDocumente[curDocumentIndex].TipDocument.ID != tipDoc.TipDocument.ID ? 'list-group-item small' : 'list-group-item small active'" ng-click="showDocumentByIndex($index)" style="cursor:pointer;">
+                        <!--
+                        <span ng-if="showMandatory(tipDoc)" class="small" style="font-weight:bold;color:red;font-size:14px !important">!</span>&nbsp;{{tipDoc.TipDocument.DENUMIRE}}&nbsp;&nbsp;
+                        -->
+                        <span ng-if="showMandatory(tipDoc)" class="small" style="font-weight:bold;color:red;font-size:14px !important">!</span>&nbsp;{{GetTranslatedValue(tipDoc.TipDocument.DENUMIRE)}}&nbsp;&nbsp;
+                        <span style="font-size:12px !important" ng-if="!ExternalUser.Value">[<font style="color:green;">{{countDocs(tipDoc)[0]}}</font>/<font style="color:#E84A4A;">{{countDocs(tipDoc)[1]}}</font>]</span>
+                        <span ng-if="areDocumentAvizat(tipDoc.TipDocument.ID) > 0 && (countDocs(tipDoc)[0] > 0 || (countDocs(tipDoc)[0] <= 0 && !ExternalUser.Value))" class="glyphicon {{areDocumentAvizat(tipDoc.TipDocument.ID) == 2 ? 'glyphicon-check':'glyphicon-unchecked'}}" style="float:right;font-size:13px; color:{{areDocumentAvizat(tipDoc.TipDocument.ID) == 2 ? 'springgreen':'#E84A4A'}}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="panel" style="margin:5px;" ng-show="curDocumentIndex > -1 && (curDocumentSubIndex > -1 || !ExternalUser.Value)">
+                <table style="width:100%;" ng-show="model.CurDocumentScanat.VIZA_CASCO || (!model.CurDocumentScanat.VIZA_CASCO && !ExternalUser.Value)">
+                    <tr>
+                        <td style="text-align:center;vertical-align:middle;">
+                            <div style="min-height:350px;">
+                                <span ng-show="model.CurDocumentScanat.VIZA_CASCO" style="color:#8FB78D;">&#9745; @socisaV2.Resources.DocumenteResx.DOCUMENT_AVIZAT</span><br /><br />
+                                <a href="{{(ExternalUser.Value == true ? '../../' : '../') + 'scans/' + model.CurDocumentScanat.CALE_FISIER}}" target="_blank"><img id="curThumbId" ng-show="curThumb != null" ng-src="{{curThumb}}" width="250" height="350" style="cursor:pointer;"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">
+                            <!-- carusel -->
+                            <div id="thumbScroller">
+                                <div id="thumbScrollerContent" style="width:{{ (!ExternalUser.Value ? model.TipuriDocumente[curDocumentIndex].DocumenteScanate.length : (model.TipuriDocumente[curDocumentIndex].DocumenteScanate | filter:{'VIZA_CASCO':true}).length) * 137 }}px;">
+                                    <div id="thumbScrollerThumb" ng-show="!ExternalUser.Value || (ExternalUser.Value && documentScanat.VIZA_CASCO)" ng-class="documentScanat.ID == model.CurDocumentScanat.ID ? 'active' : ''" ng-repeat="documentScanat in model.TipuriDocumente[curDocumentIndex].DocumenteScanate">
+                                        <img id="thumbImg_{{documentScanat.ID}}" ng-src="{{getThumbnailFile(documentScanat.CALE_FISIER, documentScanat.EXTENSIE_FISIER)}}" ng-attr-title="{{documentScanat.DENUMIRE_FISIER}}" width="100" height="130" ng-click="SetCurDocument(documentScanat, $index)" style="cursor:pointer;border-radius: 5px" />
+                                        @if (Helpers.HasRight("avizare dosar"))
+                                        {
+                                            <input id="chk_{{documentScanat.ID}}" type="checkbox" class="checkOverImage" ng-attr-title="{{AVIZAT ? '@socisaV2.Resources.DocumenteResx.DOCUMENT_BLOCAT' : '@socisaV2.Resources.DocumenteResx.AVIZARE_TITLE'}}" a-disabled="AVIZAT" ng-model="documentScanat.VIZA_CASCO" ng-change="AvizareDocument(documentScanat)" />
+                                        }
+                                        <div ng-if="documentScanat.VIZA_CASCO" class="checkOverImageBadge" title="@socisaV2.Resources.DocumenteResx.DOCUMENT_AVIZAT">&#9745;</div>
+                                    </div>
+                                </div>
+                                <script>
+                                    (function () {
+                                        function scrollHorizontally(e) {
+                                            e = window.event || e;
+                                            var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                                            document.getElementById('thumbScroller').scrollLeft -= (delta * 40); // Multiplied by 40
+                                            e.preventDefault();
+                                        }
+                                        if (document.getElementById('thumbScroller').addEventListener) {
+                                            // IE9, Chrome, Safari, Opera
+                                            document.getElementById('thumbScroller').addEventListener("mousewheel", scrollHorizontally, false);
+                                            // Firefox
+                                            document.getElementById('thumbScroller').addEventListener("DOMMouseScroll", scrollHorizontally, false);
+                                        } else {
+                                            // IE 6/7/8
+                                            document.getElementById('thumbScroller').attachEvent("onmousewheel", scrollHorizontally);
+                                        }
+                                    })();
+                                </script>
+                            </div>
+                            @if (Helpers.HasRight("avizare dosar"))
+                            {
+                                <input type="checkbox" ng-attr-title="{{AVIZAT ? '@socisaV2.Resources.DocumenteResx.DOCUMENT_BLOCAT' : '@socisaV2.Resources.DocumenteResx.AVIZARE_ALL_TITLE'}}" a-disabled="AVIZAT" ng-model="toggle_all_docs" ng-change="toggleAllThumbs()" ng-show="model.TipuriDocumente[curDocumentIndex].DocumenteScanate.length > 1" />
+                            }
+                            <!-- end carusel -->
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="detaliiDocument" class="docsDetails">
+                    @Html.LabelFor(model => model.CurDocumentScanat.DETALII, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.CurDocumentScanat.DETALII, new { @class = "form-control input-sm", @style = "width:100%", data_ng_model = "model.CurDocumentScanat.DETALII" })
+                    @Html.ValidationMessageFor(model => model.CurDocumentScanat.DETALII, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID_DOSAR, new { data_ng_model = "ID_DOSAR" })
+                    @Html.HiddenFor(model => model.CurDocumentScanat.CALE_FISIER, new { data_ng_model = "model.CurDocumentScanat.CALE_FISIER" })
+                    @Html.HiddenFor(model => model.CurDocumentScanat.DATA_INCARCARE, new { data_ng_model = "model.CurDocumentScanat.DATA_INCARCARE" })
+                    @Html.HiddenFor(model => model.CurDocumentScanat.DENUMIRE_FISIER, new { data_ng_model = "model.CurDocumentScanat.CALE_FDENUMIRE_FISIERISIER" })
+                    @Html.HiddenFor(model => model.CurDocumentScanat.DIMENSIUNE_FISIER, new { data_ng_model = "model.CurDocumentScanat.DIMENSIUNE_FISIER" })
+                    @Html.HiddenFor(model => model.CurDocumentScanat.EXTENSIE_FISIER, new { data_ng_model = "model.CurDocumentScanat.EXTENSIE_FISIER" })
+                    @Html.HiddenFor(model => model.CurDocumentScanat.SMALL_ICON, new { data_ng_model = "model.CurDocumentScanat.SMALL_ICON" })
+                    <br />
+                    @Html.Label(socisaV2.Resources.GlobalResx.SALVEAZA, new { @class = "btn btn-default", data_ng_if = "calitateSocietateCurenta.Value == 'CASCO'", title = socisaV2.Resources.GlobalResx.SALVEAZA_TITLE, a_disabled = "model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null", ng_click = "SaveAndRefresh(null)" }).HasRight("editare")
+                    <!--
+                    <a href="#" ng-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null" class="btn btn-default" ng-click="SaveAndRefresh(null)">Salvare</a>
+                    -->
+                </div>
+
+                <div ng-if="calitateSocietateCurenta.Value == 'CASCO'" id="incarcareFisiere" class="docsDetails">
+                    <div class="btn btn-primary" ngf-accept="'image/jpeg,image/png,image/bmp,application/pdf'" ngf-max-size="'20MB'" ngf-select="uploadFiles($files)" multiple="multiple" ng-show="curDocumentIndex > -1">@socisaV2.Resources.DocumenteResx.INCARCA_FISIERE</div>
+                    <br />
+                    <div ngf-drop="uploadFiles($files)" class="drop-box"
+                         ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-accept="'image/jpeg,image/png,image/bmp,application/pdf'" ngf-max-size="'20MB'">@socisaV2.Resources.DocumenteResx.DRAG_AND_DROP</div>
+                    <div ngf-no-file-drop>@socisaV2.Resources.DocumenteResx.NO_DRAG_AND_DROP</div>
+                    <p>@socisaV2.Resources.DocumenteResx.FISIERE_PERMISE</p>
+                </div>
+                <!-- sub-meniu dreapta -->
+                <div class="docsRightMenu">
+                    <div class="btn-group-vertical">
+                        @if (Helpers.HasRight("adaugare"))
+                        {
+                            <!--
+                            <div class="docsRightMenuButton" ng-if="calitateSocietateCurenta.Value == 'CASCO'" title="Ataseaza document scanat la dosar" ng-click="toggleDivs('incarcareFisiere', null)">&#10010;</div>
+                            -->
+                            <button type="button" class="btn btn-danger" ng-if="calitateSocietateCurenta.Value == 'CASCO'" title="@socisaV2.Resources.DocumenteResx.ATASEAZA_TITLE" ng-click="toggleDivs('incarcareFisiere', null)"><span class="glyphicon glyphicon-plus"></span></button>
+                        }
+                        @if (Helpers.HasRight("vizualizare"))
+                        {
+                            <!--
+                            <div class="docsRightMenuButton" title="Adauga/Modifica detalii la documentul scanat" ng-click="toggleDivs('detaliiDocument', null)" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null">&#9997;</div>
+                            -->
+                            <button type="button" class="btn btn-danger" title="@socisaV2.Resources.DocumenteResx.DETALII_TITLE" ng-click="toggleDivs('detaliiDocument', null)" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null"><span class="glyphicon glyphicon-edit"></span></button>
+                        }
+                        <!-- doar pt. avizare indirecta cu bife -
+                        @if (Helpers.HasRight("avizare dosar"))
+                        {
+                            <div class="docsRightMenuButton" ng-style="!model.CurDocumentScanat.VIZA_CASCO ? {'background-color':'green'} : {'background-color':'red'}" ng-if="calitateSocietateCurenta.Value == 'CASCO'" ng-attr-title="{{!model.CurDocumentScanat.VIZA_CASCO ? 'Adauga documentele scanate selectate in dosar (Avizare)' : 'Exclude documentele scanate selectate din dosar (Anulare avizare)'}}" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null" ng-click="toggleDivs('null', null); AvizareDocumente(!model.CurDocumentScanat.VIZA_CASCO);">&#9989;</div>
+                        }
+                        -->
+                        @if (Helpers.HasRight("stergere"))
+                        {
+                            <!--
+                            <div class="docsRightMenuButton" ng-if="calitateSocietateCurenta.Value == 'CASCO'" title="Elimina documentul scanat selectate din dosar" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null || model.CurDocumentScanat.VIZA_CASCO || AVIZAT" ng-click="deleteDoc()">&#9851;</div>
+                            -->
+                            <button type="button" class="btn btn-danger" ng-if="calitateSocietateCurenta.Value == 'CASCO'" title="@socisaV2.Resources.DocumenteResx.STERGE_TITLE" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null || model.CurDocumentScanat.VIZA_CASCO || AVIZAT" ng-click="EnterDeleteDocMode(@String.Format("\"{0}\"", socisaV2.Resources.GlobalResx.CONFIRM_DELETE_MESSAGE))"><span class="glyphicon glyphicon-trash"></span></button>
+                        }
+                        @if (Helpers.HasRight("vizualizare"))
+                        {
+                            <!--
+                            <div class="docsRightMenuButton" title="Deschide documentul intr-o fereastra noua" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null" ng-click="vizualizareDoc()">&#10021;</div>
+                            -->
+                            <button type="button" class="btn btn-danger" title="@socisaV2.Resources.DocumenteResx.VIZUALIZARE_TITLE" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null" ng-click="vizualizareDoc()"><span class="glyphicon glyphicon-eye-open"></span></button>
+                        }
+                        @if (Helpers.HasRight("administrare"))
+                        {
+                            <button type="button" class="btn btn-danger" title="@socisaV2.Resources.DocumenteResx.MODIFICARE_TIP_TITLE" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null || model.CurDocumentScanat.VIZA_CASCO || AVIZAT" ng-click="changeDocType()"><span class="glyphicon glyphicon-random"></span></button>
+                        }
+                        @if (((SOCISA.Models.Nomenclator)Session["CURENT_USER_TYPE"]).DENUMIRE == "Administrator")
+                        {
+                            <button type="button" class="btn btn-danger" title="@socisaV2.Resources.DocumenteResx.REGENERARE_TITLE" a-disabled="model.CurDocumentScanat == null || model.CurDocumentScanat.ID == null" ng-click="regenerateFileFromDb()"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                        }
+                    </div>
+                </div>
+                <!-- end sub-meniu dreapta -->
+            </div>
+        </div>
+    </div>
+}

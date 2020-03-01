@@ -1,0 +1,108 @@
+﻿@using socisaWeb.Helpers
+@model SOCISA.Models.SocietateAsigurare
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+    <div ng-controller="DetailsUpdaterController" ng-cloak>
+        <div ng-init="@String.Format("model = {0};", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))"></div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DENUMIRE, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DENUMIRE, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "true", data_ng_model = "model.DENUMIRE", data_ng_init = string.Format("model.DENUMIRE = '{0}'", Model.DENUMIRE) } })
+                    @Html.ValidationMessageFor(model => model.DENUMIRE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DENUMIRE_SCURTA, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DENUMIRE_SCURTA, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "true", data_ng_model = "model.DENUMIRE_SCURTA", data_ng_init = string.Format("model.DENUMIRE_SCURTA = '{0}'", Model.DENUMIRE_SCURTA) } })
+                    @Html.ValidationMessageFor(model => model.DENUMIRE_SCURTA, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CUI, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CUI, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.CUI", data_ng_init = string.Format("model.CUI = '{0}'", Model.CUI) } })
+                    @Html.ValidationMessageFor(model => model.CUI, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NR_REG_COM, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NR_REG_COM, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.NR_REG_COM", data_ng_init = string.Format("model.NR_REG_COM = '{0}'", Model.NR_REG_COM) } })
+                    @Html.ValidationMessageFor(model => model.NR_REG_COM, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ADRESA, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.ADRESA, new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.ADRESA", data_ng_init = string.Format("model.ADRESA = '{0}'", Model.ADRESA) })
+                    @Html.ValidationMessageFor(model => model.ADRESA, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BANCA, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.BANCA, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.BANCA", data_ng_init = string.Format("model.BANCA = '{0}'", Model.BANCA) } })
+                    @Html.ValidationMessageFor(model => model.BANCA, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IBAN, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.IBAN", data_ng_init = string.Format("model.IBAN = '{0}'", Model.IBAN) } })
+                    @Html.ValidationMessageFor(model => model.IBAN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TELEFON, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.TELEFON, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.TELEFON", data_ng_init = string.Format("model.TELEFON = '{0}'", Model.TELEFON) } })
+                    @Html.ValidationMessageFor(model => model.TELEFON, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.EMAIL", data_ng_init = string.Format("model.EMAIL = '{0}'", Model.EMAIL) } })
+                    @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row small">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DETALII, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.DETALII, new { @class = "form-control input-sm customInput", a_disabled = "editMode != 1", data_ng_model = "model.DETALII", data_ng_init = string.Format("model.DETALII = '{0}'", Model.DETALII) })
+                    @Html.ValidationMessageFor(model => model.DETALII, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        @if ((Model.ID != null && Helpers.HasRight("modificare")) || (Model.ID == null && Helpers.HasRight("adaugare")))
+        {
+        <div class="row small" ng-if="editMode > 0">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <a href="#" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE" class="btn btn-default btn-sm" ng-click="Save()"><span class="glyphicon glyphicon-floppy-saved save"></span></a>
+                    <a href="#" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE" class="btn btn-default btn-sm" ng-click="Cancel()"><span class="glyphicon glyphicon-floppy-remove delete"></span></a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+}

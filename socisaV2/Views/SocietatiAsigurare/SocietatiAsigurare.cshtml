@@ -1,0 +1,286 @@
+﻿@using socisaWeb.Helpers
+@model SOCISA.Models.SocietateAsigurare[]
+@{
+    ViewBag.Title = socisaV2.Resources.SocietatiAsigurareResx.TITLE;
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="inner_content">
+        <div class="btn-group" a-disabled="editMode == 1">
+            <button ng-show="HasHtml.indexOf('mainSocietatiAsigurareDashboard') > -1" type="button" class="btn btn-danger" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</button>
+            <div class="input-group" style="padding-left: 5px;margin-top: 2px;">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                <input class="form-control input-sm" type="text" ng-model="generalQueryText.$">
+            </div>
+        </div>
+
+        <div ng-show="(result.Status == true || result.Status == false) && showMessage" ng-class="result.Status == false ? 'alert alert-danger' : 'alert alert-success'">
+            <button type="button" class="close" ng-click="showMessage = false">&times;</button>
+            <strong>{{result.Status ? 'Succes!' : 'Eroare!'}}</strong><br />
+            <p ng-repeat="s in result.Message.split(';')">
+                {{s}}
+            </p>
+        </div>
+
+        <div style="width:100%;overflow-x:auto;max-height:600px;overflow-y:scroll;">
+            @{
+                    string x = String.Format("model.SocietatiAsigurare = {0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+            }
+            <table id="societatiTable" class="table table-striped table-hover" ng-init="@x">
+                <thead>
+                    <tr>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th style="display:none;">
+                            <a href="#" ng-click="sortBy('ID')" a-disabled="editMode == 1">ID</a>
+                            <span class="sortorder" ng-show="propertyName === 'ID'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('DENUMIRE_SCURTA')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.DENUMIRE_SCURTA</a>
+                            <span class="sortorder" ng-show="propertyName === 'DENUMIRE_SCURTA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('DENUMIRE')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.DENUMIRE</a>
+                            <span class="sortorder" ng-show="propertyName === 'DENUMIRE'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('CUI')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.CUI</a>
+                            <span class="sortorder" ng-show="propertyName === 'CUI'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('NR_REG_COM')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.NR_REG_COM</a>
+                            <span class="sortorder" ng-show="propertyName === 'NR_REG_COM'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('ADRESA')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.ADRESA</a>
+                            <span class="sortorder" ng-show="propertyName === 'ADRESA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('BANCA')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.BANCA</a>
+                            <span class="sortorder" ng-show="propertyName === 'BANCA'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('IBAN')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.IBAN</a>
+                            <span class="sortorder" ng-show="propertyName === 'IBAN'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('TELEFON')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.TELEFON</a>
+                            <span class="sortorder" ng-show="propertyName === 'TELEFON'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('EMAIL')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.EMAIL</a>
+                            <span class="sortorder" ng-show="propertyName === 'EMAIL'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('EMAIL_CONFIRMAT')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.EMAIL_CONFIRMAT</a>
+                            <span class="sortorder" ng-show="propertyName === 'EMAIL_CONFIRMAT'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('EMAIL_NOTIFICARI')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.EMAIL_NOTIFICARI</a>
+                            <span class="sortorder" ng-show="propertyName === 'EMAIL_NOTIFICARI'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('EMAIL_NOTIFICARI_CONFIRMAT')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.EMAIL_NOTIFICARI_CONFIRMAT</a>
+                            <span class="sortorder" ng-show="propertyName === 'EMAIL_NOTIFICARI_CONFIRMAT'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th style="display:none;">
+                            <a href="#" ng-click="sortBy('ID_TEMPLATE_NOTIFICARI')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.ID_TEMPLATE_NOTIFICARI</a>
+                            <span class="sortorder" ng-show="propertyName === 'ID_TEMPLATE_NOTIFICARI'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('REPREZENTANT_FISCAL')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.REPREZENTANT_FISCAL</a>
+                            <span class="sortorder" ng-show="propertyName === 'REPREZENTANT_FISCAL'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortBy('DETALII')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.DETALII</a>
+                            <span class="sortorder" ng-show="propertyName === 'DETALII'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th style="display:none;">
+                            <a href="#" ng-click="sortBy('SOLD')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.SOLD</a>
+                            <span class="sortorder" ng-show="propertyName === 'SOLD'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th style="display:none;">
+                            <a href="#" ng-click="sortBy('DATA_ULTIMEI_PLATI')" a-disabled="editMode == 1">@socisaV2.Resources.SocietatiAsigurareResx.DATA_ULTIMEI_PLATI</a>
+                            <span class="sortorder" ng-show="propertyName === 'DATA_ULTIMEI_PLATI'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.ID"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="queryText.DENUMIRE_SCURTA"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="queryText.DENUMIRE"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:100px;" ng-model="queryText.CUI"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:100px;" ng-model="queryText.NR_REG_COM"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="queryText.ADRESA"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="queryText.BANCA"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="queryText.IBAN"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:100px;" ng-model="queryText.TELEFON"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="queryText.EMAIL"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="checkbox" style="width:40px;" ng-model="queryText.EMAIL_CONFIRMAT"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="queryText.EMAIL_NOTIFICARI"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="checkbox" style="width:40px;" ng-model="queryText.EMAIL_NOTIFICARI_CONFIRMAT"></td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.ID_TEMPLATE_NOTIFICARI"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="queryText.REPREZENTANT_FISCAL"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="queryText.DETALII"></td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.SOLD"></td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="queryText.DATA_ULTIMEI_PLATI"></td>
+                    </tr>
+                    <tr ng-repeat="item in societatiFiltrate = (model.SocietatiAsigurare | filter:queryText | filter:filterByColumns | filter:applyFilter) | orderBy:propertyName:reverse">
+                        <td style="text-align:center;vertical-align:middle;white-space:nowrap;">
+                            @{
+                                var ut = ((SOCISA.Models.Nomenclator)Session["CURENT_USER_TYPE"]).DENUMIRE;
+                                if (ut == "Administrator")
+                                {
+                                    <span a-disabled="editMode == 1" ng-show="editMode == 0 || curIndex != $index" class="glyphicon glyphicon-edit" style="font-size:16px; cursor:pointer;" ng-click="EditMode(item, $index)" title="@socisaV2.Resources.GlobalResx.EDITARE_TITLE"></span>
+                                    <span class="glyphicon glyphicon-floppy-saved save" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE" style="font-size:16px;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Save()" />
+                                    <span class="glyphicon glyphicon-floppy-remove delete" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE" style="font-size:16px;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Cancel()" />
+
+                                }
+                            }
+                        </td>
+                        <td style="display:none;">
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.ID}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.ID" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.DENUMIRE_SCURTA}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.DENUMIRE_SCURTA" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.DENUMIRE}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.DENUMIRE" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.CUI}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.CUI" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.NR_REG_COM}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.NR_REG_COM" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.ADRESA}}</span>
+                            <textarea class="form-control input-sm customInput" ng-model="curSocietate.ADRESA" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.BANCA}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.BANCA" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.IBAN}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.IBAN" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.TELEFON}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.TELEFON" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.EMAIL}}</span>
+                            <input class="form-control input-sm customInput" type="email" name="email_{{$index}}" ng-blur="checkHostName($event)" ng-model="curSocietate.EMAIL" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                            <div role="alert">
+                                <span class="error" ng-show="setRequiredError('required', 'email_' + $index)">
+                                    Required!
+                                </span>
+                                <span class="error" ng-show="setRequiredError('email', 'email_' + $index)">
+                                    Not valid email!
+                                </span>
+                                <span class="error" ng-show="setRequiredError('invalidHost', 'email_' + $index)">
+                                    Host name couldn't be validated!
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <input class="form-control input-sm customInput" type="checkbox" ng-model="item.EMAIL_CONFIRMAT" ng-disabled="!item.EMAIL" ng-show="editMode == 0  || curIndex != $index" ng-change="confirmEmail(item)" />
+                            <input class="form-control input-sm customInput" type="checkbox" ng-model="curSocietate.EMAIL_CONFIRMAT" ng-disabled="!item.EMAIL" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.EMAIL_NOTIFICARI}}</span>
+                            <input class="form-control input-sm customInput" type="email" name="emailNotificari_{{$index}}" ng-model="curSocietate.EMAIL_NOTIFICARI" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                            <div role="alert">
+                                <span class="error" ng-show="setRequiredError('required', 'emailNotificari_' + $index)">
+                                    Required!
+                                </span>
+                                <span class="error" ng-show="setRequiredError('email', 'emailNotificari_' + $index)">
+                                    Not valid email!
+                                </span>
+                                <span class="error" ng-show="setRequiredError('invalidHost', 'emailNotificari_' + $index)">
+                                    Host name couldn't be validated!
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <input class="form-control input-sm customInput" type="checkbox" ng-model="item.EMAIL_NOTIFICARI_CONFIRMAT" ng-disabled="!item.EMAIL_NOTIFICARI" ng-show="editMode == 0  || curIndex != $index" ng-change="confirmEmail(item)" />
+                            <input class="form-control input-sm customInput" type="checkbox" ng-model="curSocietate.EMAIL_NOTIFICARI_CONFIRMAT" ng-disabled="!item.EMAIL_NOTIFICARI" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td style="display:none;">
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.ID_TEMPLATE_NOTIFICARI}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.ID_TEMPLATE_NOTIFICARI" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.REPREZENTANT_FISCAL}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.REPREZENTANT_FISCAL" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td>
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.DETALII}}</span>
+                            <textarea class="form-control input-sm customInput" ng-model="curSocietate.DETALII" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td style="display:none;">
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.SOLD}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.SOLD" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                        <td style="display:none;">
+                            <span ng-show="editMode == 0 || curIndex != $index">{{item.DATA_ULTIMEI_PLATI}}</span>
+                            <input class="form-control input-sm customInput" type="text" ng-model="curSocietate.DATA_ULTIMEI_PLATI" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr ng-show="editMode == 0">
+                        <td colspan="19">
+                            @if (ut == "Administrator") // Helpers.HasRight("adaugare")
+                            {
+                                <a href="#" ng-click="AddMode()" title="@socisaV2.Resources.GlobalResx.ADAUGARE_TITLE"><span class="glyphicon glyphicon-plus"></span></a>
+                            }
+                        </td>
+                    </tr>
+                    <tr ng-show="editMode == 2">
+                        <td>
+                            <span class="glyphicon glyphicon-floppy-saved save" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE" style="font-size:16px;cursor:pointer;" ng-click="Save()" />
+                            <span class="glyphicon glyphicon-floppy-remove delete" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE" style="font-size:16px;cursor:pointer;" ng-click="Cancel()" />
+                        </td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="curSocietate.ID"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="curSocietate.DENUMIRE_SCURTA"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="curSocietate.DENUMIRE"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:100px;" ng-model="curSocietate.CUI"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:100px;" ng-model="curSocietate.NR_REG_COM"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="curSocietate.ADRESA"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="curSocietate.BANCA"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="curSocietate.IBAN"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:100px;" ng-model="curSocietate.TELEFON"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="curSocietate.EMAIL"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="checkbox" style="width:40px;" ng-model="curSocietate.EMAIL_CONFIRMAT"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="curSocietate.EMAIL_NOTIFICARI"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="checkbox" style="width:40px;" ng-model="curSocietate.EMAIL_NOTIFICARI_CONFIRMAT"></td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="curSocietate.ID_TEMPLATE_NOTIFICARI"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:120px;" ng-model="curSocietate.REPREZENTANT_FISCAL"></td>
+                        <td style="white-space:nowrap;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" style="width:180px;" ng-model="curSocietate.DETALII"></td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="curSocietate.SOLD"></td>
+                        <td style="display:none;"><input a-disabled="editMode == 1" class="form-control input-sm customInput" type="text" ng-model="curSocietate.DATA_ULTIMEI_PLATI"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script>
+        /*
+        $(document).ready(function () {
+            $('#societatiTable').fixedHeaderTable({ footer: false, cloneHeadToFoot: false, fixedColumn: false, themeClass: 'table table-striped table-hover' });
+        });
+        */
+    </script>
+}

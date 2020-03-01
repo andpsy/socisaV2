@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ACHITAT" xml:space="preserve">
+    <value>PAID</value>
+  </data>
+  <data name="ACHITAT_PARTIAL" xml:space="preserve">
+    <value>PARTIALLY PAID</value>
+  </data>
+  <data name="ACTIUNE_BADGE" xml:space="preserve">
+    <value>EXPIRED</value>
+  </data>
+  <data name="AVIZARE" xml:space="preserve">
+    <value>CASCO Acceptance</value>
+  </data>
+  <data name="AVIZAT" xml:space="preserve">
+    <value>ACCEPTED</value>
+  </data>
+  <data name="AVIZAT_BADGE" xml:space="preserve">
+    <value>ACCEPTED</value>
+  </data>
+  <data name="CANCEL_ACTIVE_FILTERS_TITLE" xml:space="preserve">
+    <value>Cancel active filters</value>
+  </data>
+  <data name="CAZ" xml:space="preserve">
+    <value>Amiable Assesment No.</value>
+  </data>
+  <data name="COMPENSAT" xml:space="preserve">
+    <value>COMPENSATED</value>
+  </data>
+  <data name="COMPENSAT_BADGE" xml:space="preserve">
+    <value>COMPENSATED</value>
+  </data>
+  <data name="COMPENSAT_PARTIAL" xml:space="preserve">
+    <value>PARTIALY COMPENSATED</value>
+  </data>
+  <data name="COMPENSAT_PARTIAL_BADGE" xml:space="preserve">
+    <value>PARTIALY COMPENSATED</value>
+  </data>
+  <data name="DATA_AVIZARE" xml:space="preserve">
+    <value>Acceptance Date</value>
+  </data>
+  <data name="DATA_AVIZARE_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_AVIZARE_START" xml:space="preserve">
+    <value>Acceptance Date</value>
+  </data>
+  <data name="DATA_CREARE" xml:space="preserve">
+    <value>Creation Date</value>
+  </data>
+  <data name="DATA_CREARE_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_CREARE_START" xml:space="preserve">
+    <value>Creation Date</value>
+  </data>
+  <data name="DATA_DE_LA" xml:space="preserve">
+    <value>from:</value>
+  </data>
+  <data name="DATA_EVENIMENT" xml:space="preserve">
+    <value>Event Date</value>
+  </data>
+  <data name="DATA_EVENIMENT_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_EVENIMENT_START" xml:space="preserve">
+    <value>Event Date</value>
+  </data>
+  <data name="DATA_IESIRE_CASCO" xml:space="preserve">
+    <value>CASCO exit date</value>
+  </data>
+  <data name="DATA_IESIRE_CASCO_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_IESIRE_CASCO_START" xml:space="preserve">
+    <value>CASCO exit date</value>
+  </data>
+  <data name="DATA_INTRARE_RCA" xml:space="preserve">
+    <value>RCA in date</value>
+  </data>
+  <data name="DATA_INTRARE_RCA_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_INTRARE_RCA_START" xml:space="preserve">
+    <value>RCA in date</value>
+  </data>
+  <data name="DATA_NOTIFICARE" xml:space="preserve">
+    <value>Notification Date</value>
+  </data>
+  <data name="DATA_NOTIFICARE_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_NOTIFICARE_START" xml:space="preserve">
+    <value>Notification Date</value>
+  </data>
+  <data name="DATA_SCA" xml:space="preserve">
+    <value>SCA date</value>
+  </data>
+  <data name="DATA_SCA_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_SCA_START" xml:space="preserve">
+    <value>SCA Date</value>
+  </data>
+  <data name="DATA_ULTIMEI_MODIFICARI" xml:space="preserve">
+    <value>Last modification date</value>
+  </data>
+  <data name="DATA_ULTIMEI_MODIFICARI_END" xml:space="preserve">
+    <value>to:</value>
+  </data>
+  <data name="DATA_ULTIMEI_MODIFICARI_START" xml:space="preserve">
+    <value>Last modification date</value>
+  </data>
+  <data name="DETALII_DOSAR" xml:space="preserve">
+    <value>FILE DETAILS</value>
+  </data>
+  <data name="DETALII_DOSAR_DAUNA_TITLE" xml:space="preserve">
+    <value>Details about the loss file</value>
+  </data>
+  <data name="DOCUMENTE" xml:space="preserve">
+    <value>DOCUMENTS</value>
+  </data>
+  <data name="DOCUMENTE_DOSAR_DAUNA_TITLE" xml:space="preserve">
+    <value>Scanned documents attached to the loss file</value>
+  </data>
+  <data name="DOSAR_FARA_DOCUMENTE" xml:space="preserve">
+    <value>File without scanned documents</value>
+  </data>
+  <data name="DOSAR_FARA_PROCES" xml:space="preserve">
+    <value>File without law suit</value>
+  </data>
+  <data name="FIRST_DOSAR" xml:space="preserve">
+    <value>|&lt;</value>
+  </data>
+  <data name="FIRST_DOSAR_TITLE" xml:space="preserve">
+    <value>Navigate to first file</value>
+  </data>
+  <data name="ID_ASIGURAT_CASCO" xml:space="preserve">
+    <value>Loss insured party (CASCO)</value>
+  </data>
+  <data name="ID_ASIGURAT_RCA" xml:space="preserve">
+    <value>Guilty insured party (RCA)</value>
+  </data>
+  <data name="ID_AUTO_CASCO" xml:space="preserve">
+    <value>Loss insured car plate no. (CASCO)</value>
+  </data>
+  <data name="ID_AUTO_RCA" xml:space="preserve">
+    <value>Guilty party car plate no. (RCA)</value>
+  </data>
+  <data name="ID_INTERVENIENT" xml:space="preserve">
+    <value>Guilty driver name (Intervener)</value>
+  </data>
+  <data name="ID_SOCIETATE_CASCO" xml:space="preserve">
+    <value>Loss insurer company (CASCO)</value>
+  </data>
+  <data name="ID_SOCIETATE_RCA" xml:space="preserve">
+    <value>Guilty insurer company (RCA)</value>
+  </data>
+  <data name="ID_TIP_DOSAR" xml:space="preserve">
+    <value>File Type</value>
+  </data>
+  <data name="INCOMPLET" xml:space="preserve">
+    <value>INCOMPLETE</value>
+  </data>
+  <data name="INCOMPLET_BADGE" xml:space="preserve">
+    <value>INCOMPLETE</value>
+  </data>
+  <data name="INSTANTA" xml:space="preserve">
+    <value>File with law suit</value>
+  </data>
+  <data name="LAST_DOSAR" xml:space="preserve">
+    <value>&gt;|</value>
+  </data>
+  <data name="LAST_DOSAR_TITLE" xml:space="preserve">
+    <value>Navigate to last file</value>
+  </data>
+  <data name="LISTA_DOSARE" xml:space="preserve">
+    <value>Loss files list</value>
+  </data>
+  <data name="LISTA_DOSARE_TITLE" xml:space="preserve">
+    <value>Show found files list</value>
+  </data>
+  <data name="LOC_ACCIDENT" xml:space="preserve">
+    <value>Loss place</value>
+  </data>
+  <data name="MESAJE" xml:space="preserve">
+    <value>MESSAGES</value>
+  </data>
+  <data name="MESAJE_DOSAR_DAUNA_TITLE" xml:space="preserve">
+    <value>Messages related to the loss file</value>
+  </data>
+  <data name="NEACHITAT" xml:space="preserve">
+    <value>NOT PAID</value>
+  </data>
+  <data name="NEAVIZAT" xml:space="preserve">
+    <value>TO BE ACCEPTED</value>
+  </data>
+  <data name="NEAVIZAT_BADGE" xml:space="preserve">
+    <value>TO BE ACCEPTED</value>
+  </data>
+  <data name="NECOMPENSAT" xml:space="preserve">
+    <value>NOT COMPENSATED</value>
+  </data>
+  <data name="NECOMPENSAT_BADGE" xml:space="preserve">
+    <value>NOT COMPENSATED</value>
+  </data>
+  <data name="NEXT_DOSAR" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="NEXT_DOSAR_TITLE" xml:space="preserve">
+    <value>Navigate to next file</value>
+  </data>
+  <data name="NR_DOSAR_CASCO" xml:space="preserve">
+    <value>CASCO file no.</value>
+  </data>
+  <data name="NR_IESIRE_CASCO" xml:space="preserve">
+    <value>CASCO exit no.</value>
+  </data>
+  <data name="NR_INTRARE_RCA" xml:space="preserve">
+    <value>RCA in no.</value>
+  </data>
+  <data name="NR_POLITA_CASCO" xml:space="preserve">
+    <value>Loss party policy no. (CASCO)</value>
+  </data>
+  <data name="NR_POLITA_RCA" xml:space="preserve">
+    <value>Guilty party policy no. (RCA)</value>
+  </data>
+  <data name="NR_SCA" xml:space="preserve">
+    <value>SCA no.</value>
+  </data>
+  <data name="NU_SUNT_DOSARE_FILTRATE" xml:space="preserve">
+    <value>There are no filtered files</value>
+  </data>
+  <data name="OBSERVATII" xml:space="preserve">
+    <value>Observations</value>
+  </data>
+  <data name="OPTIUNI" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="PAGUBIT_CASCO" xml:space="preserve">
+    <value>Loss party (CASCO)</value>
+  </data>
+  <data name="PLATI" xml:space="preserve">
+    <value>PAYMENTS</value>
+  </data>
+  <data name="PLATI_DOSAR_DAUNA_TITLE" xml:space="preserve">
+    <value>Payments attached to the loss file</value>
+  </data>
+  <data name="PREV_DOSAR" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="PREV_DOSAR_TITLE" xml:space="preserve">
+    <value>Navigate to previous file</value>
+  </data>
+  <data name="PROCESE" xml:space="preserve">
+    <value>ACTIONS</value>
+  </data>
+  <data name="PROCESE_DOSAR_DAUNA_TITLE" xml:space="preserve">
+    <value>Law suits attached to the loss file</value>
+  </data>
+  <data name="RESEND_EMAIL_CONFIRMATION_MESSAGE" xml:space="preserve">
+    <value>The request has been sent before! Are you sure you want to send it again?!</value>
+  </data>
+  <data name="REZERVA_DAUNA" xml:space="preserve">
+    <value>Loss Reserve</value>
+  </data>
+  <data name="SEARCH_TITLE" xml:space="preserve">
+    <value>Search/Filter</value>
+  </data>
+  <data name="SHOW_TITLE" xml:space="preserve">
+    <value>Back to navigation</value>
+  </data>
+  <data name="STADII" xml:space="preserve">
+    <value>Stages</value>
+  </data>
+  <data name="STADII_DOSAR_DAUNA_TITLE" xml:space="preserve">
+    <value>Loss file stages</value>
+  </data>
+  <data name="STATUS" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SUMA_IBNR" xml:space="preserve">
+    <value>IBNR Value</value>
+  </data>
+  <data name="TITLE" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="UTILIZATORI" xml:space="preserve">
+    <value>USERS</value>
+  </data>
+  <data name="UTILIZATORI_DOSAR_DAUNA_TITLE" xml:space="preserve">
+    <value>Users assigned to the loss file</value>
+  </data>
+  <data name="UTILIZATORI_TITLE" xml:space="preserve">
+    <value>Assign current file to users</value>
+  </data>
+  <data name="VALOARE_DAUNA" xml:space="preserve">
+    <value>Loss Value</value>
+  </data>
+  <data name="VALOARE_REGRES" xml:space="preserve">
+    <value>Regress Value</value>
+  </data>
+  <data name="VINOVAT_RCA" xml:space="preserve">
+    <value>Guilty party (RCA)</value>
+  </data>
+  <data name="VMD" xml:space="preserve">
+    <value>VMD</value>
+  </data>
+  <data name="_LABEL_DESCARCARE_DOCUMENTE" xml:space="preserve">
+    <value>Download documents</value>
+  </data>
+  <data name="_LABEL_DESCARCARE_DOCUMENTE_CERERE_GRUPATE" xml:space="preserve">
+    <value>Download grouped documents</value>
+  </data>
+  <data name="_LABEL_DESCARCARE_DOCUMENTE_CERERE_GRUPATE_TITLE" xml:space="preserve">
+    <value>Download request documents, grouped by document type</value>
+  </data>
+  <data name="_LABEL_DESCARCARE_DOCUMENTE_CERERE_NEGRUPATE" xml:space="preserve">
+    <value>Download ungrouped documents</value>
+  </data>
+  <data name="_LABEL_DESCARCARE_DOCUMENTE_CERERE_NEGRUPATE_TITLE" xml:space="preserve">
+    <value>Download request documents, ungrouped</value>
+  </data>
+  <data name="_LABEL_EMAIL_CERERE" xml:space="preserve">
+    <value>Email request</value>
+  </data>
+  <data name="_LABEL_EMAIL_CERERE_TITLE" xml:space="preserve">
+    <value>Send email with simple request</value>
+  </data>
+  <data name="_LABEL_EXPORT_BORDEROU_IN_EXCEL" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="_LABEL_EXPORT_DOSARE_IN_EXCEL" xml:space="preserve">
+    <value>Export files to Excel</value>
+  </data>
+  <data name="_LABEL_EXPORT_DOSARE_IN_EXCEL_TITLE" xml:space="preserve">
+    <value>Export files to Excel</value>
+  </data>
+  <data name="_LABEL_EXPORT_EXCEL" xml:space="preserve">
+    <value>Export Files to Excel</value>
+  </data>
+  <data name="_LABEL_TIPARIRE" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="_LABEL_TIPARIRE_CERERE_COMPLETA" xml:space="preserve">
+    <value>Print complete request</value>
+  </data>
+  <data name="_LABEL_TIPARIRE_CERERE_COMPLETA_TITLE" xml:space="preserve">
+    <value>Print complete request, including associated documents</value>
+  </data>
+  <data name="_LABEL_TIPARIRE_CERERE_FARA_DOCUMENTE" xml:space="preserve">
+    <value>Print request without documents</value>
+  </data>
+  <data name="_LABEL_TIPARIRE_CERERE_FARA_DOCUMENTE_TITLE" xml:space="preserve">
+    <value>Print simple request, without associated documents</value>
+  </data>
+  <data name="_LABEL_TIPARIRE_DOCUMENTE_CERERE" xml:space="preserve">
+    <value>Print request documents</value>
+  </data>
+  <data name="_LABEL_TIPARIRE_DOCUMENTE_CERERE_TITLE" xml:space="preserve">
+    <value>Print only the documnets associated to the request</value>
+  </data>
+</root>

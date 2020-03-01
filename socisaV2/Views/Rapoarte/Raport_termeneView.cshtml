@@ -1,0 +1,86 @@
+﻿@model socisaWeb.RaportTermeneView
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div ng-init="@String.Format("model.SocietatiAsigurare={0};",
+        Newtonsoft.Json.JsonConvert.SerializeObject(Model.SocietatiAsigurare, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT })
+        )">
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default" style="width:100%;">
+                <div class="panel-heading">
+                    <span>Raport termene</span>
+                </div>
+                <div class="panel-body">
+                    @{
+                        var ut = ((SOCISA.Models.Nomenclator)Session["CURENT_USER_TYPE"]).DENUMIRE;
+                    }
+                    @{ 
+                        if (ut == "Administrator")
+                        {
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div style="height:150px;overflow-y:auto;">
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <th>
+                                                    <input type="checkbox" id="checkAllSocietati" ng-model="checkAllSocietati" ng-click="toggleAllSocietati()" />
+                                                </th>
+                                                <th>
+                                                    TOATE SOCIETATILE
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="societate in model.SocietatiAsigurare">
+                                                <td>
+                                                    <input type="checkbox" id="checkboxSocietate_{{societate.ID}}" />
+                                                </td>
+                                                <td>
+                                                    {{societate.DENUMIRE}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="control-label">Data inceput:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                <input type="text" class="form-control input-sm customInput dateTimeInput" readonly ng-model="FilterObject._TERMEN_START" jqdatepicker />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="control-label">Data sfarsit:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                <input type="text" class="form-control input-sm customInput dateTimeInput" readonly ng-model="FilterObject._TERMEN_END" jqdatepicker />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12" style="text-align:center;">
+                            <div class="btn-toolbar">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-default btn-sm" title="@socisaV2.Resources.GlobalResx.GENERARE_PDF" a-disabled="true">
+                                        <i class="fa fa-file-pdf-o" style="font-size:16px;"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-default btn-sm" title="@socisaV2.Resources.GlobalResx.GENERARE_EXCEL" ng-click="RaportExcel('Raport termene')">
+                                        <i class="fa fa-file-excel-o" style="font-size:16px;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

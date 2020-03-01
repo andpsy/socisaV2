@@ -1,0 +1,31 @@
+﻿@using socisaWeb.Helpers
+@model socisaWeb.DocumentScanatProcesView
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div ng-controller="DocumenteScanateProceseController">
+        <div id="DocumenteScanateProceseMain" class="row" ng-init="@String.Format("model={0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))">
+            <div class="col-sm-12" style="height:250px;overflow-y:auto;">
+                <table id="documenteScanateProceseTable" class="table table-striped table-hover">
+                    <tr ng-repeat="documentScanatProcesExtended in model.Documente">
+                        <td style="text-align:right;">
+                            <img id="thumbImg_{{documentScanatProcesExtended.DocumentScanatProces.ID}}"
+                                 ng-src="{{getThumbnailFile(documentScanatProcesExtended.DocumentScanatProces.CALE_FISIER, documentScanatProcesExtended.DocumentScanatProces.EXTENSIE_FISIER)}}"
+                                 ng-attr-title="{{documentScanatProcesExtended.DocumentScanatProces.DENUMIRE_FISIER}}" width="100" height="130" style="cursor:pointer;border-radius: 5px"
+                                 ng-click="vizualizareDoc(documentScanatProcesExtended)" />
+                        </td>
+                        <td style="vertical-align:middle;">
+                            <span>@socisaV2.Resources.DocumenteResx.DENUMIRE_FISIER: </span><span>{{documentScanatProcesExtended.DocumentScanatProces.DENUMIRE_FISIER}}</span><br />
+                            <span>@socisaV2.Resources.DocumenteResx.TIP_DOCUMENT: </span><span>{{documentScanatProcesExtended.DocumentScanatProces.TIP_DOCUMENT}}</span> <br />
+                            <span>@socisaV2.Resources.DocumenteResx.ASOCIAT_STADIULUI: </span><span>{{documentScanatProcesExtended.DENUMIRE_STADIU}}</span> <br />
+                            @if (Helpers.HasRight("stergere"))
+                            {
+                                <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.STERGERE_TITLE" a-disabled="editMode != 0 || $parent.editMode != 0" ng-click="EnterDocumwntScanatProcesDeleteMode(documentScanatProcesExtended, '@socisaV2.Resources.GlobalResx.CONFIRM_DELETE_MESSAGE')"><span class="glyphicon glyphicon-trash"></span></a>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,99 @@
+﻿@using socisaWeb.Helpers
+@model socisaWeb.SentintaView
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <div class="panel" ng-init="@String.Format("model={0}", Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.Converters.IsoDateTimeConverter() { DateTimeFormat = SOCISA.CommonFunctions.DATE_FORMAT }))">
+        <div class="panel-body">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            @if (Helpers.HasRight("adaugare"))
+                            {
+                            <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.ADAUGARE_TITLE" a-disabled="editMode == 1" ng-click="EnterAddMode()"><span class="glyphicon glyphicon-plus"></span></a>
+                            }
+                        </th>
+                        <th>@socisaV2.Resources.SentinteResx.NR_SENTINTA</th>
+                        <th>@socisaV2.Resources.SentinteResx.DATA_SENTINTA</th>
+                        <th>@socisaV2.Resources.SentinteResx.DATA_COMUNICARE</th>
+                        <th>@socisaV2.Resources.SentinteResx.SOLUTIE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="sentinta in model.Sentinte">
+                        <td>
+                            @if (Helpers.HasRight("modificare"))
+                            {
+                    <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.EDITARE_TITLE" a-disabled="editMode == 1" ng-click="EnterEditMode(sentinta)"><span class="glyphicon glyphicon-edit"></span></a>
+                            }
+                            @if (Helpers.HasRight("stergere"))
+                            {
+                    <a href="#" class="btn btn-default btn-xs" title="@socisaV2.Resources.GlobalResx.STERGERE_TITLE" a-disabled="editMode == 1" ng-click="EnterDeleteMode(sentinta, '@socisaV2.Resources.GlobalResx.CONFIRM_DELETE_MESSAGE')"><span class="glyphicon glyphicon-trash"></span></a>
+                            }
+                        </td>
+                        <td>{{sentinta.NR_SENTINTA}}</td>
+                        <td>{{sentinta.DATA_SENTINTA}}</td>
+                        <td>{{sentinta.DATA_COMUNICARE}}</td>
+                        <td>{{sentinta.SOLUTIE}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel" ng-show="editMode > 0" style="padding:10px;">
+        <div class="panel-body">
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.CurSentinta.ID)
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurSentinta.NR_SENTINTA, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurSentinta.NR_SENTINTA, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurSentinta.NR_SENTINTA" } })
+                            @Html.ValidationMessageFor(model => model.CurSentinta.NR_SENTINTA, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurSentinta.DATA_SENTINTA, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                @Html.TextBoxFor(model => model.CurSentinta.DATA_SENTINTA, new { @class = "form-control input-sm customInput dateTimeInput", @readonly = "readonly", data_ng_model = "model.CurSentinta.DATA_SENTINTA", jqdatepicker = "" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.CurSentinta.DATA_SENTINTA, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurSentinta.DATA_COMUNICARE, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <span class="input-group-addon customInputGroupAddOn"><img src="~/Content/calendar.gif" /></span>
+                                @Html.TextBoxFor(model => model.CurSentinta.DATA_COMUNICARE, new { @class = "form-control input-sm customInput dateTimeInput", @readonly = "readonly", data_ng_model = "model.CurSentinta.DATA_COMUNICARE", jqdatepicker = "" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.CurSentinta.DATA_COMUNICARE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurSentinta.SOLUTIE, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CurSentinta.SOLUTIE, new { htmlAttributes = new { @class = "form-control input-sm customInput", data_ng_model = "model.CurSentinta.SOLUTIE" } })
+                            @Html.ValidationMessageFor(model => model.CurSentinta.SOLUTIE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a href="#" class="btn btn-default save" ng-click="SaveEdit()" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE"><span class="glyphicon glyphicon-floppy-saved dosareNavigatorButon"></span></a>
+                            <a href="#" class="btn btn-default delete" ng-click="CancelEdit()" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE"><span class="glyphicon glyphicon-floppy-remove dosareNavigatorButon"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

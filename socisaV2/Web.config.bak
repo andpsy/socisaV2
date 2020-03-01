@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="webpages:Version" value="3.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+    <add key="AllianzWSUser" value="8pq/b9DGFPitPEwN5JsyIJaJGl5IdwaX44CGo7OdkY9vqB0UYOkwpmiwDqN39E1ms18msda9womHgIlS86CVC21VjPIgSRpowsUUDm+2RynHoa9YiYJsZqsAVTa5hb2b" />
+    <add key="AllianzWSPassword" value="LkyOc3OFRTqm9QNFGvcUUgBxpXPV4DQp/bl1DzghMiUqR7Mz65tUJay83aO1Qu6vXUKG+A0fzxcRv+CGMEQe5eAa1eHFJe7dh1ZEV7FfhCeaC1eWWvQlTtXJ5rXJIoNL" />
+    
+    <add key="AwsNotificariUser" value="C9hECzDtPmpcimomX+FJ2pmhpCgO4IulRGssIPpG557FbFwjsQJnWJsboeJuaiikLSttBH+6pwJ/pAKyNv4SqnM34tWyUWqHEXanG4wm672ckbaTZYJ5xFeM+Y4FxDkmbeUCLTYazY+hLHw6kV/O9bh5Pu5/WaL3I5eDLPGQU/A=" />
+    <add key="AwsCereriUser" value="M5/aEcDef0d3lEZ6gTp2gd1wLgVeHJUbltUhZbGm2330zw22sEAlpL7o56Qs30Kh+PYc7ugyGJCxOHdMIp/+SojMphD0XFuYaVQ2QsI4mvLQVlJvs4nId79o6iqsLY0l" />
+    
+    <add key="AwsSESServer" value="5YrD/N5AVCn4LX7pJgtFmVR+k1F6Td9T89/L8iHLEbliXLWoD19/UTNtKad215McWFNg6HKzfiOXu7lMplka/4PPHNDnTNwlIrwdBhOkTWkutxy7XOFG4JjYO+6nsVRW4wQerpo/jMaKKNARFfQChp6QsBPcOmqf99hBxt/pOxA=" />
+    <add key="AwsSESUser" value="qAJoTvaA1o5fv7LrB7XxIEqUbo8FF0LSpC+VH5cVoUdNbKMjLgYmUw8Vfwi9ExvW49+qH3wyeuaixfNcBu3+XPBqPFuIZv0dg1f8hppWtR+AodB1TatveNTseD4V5GMg" />
+    <add key="AwsSESPassword" value="qBJ5F6h8Yh4EH1UJ9q7s36DY/y3PI9xK4R01KusIhFRf28HoAGArrGHTt2BPhXDo0gSCWX1TBuVrRUmzq3A7iZTZ5EtMPczRe7n/tA+8fcOS92WM76JP/5+46zEGkIIpLDRN3owlroM8teDKFTS9b7Ug2SVZHkcG8qdD0QiFB7U=" />
+    <add key="AwsSESPort" value="587" />
+
+    <add key="ChiricUser" value="JUWovON2NR64b87+nD9U1qU1nYup+XM56OAsuDVgamuv3L6MFWdKc3yR9cA9UsY9EcxgzIB9K/3MGIwgjTT8L77FZvd68lIyOP7oHNY3iN/PZqNHPWbCYudSAaoDpkjA" />
+    <add key="ChiricPassword" value="3VfEuHsPjTPg5AHoBpyFphkztmWQt05Hz8wU1sl3Y0bUtQ9C575pBUrAoypyH+dHmnQLIw+jxcUWdjypCJT1Zz021r+CuXXCbjjoriPKEO/jCqK0hVcfi6tNDFQ9t9eu" />
+    <add key="ChiricServer" value="eEoZ59jpCQyd+k59pk03RoXMQt8SLZ5N22ixtTaZoV2Y3cVrrlccpw9qGCVMhXKscoz+aYvhFgzdoluejrZOLs4Q33dTE/1BQFltPhtBLwMZnsCSzkOCe2atnBTO8rUI" />
+    
+    <add key="AwsIncomingUseSSL" value="true" />
+    <add key="AwsOutgoingUseSSL" value="true" />
+  </appSettings>
+  <connectionStrings>
+    <add name="MySQLConnectionString" connectionString="sIySpqxQ258fs/we7gHYfIWJwLDUUFBXuR27+OPxkt1TFq4HOFm+s0GaEBKgZSOodBXp19ZI7u1q+miyY/y5jGuJ4+DhTePGhnzbzfNEt6s3PvRueVUjcNMfdVoc0kCgdn6rli/f2oy700B9J+4UAmfRgKX1RaSgMyRMWrdX1hDQSp0bJHhxhpwsQezOofiEGbMJe6VY0g18HI/4lGH8SLEPc3fmu9s6aDxoTgbOgb9XP5KRdBjCO26FJd3xDHOY13buJDLdrLcdSxpQht9kOL81B2n3jq5VoVDKZAwtamc=" />
+    <add name="MySQLConnectionString_test" connectionString="GV0DyphtZAbJAhg6FXSlIjejYHkRUGKY4vN1/z6StqNBRkDARFROizVA3ZxhLOgjRjneNkng8ezh0jJjz0LU2dEogossjUPQ4Uc6VaDL4ExKgYweLtdu2qbao2NmrrfBQrc5E0H7FEsHmDVwkEbnESvGUjm3hK2WnO8dQKOCfy1spa76ck33/TYTAyx2A7/SNlEerSnJNGoAxnfX3hly+F494AvaQBeWxrjyQJQheti6x7SG+Fr3PUK16WVGc1yNUn9bGUy4XoE2aR/Buxkv1A6QbnkRa19V+jnWBGSDsCA=" />
+  </connectionStrings>
+  <!--
+    For a description of web.config changes see http://go.microsoft.com/fwlink/?LinkId=235367.
+
+    The following attributes can be set on the <httpRuntime> tag.
+      <system.Web>
+        <httpRuntime targetFramework="4.6" />
+      </system.Web>
+  -->
+  <system.web>
+    <compilation debug="true" targetFramework="4.6.1" />
+    <httpRuntime targetFramework="4.5.1" maxRequestLength="20480" relaxedUrlToFileSystemMapping="true" />
+    
+    <securityPolicy>
+      <trustLevel name="Full" policyFile="internal" />
+    </securityPolicy>
+    
+    <authentication mode="Forms">
+      <forms loginUrl="/Utilizatori/Login" protection="All" cookieless="UseCookies" timeout="60" slidingExpiration="true" />
+    </authentication>
+    <sessionState timeout="120" />
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Optimization" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages" />
+      </namespaces>
+    </pages>
+    <httpHandlers>
+      <add path="*.less" verb="GET" type="dotless.Core.LessCssHttpHandler, dotless.Core" />
+    </httpHandlers>
+  </system.web>
+  <system.webServer>
+    <security>
+      <requestFiltering>
+        <requestLimits maxAllowedContentLength="20971520" />
+      </requestFiltering>
+    </security>
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <remove name="OPTIONSVerbHandler" />
+      <remove name="TRACEVerbHandler" />
+    </handlers>
+  </system.webServer>
+  <system.web.extensions>
+    <scripting>
+      <webServices>
+        <jsonSerialization maxJsonLength="2147483644" recursionLimit="1000" />
+      </webServices>
+    </scripting>
+  </system.web.extensions>
+  
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Google.Protobuf" publicKeyToken="a7d26565bac4d604" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.4.1.0" newVersion="3.4.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="MySql.Data" publicKeyToken="c5687fc88969c44d" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.8.0" newVersion="8.0.8.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.6.5135.21930" newVersion="1.6.5135.21930" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Antlr3.Runtime" publicKeyToken="eb42632606e9261f" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.1.0" newVersion="4.0.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Net.Http" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.1.2" newVersion="4.1.1.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="dotless.Core" publicKeyToken="96b446c9e63eae34" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.5.3.0" newVersion="1.5.3.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+    </compilers>
+  </system.codedom>
+  <system.data>
+    <DbProviderFactories>
+      <remove invariant="MySql.Data.MySqlClient" />
+      <add name="MySQL Data Provider" invariant="MySql.Data.MySqlClient" description=".Net Framework Data Provider for MySQL" type="MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=8.0.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+    </DbProviderFactories>
+  </system.data>
+</configuration>

@@ -1,0 +1,59 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController" >
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-header">
+                <a href="@Url.Action("Index", "Home")" title="@socisaV2.Resources.DashboardResx.TITLE">
+                    <img alt="@socisaV2.Resources.DashboardResx.TITLE" src="@Url.Content("~/Content/logo-cabinet-white.png")" width="190" height="50">
+                </a>
+            </div>
+        </div>
+        @{ 
+            var ci = System.Globalization.CultureInfo.CurrentUICulture.Name;
+        }
+        <div class="collapse navbar-collapse" id="myNavbar" ng-init="CULTURE_INFO = '@ci'">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img ng-src="{{CULTURE_INFO=='ro-RO'?'../Content/images/ro.png':'../Content/images/uk.png'}}" width="24" height="24" /><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" ng-click="ChangeCulture('ro-RO')"><img src="@Url.Content("~/Content/images/ro.png")" width="24" height="24" /> Romanian</a></li>
+                        <li><a href="#" ng-click="ChangeCulture('en-US')"><img src="@Url.Content("~/Content/images/uk.png")" width="24" height="24" /> English</a></li>
+                    </ul>
+                </li>
+
+                @if (Session["CURENT_USER_ID"] != null && Session["ID_SOCIETATE"] != null && Session["TOKEN"] == null)
+                {
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span> @socisaV2.Resources.DashboardResx.MENU<b class="caret"></b></a>
+                        <ul class="dropdown-menu multi-level">
+                        @{ 
+                            Html.RenderAction("IndexNavBar", "Actions");
+                        }
+                        </ul>
+                    </li>
+                }
+                <li>
+                    <a href="#" ng-click="ShowDespre()"><span class="glyphicon glyphicon-info-sign"></span> @socisaV2.Resources.DashboardResx.ABOUT</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="ShowContact()"><span class="glyphicon glyphicon-earphone"></span> @socisaV2.Resources.DashboardResx.CONTACT</a>
+                </li>
+            </ul>
+            @{
+                if (Session["CURENT_USER"] != null && Session["TOKEN"] == null)
+                {
+                    string u = ((SOCISA.Models.Utilizator)Session["CURENT_USER"]).USER_NAME + (Session["ID_SOCIETATE"] == null ? "" : (" [" + ((SOCISA.Models.SocietateAsigurare)Session["SOCIETATE_ASIGURARE"]).DENUMIRE_SCURTA + "]"));
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> @u </a></li>
+                        <li><a href="../Utilizatori/Logout"><span class="glyphicon glyphicon-log-in"></span> @socisaV2.Resources.LoginResx.LOGOUT</a></li>
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+</div>

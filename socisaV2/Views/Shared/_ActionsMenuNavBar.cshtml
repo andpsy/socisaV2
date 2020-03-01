@@ -1,0 +1,7 @@
+﻿@model SOCISA.Models.Action[]
+
+@if (Model != null)
+{
+    @ActionsNavBar.GetActionNavBar(Model, Model[0].PARENT_ID)
+}
+
