@@ -61,20 +61,38 @@ namespace socisaV2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CASCO File No..
-        /// </summary>
-        public static string DOSAR {
-            get {
-                return ResourceManager.GetString("DOSAR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Event type.
         /// </summary>
         public static string EVENT_TYPE {
             get {
                 return ResourceManager.GetString("EVENT_TYPE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel Export.
+        /// </summary>
+        public static string EXPORT_EXCEL {
+            get {
+                return ResourceManager.GetString("EXPORT_EXCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string FILTER {
+            get {
+                return ResourceManager.GetString("FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as verified.
+        /// </summary>
+        public static string MARK_READ {
+            get {
+                return ResourceManager.GetString("MARK_READ", resourceCulture);
             }
         }
         
@@ -97,6 +115,24 @@ namespace socisaV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CASCO File No..
+        /// </summary>
+        public static string NR_DOSAR_CASCO {
+            get {
+                return ResourceManager.GetString("NR_DOSAR_CASCO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recipients.
+        /// </summary>
+        public static string RECIPIENTS {
+            get {
+                return ResourceManager.GetString("RECIPIENTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checked.
         /// </summary>
         public static string TIME_CHECKED {
@@ -111,6 +147,24 @@ namespace socisaV2.Resources {
         public static string TIMESTAMP {
             get {
                 return ResourceManager.GetString("TIMESTAMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamp (to):.
+        /// </summary>
+        public static string TimeStampEnd {
+            get {
+                return ResourceManager.GetString("TimeStampEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamp (from):.
+        /// </summary>
+        public static string TimeStampStart {
+            get {
+                return ResourceManager.GetString("TimeStampStart", resourceCulture);
             }
         }
     }

@@ -414,7 +414,8 @@ namespace SOCISA
         public static DateTime? SwitchBackFormatedDate(string dt)
         {
             if (dt == null) return null;
-            DateTime toReturn = new DateTime();
+            //DateTime toReturn = new DateTime();
+            DateTime? toReturn = null; // 11.03.2020
             if (dt.IndexOf('.') > 0)
             {
                 try
@@ -427,7 +428,8 @@ namespace SOCISA
                 catch
                 {
                     //return DateTime.Now.Date;
-                    return new DateTime();
+                    //return new DateTime();
+                    return null; // 11.03.2020
                 }
             }
             else
@@ -440,7 +442,8 @@ namespace SOCISA
                 catch
                 {
                     //return DateTime.Now.Date;
-                    return new DateTime();
+                    //return new DateTime();
+                    return null; //11.03.2020
                 }
             }
             //return new DateTime();

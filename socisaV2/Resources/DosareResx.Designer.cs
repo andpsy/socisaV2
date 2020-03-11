@@ -1006,6 +1006,15 @@ namespace socisaV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remaining amount to be paid.
+        /// </summary>
+        public static string REST_PLATA {
+            get {
+                return ResourceManager.GetString("REST_PLATA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loss Reserve.
         /// </summary>
         public static string REZERVA_DAUNA {
@@ -1020,6 +1029,15 @@ namespace socisaV2.Resources {
         public static string SEARCH_TITLE {
             get {
                 return ResourceManager.GetString("SEARCH_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send status.
+        /// </summary>
+        public static string SEND_STATUS {
+            get {
+                return ResourceManager.GetString("SEND_STATUS", resourceCulture);
             }
         }
         

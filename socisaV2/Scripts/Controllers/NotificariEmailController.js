@@ -6,8 +6,12 @@ app.controller('NotificariEmailController',
         $scope.model = {};
         $scope.model.EmailNotifications = null;
         $scope.curItem = {};
+        $scope.serverFilter = {};
+        $scope.serverFilter.timeStampStartFilter = $filter('date')(new Date(), $rootScope.DATE_FORMAT);
+        $scope.serverFilter.timeStampEndFilter = $filter('date')(new Date(), $rootScope.DATE_FORMAT);
+        $scope.serverFilter.nrDosarCascoFilter = null;
+        $scope.curTimeStamp = $filter('date')(new Date(), $rootScope.DATE_FORMAT);
 
-        $scope.timeStampFilter = $filter('date')(new Date(), $rootScope.DATE_FORMAT);
 
         $scope.generalQueryText = {};
         $scope.generalQueryText.$ = null;
@@ -107,9 +111,16 @@ app.controller('NotificariEmailController',
             return toReturn1 && toReturn2;
         };
 
-        $scope.filterByTimestamp = function () {
+        $scope.filter = function () {
             EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, true, true);
-            $http.post('/NotificariEmail/Filter', { _data: $scope.timeStampFilter })
+            var json = JSON.stringify($scope.serverFilter, function (key, value) {
+                if (key === "$$hashKey") {
+                    return undefined;
+                }
+                return value;
+            });
+
+            $http.post('/NotificariEmail/Filter', { _data: json })
                 .then(function (response) {
                     if (response != 'null' && response != null && response.data != null) {
                         if (!response.data.Status)
@@ -133,13 +144,20 @@ app.controller('NotificariEmailController',
         $scope.updateCheckDates = function () {
             EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, true, true);
             angular.copy({}, $scope.curItem);
-            $http.post('/NotificariEmail/UpdateCheckDates', { _timestamp: $scope.timeStampFilter })
+            var json = JSON.stringify($scope.notificariEmailFiltrate, function (key, value) {
+                if (key === "$$hashKey") {
+                    return undefined;
+                }
+                return value;
+            });
+
+            $http.post('/NotificariEmail/UpdateCheckDates', { _data: json })
                 .then(function (response) {
                     if (response != 'null' && response != null && response.data != null) {
                         $scope.result = response.data;
                         $rootScope.toogleOperationMessage($scope.result);
                         if ($scope.result.Status) {
-                            $scope.filterByTimestamp();
+                            $scope.filter();
                         }
                     }
                     else {
@@ -156,4 +174,36 @@ app.controller('NotificariEmailController',
         $scope.setCurItem = function (item) {
             angular.copy(item, $scope.curItem);
         };
+
+        $scope.ExportToExcel = function () {
+            //spinner.spin(document.getElementById(ACTIVE_DIV_ID))
+            EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, true, false)
+
+            //var json = JSON.stringify($scope.model.EmailNotifications, function (key, value) {
+            var json = JSON.stringify($scope.notificariEmailFiltrate, function (key, value) {            
+                if (key === "$$hashKey") {
+                    return undefined;
+                }
+                return value;
+            });
+
+            $http.post('/NotificariEmail/ExportToExcel', { StrEmailNotifications: json }, {
+                //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                responseType: 'arraybuffer'
+            }).then(function (response2) {
+                if (response2 != 'null' && response2 != null && response2.data != null) {
+                    var blob = new Blob([response2.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                    var objectUrl = URL.createObjectURL(blob);
+                    window.open(objectUrl);
+                    ////spinner.stop();
+                    //$scope.SetCounter($scope._LABEL_EXPORT_DOSARE_IN_EXCEL);
+                    EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, false, false)
+                }
+            }, function (response2) {
+                //spinner.stop();
+                EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, false, false)
+                alert('Erroare: ' + response2.status + ' - ' + response2.data);
+            });
+        };
+
     });

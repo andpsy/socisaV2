@@ -7,18 +7,55 @@
     <div class="inner_content">
         <div class="btn-group">
             <button ng-show="HasHtml.indexOf('mainNotificariEmailDashboard') > -1" type="button" class="btn btn-danger" ng-click="ToggleDiv('mainDashboard', false, null, 'get')">&#9668;</button>
-            <div class="input-group" style="padding-left: 5px;margin-top: 2px; display:flex; align-items:center;">
-                @Html.Label(socisaV2.Resources.NotificariEmailResx.TIMESTAMP, htmlAttributes: new { @class = "control-label" })
-                <div class="input-group" style="margin-left:5px; max-width:140px;">
-                    <span class="input-group-addon"><img src="~/Content/calendar.gif" /></span>
-                    <input type="text" class="form-control input-sm" jqdatepicker ng-model="timeStampFilter" />
+        </div>
+        <div class="row" style="margin-top:5px;">
+            <div class="col-sm-8" style="padding-left:10px; padding-right:5px;">
+                <div class="panel panel-success">
+                    <div class="panel-heading" style="padding:5px;">
+                        Server side filtering:
+                    </div>
+                    <div class="panel-body" style="display:flex;padding:5px;">
+                        <div class="input-group" style="margin-right:5px;">
+                            @Html.Label(socisaV2.Resources.NotificariEmailResx.TimeStampStart, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group" style="margin-left:5px; max-width:140px;">
+                                <span class="input-group-addon"><img src="~/Content/calendar.gif" /></span>
+                                <input type="text" class="form-control input-sm" jqdatepicker ng-model="serverFilter.timeStampStartFilter" />
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-right:5px;">
+                            @Html.Label(socisaV2.Resources.NotificariEmailResx.TimeStampEnd, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group" style="margin-left:5px; max-width:140px;">
+                                <span class="input-group-addon"><img src="~/Content/calendar.gif" /></span>
+                                <input type="text" class="form-control input-sm" jqdatepicker ng-model="serverFilter.timeStampEndFilter" />
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-right:5px;">
+                            @Html.Label(socisaV2.Resources.NotificariEmailResx.NR_DOSAR_CASCO, htmlAttributes: new { @class = "control-label" })
+                            <input type="text" class="form-control input-sm" ng-model="serverFilter.nrDosarCascoFilter" />
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="padding:5px;">
+                        <button type="button" class="btn btn-primary btn-sm" style="margin-left: 5px;" ng-click="filter()">@socisaV2.Resources.NotificariEmailResx.FILTER</button>
+                        <button type="button" class="btn btn-primary btn-sm" style="margin-left: 5px;" ng-disabled="notificariEmail != null && notificariEmailFiltrate.length > 0" ng-click="updateCheckDates()">@socisaV2.Resources.NotificariEmailResx.MARK_READ</button>
+                        <button type="button" class="btn btn-primary btn-sm" style="margin-left: 5px;" ng-disabled="notificariEmail != null && notificariEmailFiltrate.length > 0" ng-click="ExportToExcel()">@socisaV2.Resources.NotificariEmailResx.EXPORT_EXCEL</button>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-sm" style="margin-left: 5px;" ng-click="filterByTimestamp()">Filtreaza (server)</button>
-                <button type="button" class="btn btn-primary btn-sm" style="margin-left: 5px;" ng-disabled="notificariEmail != null && notificariEmailFiltrate.length > 0" ng-click="updateCheckDates()">Marcheaza ca verificate</button>
             </div>
-            <div class="input-group" style="padding-left: 5px;margin-top: 20px;">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span>(client)</span>
-                <input class="form-control input-sm" type="text" ng-model="generalQueryText.$">
+            <div class="col-sm-4" style="padding-left:5px;padding-right:10px;">
+                <div class="panel panel-success">
+                    <div class="panel-heading" style="padding:5px;">
+                        Client side filtering:
+                    </div>
+                    <div class="panel-body" style="padding:5px;">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control input-sm" type="text" ng-model="generalQueryText.$">
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="padding:5px;">
+                        &nbsp;
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -43,7 +80,7 @@
                                 <span class="sortorder" ng-show="propertyName === 'MESSAGE_ID'" ng-class="{reverse: reverse}"></span>
                             </th>
                             <th>
-                                <a href="#" ng-click="sortBy('NR_DOSAR_CASCO')">@socisaV2.Resources.NotificariEmailResx.DOSAR</a>
+                                <a href="#" ng-click="sortBy('NR_DOSAR_CASCO')">@socisaV2.Resources.NotificariEmailResx.NR_DOSAR_CASCO</a>
                                 <span class="sortorder" ng-show="propertyName === 'NR_DOSAR_CASCO'" ng-class="{reverse: reverse}"></span>
                             </th>
                             <th>
@@ -53,6 +90,10 @@
                             <th>
                                 <a href="#" ng-click="sortBy('EVENT_TYPE')">@socisaV2.Resources.NotificariEmailResx.EVENT_TYPE</a>
                                 <span class="sortorder" ng-show="propertyName === 'EVENT_TYPE'" ng-class="{reverse: reverse}"></span>
+                            </th>
+                            <th>
+                                <a href="#" ng-click="sortBy('RECIPIENTS')">@socisaV2.Resources.NotificariEmailResx.RECIPIENTS</a>
+                                <span class="sortorder" ng-show="propertyName === 'RECIPIENTS'" ng-class="{reverse: reverse}"></span>
                             </th>
                             <th>
                                 <a href="#" ng-click="sortBy('MESSAGE_TEXT')">@socisaV2.Resources.NotificariEmailResx.MESSAGE_TEXT</a>
@@ -70,6 +111,7 @@
                             <td style="white-space:nowrap;"><input type="text" style="width:90px;" ng-model="queryText.NR_DOSAR_CASCO"></td>
                             <td style="white-space:nowrap;"><input type="text" style="width:70px;" ng-model="queryText.TIMESTAMP"></td>
                             <td style="white-space:nowrap;"><input type="text" style="width:70px;" ng-model="queryText.EVENT_TYPE"></td>
+                            <td style="white-space:nowrap;"><input type="text" style="width:180px;" ng-model="queryText.RECIPIENTS"></td>
                             <td style="white-space:nowrap;"><input type="text" style="width:180px;" ng-model="queryText.MESSAGE_TEXT"></td>
                             <td style="white-space:nowrap;"><input type="text" style="width:70px;" ng-model="queryText.TIME_CHECKED"></td>
                         </tr>
@@ -86,6 +128,9 @@
                             </td>
                             <td>
                                 <span>{{item.EmailNotification.EVENT_TYPE}}</span>
+                            </td>
+                            <td style="max-width:180px;max-height:20px;">
+                                <span>{{item.EmailNotification.RECIPIENTS}}</span>
                             </td>
                             <td style="max-width:180px;max-height:20px;">
                                 <div style="cursor:pointer;color:blue;font-weight:bold;overflow:hidden;text-overflow:ellipsis;" ng-click="setCurItem(item)">{{item.EmailNotification.MESSAGE_TEXT}}</div>

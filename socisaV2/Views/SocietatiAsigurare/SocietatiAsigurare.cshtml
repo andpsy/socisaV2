@@ -137,8 +137,8 @@
                                 if (ut == "Administrator")
                                 {
                                     <span a-disabled="editMode == 1" ng-show="editMode == 0 || curIndex != $index" class="glyphicon glyphicon-edit" style="font-size:16px; cursor:pointer;" ng-click="EditMode(item, $index)" title="@socisaV2.Resources.GlobalResx.EDITARE_TITLE"></span>
-                                    <span class="glyphicon glyphicon-floppy-saved save" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE" style="font-size:16px;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Save()" />
-                                    <span class="glyphicon glyphicon-floppy-remove delete" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE" style="font-size:16px;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Cancel()" />
+                                    <span a-disabled="!myForm.$valid" class="glyphicon glyphicon-floppy-saved save" title="@socisaV2.Resources.GlobalResx.SALVEAZA_TITLE" style="font-size:16px;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Save()" />
+                                    <span a-disabled="!myForm.$valid" class="glyphicon glyphicon-floppy-remove delete" title="@socisaV2.Resources.GlobalResx.RENUNTA_TITLE" style="font-size:16px;cursor:pointer;" ng-show="editMode == 1 && curIndex == $index" ng-click="Cancel()" />
 
                                 }
                             }
@@ -181,13 +181,13 @@
                         </td>
                         <td>
                             <span ng-show="editMode == 0 || curIndex != $index">{{item.EMAIL}}</span>
-                            <input class="form-control input-sm customInput" type="email" name="email_{{$index}}" ng-blur="checkHostName($event)" ng-model="curSocietate.EMAIL" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                            <input class="form-control input-sm customInput" type="text" name="email_{{$index}}" ng-blur="checkForErrors($event)" ng-model="curSocietate.EMAIL" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
                             <div role="alert">
                                 <span class="error" ng-show="setRequiredError('required', 'email_' + $index)">
                                     Required!
                                 </span>
-                                <span class="error" ng-show="setRequiredError('email', 'email_' + $index)">
-                                    Not valid email!
+                                <span class="error" ng-show="setRequiredError('emails', 'email_' + $index)">
+                                    Not valid email(s)!
                                 </span>
                                 <span class="error" ng-show="setRequiredError('invalidHost', 'email_' + $index)">
                                     Host name couldn't be validated!
@@ -200,13 +200,13 @@
                         </td>
                         <td>
                             <span ng-show="editMode == 0 || curIndex != $index">{{item.EMAIL_NOTIFICARI}}</span>
-                            <input class="form-control input-sm customInput" type="email" name="emailNotificari_{{$index}}" ng-model="curSocietate.EMAIL_NOTIFICARI" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
+                            <input class="form-control input-sm customInput" type="text" name="emailNotificari_{{$index}}" ng-blur="checkForErrors($event)" ng-model="curSocietate.EMAIL_NOTIFICARI" ng-show="editMode == 1 && curSocietate.ID == item.ID && curIndex == $index" />
                             <div role="alert">
                                 <span class="error" ng-show="setRequiredError('required', 'emailNotificari_' + $index)">
                                     Required!
                                 </span>
-                                <span class="error" ng-show="setRequiredError('email', 'emailNotificari_' + $index)">
-                                    Not valid email!
+                                <span class="error" ng-show="setRequiredError('emails', 'emailNotificari_' + $index)">
+                                    Not valid email(s)!
                                 </span>
                                 <span class="error" ng-show="setRequiredError('invalidHost', 'emailNotificari_' + $index)">
                                     Host name couldn't be validated!

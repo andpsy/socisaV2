@@ -560,117 +560,117 @@ a.disabled {
 }
 
 .badgeDosar{
-    max-width:280px;
+    max-width:110px;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
 }
 
 .badgeDosarAVIZAT{
-    max-width:280px;
+    max-width:110px;
     background-color: darkgreen;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;
 }
 
 .badgeDosarNEAVIZAT {
-    max-width: 280px;
+    max-width: 110px;
     background-color: #d5d544;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
 }
 
 .badgeDosarINCOMPLET{
-    max-width:280px;
+    max-width:110px;
     background-color: red;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;
 }
 
 .badgeDosarNEACHITAT {
-    max-width: 280px;
+    max-width: 110px;
     background-color: #961E28;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;
 }
 
 .badgeDosarACHITAT_PARTIAL {
-    max-width: 280px;
+    max-width: 110px;
     background-color: #EFB554;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;
 }
 
 .badgeDosarACHITAT {
-    max-width: 280px;
+    max-width: 110px;
     background-color: #8FB416;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;
 }
 
 .badgeDosarCOMPENSAT {
-    max-width: 280px;
+    max-width: 110px;
     background-color: #222244;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;
 }
 
 .badgeDosarPARTIAL_COMPENSAT {
-    max-width: 280px;
+    max-width: 110px;
     background-color: #634222;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;
 }
 
 .badgeDosarNECOMPENSAT {
-    max-width: 280px;
+    max-width: 110px;
     background-color: #630000;
     border-radius: 5px;
     opacity: 0.9;
-    display: flex;
-    padding: 10px;
+    display: block;
+    padding: 5px;
     align-items: center;
     /*margin-right: 20px;*/
     color: white;

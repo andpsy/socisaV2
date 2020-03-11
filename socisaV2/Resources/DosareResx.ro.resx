@@ -378,11 +378,17 @@
   <data name="RESEND_EMAIL_CONFIRMATION_MESSAGE" xml:space="preserve">
     <value>Cererea a mai fost trimisa! Confirmati retrimiterea?!</value>
   </data>
+  <data name="REST_PLATA" xml:space="preserve">
+    <value>Rest de plata</value>
+  </data>
   <data name="REZERVA_DAUNA" xml:space="preserve">
     <value>Rezerva Dauna</value>
   </data>
   <data name="SEARCH_TITLE" xml:space="preserve">
     <value>Cautare/Filtrare</value>
+  </data>
+  <data name="SEND_STATUS" xml:space="preserve">
+    <value>Status trimitere</value>
   </data>
   <data name="SHOW_TITLE" xml:space="preserve">
     <value>Inapoi la navigare</value>

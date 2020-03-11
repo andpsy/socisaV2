@@ -4,11 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Newtonsoft.Json;
 
 namespace SOCISA.Models
 {
+    public class FilterNotificari
+    {
+        public DateTime? TimeStampStartFilter { get; set; }
+        public DateTime? TimeStampEndFilter { get; set; }
+        public string NrDosarCascoFilter { get; set; }
+    }
+
     /// <summary>
     /// Clasa care contine definitia obiectului ce mapeaza tabela cu notificari din baza de date
     /// </summary>
@@ -63,22 +71,43 @@ namespace SOCISA.Models
         */
         /* -- din 10.01.2020 -- */
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [Display(Name = "MESSAGE_ID", ResourceType = typeof(socisaV2.Resources.NotificariEmailResx))]
         public string MESSAGE_ID { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [Display(Name = "MESSAGE_TEXT", ResourceType = typeof(socisaV2.Resources.NotificariEmailResx))]
         public string MESSAGE_TEXT { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [Display(Name = "EVENT_TYPE", ResourceType = typeof(socisaV2.Resources.NotificariEmailResx))]
         public string EVENT_TYPE { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [Display(Name = "TIMESTAMP", ResourceType = typeof(socisaV2.Resources.NotificariEmailResx))]
         public DateTime? TIMESTAMP { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [Display(Name = "ID_DOSAR", ResourceType = typeof(socisaV2.Resources.NotificariEmailResx))]
         public int? ID_DOSAR { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [Display(Name = "TIME_CHECKED", ResourceType = typeof(socisaV2.Resources.NotificariEmailResx))]
         public DateTime? TIME_CHECKED { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        [Display(Name = "RECIPIENTS", ResourceType = typeof(socisaV2.Resources.NotificariEmailResx))]
+        public string RECIPIENTS { get; set; }
 
         /// <summary>
         /// Constructorul default
         /// </summary>
         public EmailNotification() { }
+
+        [JsonConstructor]
+        public EmailNotification(int? ID, string MESSAGE_ID, string MESSAGE_TEXT, string EVENT_TYPE, DateTime? TIMESTAMP, int? ID_DOSAR, DateTime? TIME_CHECKED, string RECIPIENTS) {
+            this.ID = ID;
+            this.MESSAGE_ID = MESSAGE_ID;
+            this.MESSAGE_TEXT = MESSAGE_TEXT;
+            this.EVENT_TYPE = EVENT_TYPE;
+            this.TIMESTAMP = TIMESTAMP;
+            this.ID_DOSAR = ID_DOSAR;
+            this.TIME_CHECKED = TIME_CHECKED;
+            this.RECIPIENTS = RECIPIENTS;
+        }
 
         public EmailNotification(int _authenticatedUserId, string _connectionString)
         {
@@ -189,6 +218,8 @@ namespace SOCISA.Models
             try { this.TIME_CHECKED = Convert.ToDateTime(email_notification["TIME_CHECKED"]); }
             catch { }
             try { this.ID_DOSAR = Convert.ToInt32(email_notification["ID_DOSAR"]); }
+            catch { }
+            try { this.RECIPIENTS = email_notification["RECIPIENTS"].ToString(); }
             catch { }
         }
 

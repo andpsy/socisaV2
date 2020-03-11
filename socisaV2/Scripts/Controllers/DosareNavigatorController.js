@@ -1,4 +1,5 @@
 ﻿'use strict';
+'use strict';
 var lastkeytime = new Date();
 var lastruntime = new Date();
 var waiting_interval = 1000; // miliseconds
@@ -178,6 +179,20 @@ app.controller('DosareNavigatorController',
             }
         });
 
+        $scope.onSendStatusChange = function (value) {
+            console.log(value);
+            for (var i = 0; i < $rootScope.SEND_STATUS.length; i++) {
+                if ($rootScope.SEND_STATUS[i].notification == value) {
+                    if (!($scope.searchMode == 2 || ($scope.searchMode == 1 && ($scope.curDosarIndex == -1 || $scope.DosarFiltru.Dosar.ID == null)))) {
+                        $("#sendStatusDiv").css("background-color", $rootScope.SEND_STATUS[i].back_color);
+                        $("#sendStatusDiv").css("color", $rootScope.SEND_STATUS[i].fore_color);
+                        console.log($rootScope.SEND_STATUS[i].back_color);
+                    }
+                    break;
+                }
+            }
+        };
+
         $scope.$watch('DosarFiltru.Dosar.COUNT_DOCUMENTE', function (newValue, oldValue) {
             $("#nrDocumenteDosar").text($scope.DosarFiltru.Dosar.COUNT_DOCUMENTE);
         });
@@ -221,6 +236,11 @@ app.controller('DosareNavigatorController',
 
         $scope.$watch('searchMode', function (newValue, oldValue) {
             $rootScope.searchMode = newValue;
+
+            if (newValue == 2) {
+                $("#sendStatusDiv").css("background-color", "white");
+                $("#sendStatusDiv").css("color", "black");
+            }
         });
 
         $scope.$watch('editMode', function (newValue, oldValue) {
@@ -307,6 +327,7 @@ app.controller('DosareNavigatorController',
             document.getElementById('tipCazSelect').disabled = !(newValue == 1);
             document.getElementById('tipDosarSelect').disabled = !(newValue == 1);
             document.getElementById('statusDosarSelect').disabled = !(newValue == 1);
+            document.getElementById('sendStatusSelect').disabled = !(newValue == 1);
         });
         $scope.$watch('searchMode', function (newValue, oldValue) {
             document.getElementById('societateCascoSelect').disabled = !(newValue == 2 && $rootScope.calitateSocietateCurenta.Value == 'RCA');
@@ -314,10 +335,22 @@ app.controller('DosareNavigatorController',
             document.getElementById('tipCazSelect').disabled = newValue != 2 && $scope.editMode != 1;
             document.getElementById('tipDosarSelect').disabled = newValue != 2 && $scope.editMode != 1;
             document.getElementById('statusDosarSelect').disabled = newValue != 2 && $scope.editMode != 1;
+            document.getElementById('sendStatusSelect').disabled = newValue != 2 && $scope.editMode != 1;
         });
 
         $scope.$watch('DosarFiltru.Dosar.STATUS', function (newValue, oldValue) {
             console.log('afisare - ' + newValue + ' - ' + $scope.Interactive);
+            if (newValue != null && newValue != undefined && $scope.Interactive) {
+                if ($scope.searchMode == 2) {
+                    $scope.Afisare(newValue, null);
+                }
+            }
+        });
+        $scope.$watch('DosarFiltru.Dosar.SEND_STATUS', function (newValue, oldValue) {
+            console.log('afisare - ' + newValue + ' - ' + $scope.Interactive);
+
+            //$scope.onSendStatusChange(newValue);
+
             if (newValue != null && newValue != undefined && $scope.Interactive) {
                 if ($scope.searchMode == 2) {
                     $scope.Afisare(newValue, null);
@@ -490,6 +523,7 @@ app.controller('DosareNavigatorController',
                 //document.getElementById("Dosar_AVIZAT").disabled = true;
                 $scope.DosarFiltru.dosarJson.CalitateSocietate = $scope.TempDosarFilter.dosarJson.CalitateSocietate = "RCA";
                 document.getElementById("statusDosarSelect").disabled = true;
+                document.getElementById("sendStatusSelect").disabled = true;
             }
 
             $scope.RowsBlockIndex = 0;
@@ -735,6 +769,7 @@ app.controller('DosareNavigatorController',
                         $("#nrProceseDosar").text(j.nrProcese);
                         $("#nrPlatiDosar").text(j.nrPlati);
                         */
+                        $scope.onSendStatusChange($scope.DosarFiltru.Dosar.SEND_STATUS);
                     } catch (e) { }
                     EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, false, true);
                 }
@@ -801,6 +836,7 @@ app.controller('DosareNavigatorController',
             $scope.DosarFiltru.dosarJson = {};
             $scope.DosarFiltru.Dosar.ID_SOCIETATE_CASCO = $scope.TempDosarEdit.Dosar.ID_SOCIETATE_CASCO;
             $scope.DosarFiltru.Dosar.STATUS = 'INCOMPLET';
+            $scope.DosarFiltru.Dosar.SEND_STATUS = null;
         };
 
         $scope.SaveEdit = function () {
@@ -1295,6 +1331,39 @@ app.controller('DosareNavigatorController',
 
                     return '<div class="small" style="width:300px;" id="' + content_id + '">Loading...</div>';
                 }
+            });
+        };
+
+        $scope.showSendStatus = function () {
+            //alert("dosar");
+            EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, true, true);
+            var _url = '/NotificariEmail/Index/' + $scope.DosarFiltru.Dosar.ID;
+            $.ajax({
+                async: true,
+                type: 'GET',
+                url: _url,
+                //processData: false,
+                dataType: 'html'
+            }).done(function (data) {
+                EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, false, true);
+
+                ngDialog.openConfirm({
+                    template: data,
+                    controller: 'NotificariEmailController',
+                    plain: true,
+                    className: 'ngdialog-theme-default custom-width',
+                    width: 800,
+                    scope: $scope
+                }).then(
+                    function (value) {
+                        //alert('succes');
+                    },
+                    function (reason) {
+                        //alert(reason);
+                    });
+            }).fail(function (jqXHR, textStatus) {
+                alert(textStatus);
+                EnableDisableInputs('#DosareSearch', spinner, ACTIVE_DIV_ID, false, true);
             });
         };
     });

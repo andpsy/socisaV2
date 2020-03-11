@@ -258,6 +258,14 @@ namespace SOCISA.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public int? COUNT_STADII { get; set; }
 
+        [Display(Name = "REST_PLATA", ResourceType = typeof(socisaV2.Resources.DosareResx))]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public double? REST_PLATA { get; set; }
+
+        [Display(Name = "SEND_STATUS", ResourceType = typeof(socisaV2.Resources.DosareResx))]
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+        public string SEND_STATUS { get; set; }
+
         /*
         public DosareProceseJson[] DosareProcese { get; set; }
         public ProceseJson[] Procese { get; set; }
@@ -441,6 +449,10 @@ namespace SOCISA.Models
             try { this.COUNT_PLATI = Convert.ToInt32(_dosar["COUNT_PLATI"]); }
             catch { }
             try { this.COUNT_STADII = Convert.ToInt32(_dosar["COUNT_STADII"]); }
+            catch { }
+            try { this.REST_PLATA = Convert.ToDouble(_dosar["REST_PLATA"]); }
+            catch { }
+            try { this.SEND_STATUS = _dosar["SEND_STATUS"].ToString(); }
             catch { }
 
             /*
@@ -2226,5 +2238,30 @@ namespace SOCISA.Models
             catch { }
             return toReturn;
         }
+
+        public response UpdateRestPlata(double? _rest_plata)
+        {
+            response toReturn = new response(false, "", null, null, new List<Error>()); ;
+            try
+            {
+                DataAccess da = new DataAccess(authenticatedUserId, connectionString, CommandType.StoredProcedure, "DOSAREsp_UpdateRestPlata", new object[] { new MySqlParameter("_ID", ID), new MySqlParameter("_REST_PLATA", _rest_plata) });
+                toReturn = da.ExecuteUpdateQuery();
+            }
+            catch { }
+            return toReturn;
+        }
+
+        public response UpdateSendStatus(string _send_status)
+        {
+            response toReturn = new response(false, "", null, null, new List<Error>()); ;
+            try
+            {
+                DataAccess da = new DataAccess(authenticatedUserId, connectionString, CommandType.StoredProcedure, "DOSAREsp_UpdateSendStatus", new object[] { new MySqlParameter("_ID", ID), new MySqlParameter("_SEND_STATUS", _send_status) });
+                toReturn = da.ExecuteUpdateQuery();
+            }
+            catch { }
+            return toReturn;
+        }
+
     }
 }

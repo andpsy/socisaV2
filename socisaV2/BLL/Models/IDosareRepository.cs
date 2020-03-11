@@ -78,6 +78,8 @@ namespace SOCISA.Models
         response GetDosareFromLog(DateTime? data);
         response GetImportDates();
         response MovePendingToOk(int _pending_id);
+        response UpdateRestPlata(int _id, double? _rest_plata);
+        response UpdateSendStatus(int _id, string _send_status);
     }
 
     public class DosareRepository : IDosareRepository
@@ -929,9 +931,11 @@ namespace SOCISA.Models
                         }
                         try
                         {
-                            if (!String.IsNullOrWhiteSpace(ews.Cells[rowNumber, columnNames["Data SCA"]].Text))
+                            //if (!String.IsNullOrWhiteSpace(ews.Cells[rowNumber, columnNames["Data SCA"]].Text))
+                            if (!String.IsNullOrWhiteSpace(ews.Cells[rowNumber, columnNames["Data SCA"]].GetValue<String>().Trim().Split(' ')[0]))
                             {
-                                dosar.DATA_SCA = CommonFunctions.SwitchBackFormatedDate(ews.Cells[rowNumber, columnNames["Data SCA"]].Text.Trim());
+                                //dosar.DATA_SCA = CommonFunctions.SwitchBackFormatedDate(ews.Cells[rowNumber, columnNames["Data SCA"]].Text.Trim());
+                                dosar.DATA_SCA = CommonFunctions.SwitchBackFormatedDate(ews.Cells[rowNumber, columnNames["Data SCA"]].GetValue<String>().Trim());
                             }
                             else
                             {
@@ -946,8 +950,21 @@ namespace SOCISA.Models
                         catch { }
                         try { dosar.NR_POLITA_RCA = ews.Cells[rowNumber, columnNames["Polita RCA"]].Text.Trim(); }
                         catch { }
-                        try { dosar.DATA_EVENIMENT = CommonFunctions.SwitchBackFormatedDate(ews.Cells[rowNumber, columnNames["Data CASCO"]].Text.Trim()); }
-                        catch { }
+
+                        //try { dosar.DATA_EVENIMENT = CommonFunctions.SwitchBackFormatedDate(ews.Cells[rowNumber, columnNames["Data CASCO"]].Text.Trim()); }
+                        try {
+                            dosar.DATA_EVENIMENT = CommonFunctions.SwitchBackFormatedDate(ews.Cells[rowNumber, columnNames["Data CASCO"]].GetValue<String>().Trim().Split(' ')[0]);
+                        }
+                        catch { dosar.DATA_EVENIMENT = null; }
+                        if (dosar.DATA_EVENIMENT == null)
+                        {
+                            Error err = ErrorParser.ErrorMessage("emptyDataEveniment");
+                            List<Error> errs = new List<Error>();
+                            errs.Add(err);
+                            r = new response(false, err.ERROR_MESSAGE, null, null, errs);
+                            toReturn.AddResponse(r);
+                        }
+
                         try { dosar.VALOARE_DAUNA = CommonFunctions.BackDoubleValue(ews.Cells[rowNumber, columnNames["Valoare dauna"]].Text.Trim()); }
                         catch { }
                         try { dosar.VALOARE_REGRES = CommonFunctions.BackDoubleValue(ews.Cells[rowNumber, columnNames["Valoare Regres"]].Text.Trim()); }
@@ -1219,5 +1236,20 @@ namespace SOCISA.Models
             // -- to do - generate message ???
             return r;
         }
+
+        public response UpdateRestPlata(int _id, double? _rest_plata)
+        {
+            Dosar d = new Dosar(authenticatedUserId, connectionString, _id);
+            response r = d.UpdateRestPlata(_rest_plata);
+            return r;
+        }
+
+        public response UpdateSendStatus(int _id, string _send_status)
+        {
+            Dosar d = new Dosar(authenticatedUserId, connectionString, _id);
+            response r = d.UpdateSendStatus(_send_status);
+            return r;
+        }
+
     }
 }

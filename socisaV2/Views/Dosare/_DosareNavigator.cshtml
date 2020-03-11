@@ -541,24 +541,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3" style="padding-bottom:10px;">
-                    <div ng-class="searchMode == 2 || (searchMode == 1 && (curDosarIndex == -1 || DosarFiltru.Dosar.ID == null)) ? 'badgeDosar' : ('badgeDosar' + DosarFiltru.Dosar.STATUS)" ng-show="searchMode > 0">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                @Html.LabelFor(model => model.Dosar.STATUS, htmlAttributes: new { @class = "control-label" })
-                                <select name="statusDosarSelect" id="statusDosarSelect" class="form-control input-sm customInput" a_disabled="calitateSocietateCurenta.Value == 'RCA' || searchMode != 2" ng-click="Interactive=true" ng-model="DosarFiltru.Dosar.STATUS">
-                                    <option ng-repeat="statusDosar in DosarFiltru.StatusDosare" ng-value="statusDosar">{{statusDosar}}</option>
-                                </select>
-                                @Html.ValidationMessageFor(model => model.Dosar.STATUS, "", new { @class = "text-danger" })
-                            </div>
+                <div class="col-sm-3">
+                    <div class="col-sm-12" ng-class="searchMode == 2 || (searchMode == 1 && (curDosarIndex == -1 || DosarFiltru.Dosar.ID == null)) ? 'badgeDosar' : ('badgeDosar' + DosarFiltru.Dosar.STATUS)" ng-show="searchMode > 0">
+                        @Html.LabelFor(model => model.Dosar.STATUS, htmlAttributes: new { @class = "control-label" })
+                        <select name="statusDosarSelect" id="statusDosarSelect" class="form-control input-sm customInput" a_disabled="calitateSocietateCurenta.Value == 'RCA' || searchMode != 2" ng-click="Interactive=true" ng-model="DosarFiltru.Dosar.STATUS">
+                            <option ng-repeat="statusDosar in DosarFiltru.StatusDosare" ng-value="statusDosar">{{statusDosar}}</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Dosar.STATUS, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="sendStatusDiv" ng-show="searchMode > 0 && !ExternalUser.Value" class="col-sm-12 badgeDosar" style="margin-left:5px;">
+                        @Html.LabelFor(model => model.Dosar.SEND_STATUS, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group">
+                            <span ng-show="searchMode == 1" class="input-group-addon customInputGroupAddOn" style="cursor:pointer;" ng-click="showSendStatus()"><span class="glyphicon glyphicon-eye-open"></span></span>
+                            <select a-disabled="(searchMode == 1 && editMode == 0) || calitateSocietateCurenta.Value == 'RCA' || searchMode != 2" name="sendStatusSelect" id="sendStatusSelect" class="form-control input-sm customInput" ng-click="Interactive=true" ng-model="DosarFiltru.Dosar.SEND_STATUS">
+                                <option ng-repeat="sendStatus in SEND_STATUS" ng-value="sendStatus.notification">{{sendStatus.notification}}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="form-group" ng-show="false"> <!-- editMode == 0 -->
+                    <!--
+                    <div class="form-group" ng-show="false">
                         @Html.LabelFor(model => model.dosarJson.DosarFaraDocumente, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.dosarJson.DosarFaraDocumente, new { htmlAttributes = new { @class = "form-control input-sm customInput", a_disabled = "searchMode != 2 && editMode != 1", data_ng_click = "Interactive=true", data_ng_model = "DosarFiltru.dosarJson.DosarFaraDocumente", data_ng_init = string.Format("DosarFiltru.dosarJson.DosarFaraDocumente = {0}", Model.dosarJson.DosarFaraDocumente) } })
                         @Html.ValidationMessageFor(model => model.dosarJson.DosarFaraDocumente, "", new { @class = "text-danger" })
+                    </div>
+                    -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Dosar.REST_PLATA, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Dosar.REST_PLATA, new { htmlAttributes = new { @class = "form-control input-sm customInput numberFormat", a_disabled = "searchMode != 2 && editMode != 1", data_ng_keyup = "Interactive=true; Afisare($event.target.value, $event)", data_ng_model = "DosarFiltru.Dosar.REST_PLATA", data_ng_init = string.Format("DosarFiltru.Dosar.REST_PLATA = '{0}'", Model.Dosar.REST_PLATA) } })
+                        @Html.ValidationMessageFor(model => model.Dosar.REST_PLATA, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

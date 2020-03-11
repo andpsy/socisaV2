@@ -105,11 +105,17 @@ namespace socisaWeb
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
+            /*
+            routes.MapRoute(
+                name: "NotificariEmailIndex",
+                url: "NotificariEmail/Index/{_data}",
+                defaults: new { controller = "NotificariEmail", action = "Index", _data = UrlParameter.Optional }
+            );
+            */
             routes.MapRoute(
                 name: "NotificariEmailFilter",
                 url: "NotificariEmail/Filter/{_data}",
-                defaults: new { controller = "NotificariEmail", action = "Index" }
+                defaults: new { controller = "NotificariEmail", action = "Index", _data = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "NotificariEmailUpdateCheckDates",
@@ -123,7 +129,7 @@ namespace socisaWeb
             );
             routes.MapRoute(
                 name: "SocietatiCheckHost",
-                url: "SocietatiAsigurare/CheckHostName/{emailAddress}",
+                url: "SocietatiAsigurare/CheckHostName/{emailAddresses}",
                 defaults: new { controller = "SocietatiAsigurare", action = "Index" }
             );
 

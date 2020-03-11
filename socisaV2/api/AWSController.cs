@@ -185,7 +185,16 @@ namespace socisaWeb
                                     JToken delivery = json["delivery"];
                                     en.TIMESTAMP = delivery.Value<DateTime>("timestamp");
                                     en.MESSAGE_TEXT = delivery.ToString();
-
+                                    try
+                                    {
+                                        List<AmazonSesDeliveryRecipient> tmp = delivery.Value<List<AmazonSesDeliveryRecipient>>("recipients");
+                                        en.RECIPIENTS = "";
+                                        foreach(AmazonSesDeliveryRecipient asdr in tmp)
+                                        {
+                                            en.RECIPIENTS = String.Format("{0},{1}", en.RECIPIENTS, asdr.EmailAddress);
+                                        }
+                                        en.RECIPIENTS.Remove(en.RECIPIENTS.Length - 1);
+                                    }catch(Exception exp) { LogWriter.Log(exp); }
                                     response r = PdfGenerator.GeneratePdfDocumentFromText(JsonConvert.SerializeObject(json, Formatting.Indented));
                                     if (r.Status)
                                     {
@@ -231,6 +240,17 @@ namespace socisaWeb
                                     en.MESSAGE_TEXT = bounce.ToString();
                                     try
                                     {
+                                        List<AmazonSesBouncedRecipient> tmp = bounce.Value<List<AmazonSesBouncedRecipient>>("BouncedRecipients");
+                                        en.RECIPIENTS = "";
+                                        foreach (AmazonSesBouncedRecipient asdr in tmp)
+                                        {
+                                            en.RECIPIENTS = String.Format("{0},{1}", en.RECIPIENTS, asdr.EmailAddress);
+                                        }
+                                        en.RECIPIENTS.Remove(en.RECIPIENTS.Length - 1);
+                                    }
+                                    catch (Exception exp) { LogWriter.Log(exp); }
+                                    try
+                                    {
                                         Dosar d = new Dosar(1, conStr, Convert.ToInt32(ID_DOSAR));
                                         EmailProfile ep = EmailProfiles.AwsNotificariSES;
                                         Emailing e = new Emailing(ep);
@@ -247,6 +267,17 @@ namespace socisaWeb
                                     JToken complaint = json["complaint"];
                                     en.TIMESTAMP = complaint.Value<DateTime>("timestamp");
                                     en.MESSAGE_TEXT = complaint.ToString();
+                                    try
+                                    {
+                                        List<AmazonSesComplainedRecipient> tmp = complaint.Value<List<AmazonSesComplainedRecipient>>("ComplainedRecipients ");
+                                        en.RECIPIENTS = "";
+                                        foreach (AmazonSesComplainedRecipient asdr in tmp)
+                                        {
+                                            en.RECIPIENTS = String.Format("{0},{1}", en.RECIPIENTS, asdr.EmailAddress);
+                                        }
+                                        en.RECIPIENTS.Remove(en.RECIPIENTS.Length - 1);
+                                    }
+                                    catch (Exception exp) { LogWriter.Log(exp); }
                                     try
                                     {
                                         Dosar d = new Dosar(1, conStr, Convert.ToInt32(ID_DOSAR));
@@ -291,6 +322,12 @@ namespace socisaWeb
                                     catch (Exception exp) { LogWriter.Log(exp); }
                                     break;
                             }
+                            try
+                            {
+                                Dosar d = new Dosar(1, conStr, Convert.ToInt32(en.ID_DOSAR));
+                                d.UpdateSendStatus(eventType);
+                            }
+                            catch (Exception exp) { LogWriter.Log(exp); }
                             en.Insert();
                         }
                     }

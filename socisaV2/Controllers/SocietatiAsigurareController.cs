@@ -22,12 +22,23 @@ namespace socisaWeb
         }
 
         [HttpPost]
-        public JsonResult CheckHostName(string emailAddress)
+        public JsonResult CheckHostName(string emailAddresses)
         {
+            bool toReturn = true;
             string conStr = Session["conStr"].ToString(); //ConfigurationManager.ConnectionStrings["MySQLConnectionString"].ConnectionString;
             int CURENT_USER_ID = Convert.ToInt32(Session["CURENT_USER_ID"]);
             SocietatiAsigurareRepository sar = new SocietatiAsigurareRepository(CURENT_USER_ID, conStr);
-            bool toReturn = sar.CheckHostName(emailAddress);
+            string[] adrese = emailAddresses.Replace(" ", "").Split(',');
+            if (adrese.Length > 0) {
+                for (int i = 0; i < adrese.Length; i++)
+                {
+                    if (!sar.CheckHostName(adrese[i]))
+                    {
+                        toReturn = false;
+                        break;
+                    }
+                }
+            }
             return Json(toReturn, JsonRequestBehavior.AllowGet);
         }
 

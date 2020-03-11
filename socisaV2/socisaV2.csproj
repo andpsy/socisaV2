@@ -848,6 +848,7 @@
     <Compile Include="BLL\Models\Actions.cs" />
     <Compile Include="BLL\Models\Asigurati.cs" />
     <Compile Include="BLL\Models\Autos.cs" />
+    <Compile Include="BLL\Models\AWSNotifications.cs" />
     <Compile Include="BLL\Models\ClickCounts.cs" />
     <Compile Include="BLL\Models\Compensare.cs" />
     <Compile Include="BLL\Models\Compensari.cs" />

@@ -10,9 +10,21 @@ var LOGOUT_INTERVAL = 1200000;
 var LOGOUT_NO_CONFIRM = 10000;
 var CULTURE_INFO = 'ro-RO';
 
+//var SEND_STATUS = ["Send", "Delivery", "Bounce", "Complaint", "Reject", "Open", "Click", "Failure"];
+
 var spinner = new Spinner(opts);
 var spinnerSmall = new Spinner(optsSmall);
 
+/*
+function ValidateEmail(email) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return email.match(mailformat);
+}
+*/
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 function isEmptyJson(obj) {
     for (var prop in obj) {
         if (obj.hasOwnProperty(prop)) {
@@ -208,6 +220,15 @@ app.run(function ($rootScope, $http, $timeout, ngDialog) {
     $rootScope.editMode = 0;
     $rootScope.searchMode = 1;
 
+    $rootScope.SEND_STATUS = [
+        { "notification": "Send", "back_color": "lightblue", "fore_color": "black" },
+        { "notification": "Delivery", "back_color": "lightgreen", "fore_color": "black" },
+        { "notification": "Bounce", "back_color": "red", "fore_color": "white" },
+        { "notification": "Complaint", "back_color": "red", "fore_color": "white" },
+        { "notification": "Reject", "back_color": "red", "fore_color": "white" },
+        { "notification": "Failure", "back_color": "red", "fore_color": "white" },
+        { "notification": "Open", "back_color": "lightgreen", "fore_color": "black" },
+        { "notification": "Click", "back_color": "lightgreen", "fore_color": "black" }];
 
     $rootScope.getIndex = function (search_array_items, searched_item) {
         try {
@@ -356,7 +377,7 @@ app.run(function ($rootScope, $http, $timeout, ngDialog) {
                         $rootScope.Url = '/DosarePortal/SedinteIndex';
                         break;
                     case "mainNotificariEmailDashboard":
-                        $rootScope.Url = '/NotificariEmail/Index';
+                        $rootScope.Url = '/NotificariEmail/Index/null';
                         break;
                 }
             }

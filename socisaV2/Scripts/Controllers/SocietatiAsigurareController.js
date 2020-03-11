@@ -152,12 +152,17 @@ app.controller('SocietatiAsigurareController',
                 });
         };
 
+        $scope.checkForErrors = function ($event) {
+            $scope.checkEmails($event);
+            $scope.checkHostName($event);
+        }
+
         $scope.checkHostName = function ($event) {
             $scope.myForm[$event.currentTarget.name].$setValidity("invalidHost", true);
             if (!isNullOrEmptyJson($scope.myForm[$event.currentTarget.name].$error)) return; //verificam hostul doar daca e adresa valida
 
             spinner.spin(document.getElementById(ACTIVE_DIV_ID));
-            $http.post('/SocietatiAsigurare/CheckHostName', { emailAddress: $event.currentTarget.value })
+            $http.post('/SocietatiAsigurare/CheckHostName', { emailAddresses: $event.currentTarget.value })
                 .then(function (response) {
                     //$rootScope.toogleOperationMessage(response.data);
                     $scope.myForm[$event.currentTarget.name].$setValidity("invalidHost", response.data);
@@ -169,13 +174,34 @@ app.controller('SocietatiAsigurareController',
                 });
         };
 
+        $scope.checkEmails = function ($event) {
+            $scope.myForm[$event.currentTarget.name].$setValidity("emails", true);
+            if (!isNullOrEmptyJson($scope.myForm[$event.currentTarget.name].$error)) return; //verificam adresele doar daca nu sunt alte erori
+
+            var adrese = $event.currentTarget.value.split(' ').join('').split(',');
+            if (adrese.length > 0) {
+                var hasError = false;
+                for (var i = 0; i < adrese.length; i++) {
+                    if (!validateEmail(adrese[i])) {
+                        $scope.myForm[$event.currentTarget.name].$setValidity("emails", false);
+                        hasError = true;
+                        break;
+                    }
+                }
+                if (!hasError) {
+                    $scope.myForm[$event.currentTarget.name].$setValidity("emails", true);
+                }
+            }
+        };
+
+
         $scope.setRequiredError = function (type, input_name) {
             try {
                 switch (type) {
                     case "required":
                         return this.myForm[input_name].$error.required;
-                    case "email":
-                        return this.myForm[input_name].$error.email;
+                    case "emails":
+                        return this.myForm[input_name].$error.emails;
                     case "invalidHost":
                         return this.myForm[input_name].$error.invalidHost;
                 }
